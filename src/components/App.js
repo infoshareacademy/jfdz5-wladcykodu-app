@@ -7,9 +7,11 @@ const App = () => (
     <div>
         <MainMenu/>
         <Content/>
-        <Sidebar/>
-        <Footer/>
+        {/*  <Sidebar/>
+         <Footer/>*/}
     </div>
 )
 
 export default App
+
+
