@@ -15,6 +15,7 @@ const Content = () => (
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
             <Route render={() => <h1>Not found</h1>}/>
+
         </Switch>
     </Grid>
 )
