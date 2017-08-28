@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {Grid, Col} from 'react-bootstrap'
+import styled from 'styled-components'
 
+const ListOfBrands = styled.ul`
+	background: #f1a0a0;
+	border-radius: 3em;
+`
 class HomeView extends Component {
 
     constructor(props, context) {
@@ -26,12 +31,12 @@ class HomeView extends Component {
                     <Col lg={6} lgPush={3} xs={12} sm={12} md={6} mdPush={3} style={{textAlign: "center"}}>
                         <h1>Welcome in our App :)</h1>
                         <h2>Home View...</h2>
-                        <ul>
+                        <ListOfBrands>
                             {this.state.items.length ?
                                 this.state.items.map(item => <li key={item.id}>{item.name}</li>)
                                 : <li>Loading...</li>
                             }
-                        </ul>
+                        </ListOfBrands>
                     </Col>
                 </Grid>
             </div>
