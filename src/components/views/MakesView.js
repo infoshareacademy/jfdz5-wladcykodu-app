@@ -10,7 +10,7 @@ const MakesView = () => (
         <h1>Chose brand:</h1>
 
         <DataFetcher
-            dataUrl='/api/v2?lang=polish'
+            dataUrl="/api/v2?lang=polish"
             component={MakesList}
             propName="makes"
         />

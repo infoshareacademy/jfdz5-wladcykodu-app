@@ -14,41 +14,75 @@ class DataFetcher extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
+
+    componentWillMount() {
+    // componentDidMount() {
+        console.log(this.state)
+        this.state = {
             apiData: {
+                result: null,
                 fetching: true,
                 error: null
             }
-        })
+        }
+        console.log(this.state)
         fetch(
             this.props.dataUrl
         ).then(
             response => response.json()
+        // ).then(
+        //     data => this.setState({
+        //         apiData: {
+        //             result: data,
+        //             fetching: false,
+        //             error: null
+        //         }
+        //     })
         ).then(
-            data => this.setState({
-                apiData: {
-                    result: data,
-                    fetching: false,
-                    error: null
+            data => {
+                console.log('before', data)
+                this.state = {
+                    apiData: {
+                        result: data,
+                        fetching: false,
+                        error: null
+                    }
                 }
-            })
+                console.log('state after: ',this.state)
+            }
         ).catch(
-            error => this.setState({
-                apiData: {
-                    error: error,
-                    fetching: false
+            // error => this.setState({
+            //     apiData: {
+            //         error: error,
+            //         fetching: false
+            //     }
+            // })
+            error => {
+                this.state = {
+                    apiData: {
+                        result: null,
+                        fetching: false,
+                        error: error
+                    }
                 }
-            })
+            }
         )
+       console.log('after dół',this.state.apiData)
+
         this.handleFetchData()
     }
 
 
 
     render() {
-        const {result, fetching, error} = this.state.apiData
+        // const {result, fetching, error} = this.state.apiData
+        const result = this.state.apiData.result
+        const fetching = this.state.apiData.fetching
+        const error = this.state.apiData.error
+
         const {component, propName} = this.props
+        console.log('start render result:', result)
+        console.log('start render state:',this.state)
 
         return (
             <div>
@@ -66,7 +100,7 @@ class DataFetcher extends React.Component {
                                 React.createElement(
                                     component,
                                     {
-                                        [propName]: result.data
+                                        [propName]: result
                                     }
                                 )
                         )
