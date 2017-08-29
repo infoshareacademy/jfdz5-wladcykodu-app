@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {Grid, Col} from 'react-bootstrap'
 import styled from 'styled-components'
 
@@ -8,9 +8,8 @@ const ListOfBrands = styled.ul`
 `
 class HomeView extends Component {
 
-    constructor(props, context) {
-        super(props, context)
-        this.state = {items: []}
+    state = {
+        items: []
     }
 
     componentDidMount() {
