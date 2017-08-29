@@ -21,5 +21,6 @@
   },
   "devDependencies": {
     "react-router": "^4.1.2"
-  }
+  },
+  "proxy": "http://infoshareacademycom.2find.ru"
 }

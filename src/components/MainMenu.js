@@ -27,6 +27,9 @@ const MainMenu = () => (
                 <LinkContainer to="/userpanel">
                     <NavItem>User Panel</NavItem>
                 </LinkContainer>
+                <LinkContainer to="/makes">
+                    <NavItem>Brands</NavItem>
+                </LinkContainer>
             </Nav>
             <Nav pullRight>
                 <LinkContainer to="#">
