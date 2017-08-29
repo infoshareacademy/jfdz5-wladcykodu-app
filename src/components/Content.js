@@ -11,6 +11,7 @@ import {
     Grid
 } from 'react-bootstrap'
 import MakesView from "./views/MakesView";
+import ModelsView from "./views/ModelsView";
 const Content = () => (
     <Grid>
         <Switch>
@@ -18,7 +19,8 @@ const Content = () => (
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/userpanel" component={UserPanel}/>
-            <Route path="/makes" component={MakesView}/>
+            <Route exact path="/makes" component={MakesView}/>
+            <Route exact path="/makes/:makeId" component={ModelsView}/>
             <Route render={() => <h1>Not found</h1>}/>
         </Switch>
     </Grid>
