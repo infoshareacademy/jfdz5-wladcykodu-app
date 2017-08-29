@@ -15,9 +15,9 @@ class DataFetcher extends React.Component {
     }
 
 
-    componentWillMount() {
-    // componentDidMount() {
-        console.log(this.state)
+    // componentWillMount() {
+    componentDidMount() {
+        console.log('cDM start. state:', this.state)
         this.state = {
             apiData: {
                 result: null,
@@ -25,7 +25,7 @@ class DataFetcher extends React.Component {
                 error: null
             }
         }
-        console.log(this.state)
+        console.log('cDM aftre setting initial state. state:', this.state)
         fetch(
             this.props.dataUrl
         ).then(
@@ -40,7 +40,7 @@ class DataFetcher extends React.Component {
         //     })
         ).then(
             data => {
-                console.log('before', data)
+                console.log('cDM before setting state.apiData from data. data:', data)
                 this.state = {
                     apiData: {
                         result: data,
@@ -48,7 +48,7 @@ class DataFetcher extends React.Component {
                         error: null
                     }
                 }
-                console.log('state after: ',this.state)
+                console.log('cDM after setting state. state: ',this.state)
             }
         ).catch(
             // error => this.setState({
@@ -67,7 +67,7 @@ class DataFetcher extends React.Component {
                 }
             }
         )
-       console.log('after dół',this.state.apiData)
+       console.log('cDM end. state:',this.state)
 
         this.handleFetchData()
     }
@@ -75,14 +75,10 @@ class DataFetcher extends React.Component {
 
 
     render() {
-        // const {result, fetching, error} = this.state.apiData
-        const result = this.state.apiData.result
-        const fetching = this.state.apiData.fetching
-        const error = this.state.apiData.error
-
+        const {result, fetching, error} = this.state.apiData
         const {component, propName} = this.props
-        console.log('start render result:', result)
-        console.log('start render state:',this.state)
+        console.log('render start. result:', result)
+        console.log('render start. state:',this.state)
 
         return (
             <div>
