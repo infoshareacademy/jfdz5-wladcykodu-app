@@ -24,18 +24,17 @@ class CarModel extends Component {
             .then(res => {
                 const items = res.data
                 this.setState({items})
-                for (let i = 0; i < items.length; i++) {
-                    fetch(items[i].link)
+                this.state.items.forEach((item) => {
+                    fetch(item.link)
                         .then(result => result.json())
                         .then(res => {
-                            let engine = {item: items[i], resp: res.data}
+                            let engine = {item: item, resp: res.data}
                             let engineType = [engine]
                             engineType = engineType.concat(this.state.engineType.slice())
                             this.setState({engineType})
                             console.log(this.state.engineType.length)
                         })
-                }
-
+                })
             })
     }
 
