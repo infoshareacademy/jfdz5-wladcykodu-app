@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Grid, Col} from 'react-bootstrap'
+import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
 import styled from 'styled-components'
 
 const ListOfBrands = styled.ul`
@@ -29,12 +29,15 @@ class HomeView extends Component {
                 <Grid>
                     <Col lg={6} lgPush={3} xs={12} sm={12} md={6} mdPush={3} style={{textAlign: "center"}}>
                         <h1>Welcome in our App :)</h1>
-                        <h2>Home View...</h2>
+                        <h2>Select your car brand:</h2>
                         <ListOfBrands>
-                            {this.state.items.length ?
-                                this.state.items.map(item => <li key={item.id}>{item.name}</li>)
-                                : <li>Loading...</li>
-                            }
+                            <ListGroup>
+                                {this.state.items.length ?
+                                    this.state.items.map(item => <ListGroupItem bsStyle="info" key={item.id}><a
+                                        href={ "/brands/" + item.link.split("/")[item.link.split("/").length - 1]}>{item.name}</a></ListGroupItem>)
+                                    : <li>Loading...</li>
+                                }
+                            </ListGroup>
                         </ListOfBrands>
                     </Col>
                 </Grid>
