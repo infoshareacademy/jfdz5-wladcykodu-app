@@ -42,7 +42,7 @@ class HomeView extends Component {
                     </Col>
                 </Grid>
             </div>
-        );
+        )
     }
 }
 

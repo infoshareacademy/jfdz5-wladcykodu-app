@@ -62,7 +62,7 @@ class CarModel extends Component {
                     </Col>
                 </Grid>
             </div>
-        );
+        )
     }
 }
 
