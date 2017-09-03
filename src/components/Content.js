@@ -20,7 +20,7 @@ const Content = () => (
             <Route path="/userpanel" component={UserPanelView}/>
             <Route exact path="/brands/:pid" component={CarModel}/>
             <Route exact path="/brands/:pid/:cid" component={CarModel}/>
-            <Route path="/userpanel" component={UserPanel}/>
+            <Route path="/userpanel" component={UserPanelView}/>
             <Route render={() => <h1>Not found</h1>}/>
         </Switch>
     </Grid>
