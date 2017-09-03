@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
 
 class CarModel extends Component {
     state = {
         items: [],
-        engineType: [],
+        engineTypes: [],
         pid: "",
         cid: "",
     }
@@ -27,13 +28,14 @@ class CarModel extends Component {
                 this.state.items.forEach((item) => {
                     fetch(item.link)
                         .then(result => result.json())
-                        .then(res => {
-                            let engine = {item: item, resp: res.data}
-                            let engineType = [engine]
-                            engineType = engineType.concat(this.state.engineType.slice())
-                            this.setState({engineType})
-                            console.log(this.state.engineType.length)
-                        })
+                        .then(
+                            res =>
+                                this.setState({
+                                    engineTypes: [{
+                                        item: item, resp: res.data
+                                    }].concat(this.state.engineTypes)
+                                })
+                        )
                 })
             })
     }
@@ -47,13 +49,32 @@ class CarModel extends Component {
                         <h2>Select car model and engine type</h2>
                         <ListGroup>
 
-                            {this.state.engineType.length ?
-                                this.state.engineType.map((item, n) => <ListGroupItem bsStyle="info"
-                                                                                      key={n}>{item.item.name}{item.resp.map((i, m) =>
-                                    <ListGroupItem bsStyle="success"
-                                                   key={m}>{i.name}</ListGroupItem>)}
-                                </ListGroupItem>) :
-                                <li> loading... </li>}
+                            {
+                                this.state.engineTypes.length ?
+                                    this.state.engineTypes.map(
+                                        (engineType, n) => (
+                                            <ListGroupItem
+                                                bsStyle="info"
+                                                key={n}
+                                            >
+                                                {engineType.item.name}
+                                                {
+                                                    engineType.resp.map(
+                                                        (i, m) => {
+                                                            const url = '/brands/' + i.link.split('/').slice(-3).join('/')
+                                                            return (
+                                                                <ListGroupItem
+                                                                    bsStyle="success"
+                                                                    key={m}
+                                                                >
+                                                                    <Link to={url}>{i.name}</Link>
+                                                                </ListGroupItem>
+                                                            )
+                                                        }
+                                                    )
+                                                }
+                                            </ListGroupItem>)) :
+                                    <li> loading... </li>}
 
                         </ListGroup>
                         <br/>

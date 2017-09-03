@@ -4,6 +4,7 @@ import SignIn from './authorization/SignIn'
 import SignUp from './authorization/SignUp'
 import UserPanelView from './views/UserPanelView'
 import CarModel from './views/CarModel'
+import PartCategory from './views/PartCategory'
 import {
     Switch,
     Route
@@ -11,6 +12,7 @@ import {
 import {
     Grid
 } from 'react-bootstrap'
+
 const Content = () => (
     <Grid>
         <Switch>
@@ -18,7 +20,7 @@ const Content = () => (
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/userpanel" component={UserPanelView}/>
-            <Route exact path="/brands/:pid/:cid" component={CarModel}/>
+            <Route exact path="/brands/:pid/:cid" component={PartCategory}/>
             <Route exact path="/brands/:pid" component={CarModel}/>
             <Route path="/userpanel" component={UserPanelView}/>
             <Route render={() => <h1>Not found</h1>}/>

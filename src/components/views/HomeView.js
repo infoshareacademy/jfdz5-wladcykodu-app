@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
 import styled from 'styled-components'
 
@@ -6,6 +7,7 @@ const ListOfBrands = styled.ul`
 	background: #f1a0a0;
 	border-radius: 3em;
 `
+
 class HomeView extends Component {
 
     state = {
@@ -32,10 +34,22 @@ class HomeView extends Component {
                         <h2>Select your car brand:</h2>
                         <ListOfBrands>
                             <ListGroup>
-                                {this.state.items.length ?
-                                    this.state.items.map(item => <ListGroupItem bsStyle="info" key={item.id}><a
-                                        href={ "/brands/" + item.link.split("/")[item.link.split("/").length - 1]}>{item.name}</a></ListGroupItem>)
-                                    : <li>Loading...</li>
+                                {
+                                    this.state.items.length ?
+                                        this.state.items.map(
+                                            item => {
+                                                const url = '/brands/' + item.link.split("/")[item.link.split("/").length - 1]
+                                                return (
+
+                                                    <ListGroupItem
+                                                        bsStyle="info"
+                                                        key={item.id}
+                                                    >
+                                                        <Link to={url}>{item.name}</Link>
+                                                    </ListGroupItem>)
+                                            })
+                                        : <li>Loading...</li>
+
                                 }
                             </ListGroup>
                         </ListOfBrands>
