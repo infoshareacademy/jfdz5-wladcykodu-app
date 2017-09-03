@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 const FooterContainer = styled.div`
 	bottom: 0;
-	background: red;
+	background: grey;
+	color: white;
 	position: absolute;
 	left: 0;
 	right: 0;

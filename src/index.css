@@ -13,3 +13,14 @@ a img {
   width: auto;
   z-index: 1000;
 }
+
+.navbar-inverse {
+  background: black;
+}
+
+.navbar-brand {
+/*  padding: 0;
+  height: 100%;*/
+  padding: 0;
+
+}

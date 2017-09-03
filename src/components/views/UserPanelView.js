@@ -1,12 +1,20 @@
 import React from 'react'
 import { Form, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
+import styled from 'styled-components'
 
+const UserFormsContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+`
 
-const UserPanel = () => (
-
+const UserPanelView = () => (
     <div>
         <h1>User Panel</h1>
+    <UserFormsContainer>
 
+        <div>
         <h3>Change password</h3>
         <Form horizontal>
             <FormGroup controlId="formInlineName">
@@ -31,7 +39,9 @@ const UserPanel = () => (
                 Save
             </Button>
         </Form>
+        </div>
 
+        <div>
         <h3>Change e-mail</h3>
         <Form horizontal>
             <FormGroup controlId="formInlineName">
@@ -50,8 +60,10 @@ const UserPanel = () => (
                 Save
             </Button>
         </Form>
+        </div>
 
+    </UserFormsContainer>
     </div>
 )
 
-export default UserPanel
+export default UserPanelView

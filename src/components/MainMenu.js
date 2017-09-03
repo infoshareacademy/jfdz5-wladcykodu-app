@@ -1,8 +1,15 @@
 import React from 'react'
 import {Nav, Navbar, NavItem} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
+import styled from 'styled-components'
+
+
+const MenuCntainer = styled.div`
+	background: black
+`
+
 const MainMenu = () => (
-    <div>
+    <MenuCntainer>
         <Navbar inverse>
             <Navbar.Header>
                 <Navbar.Brand>
@@ -34,6 +41,6 @@ const MainMenu = () => (
                 </LinkContainer>
             </Nav>
         </Navbar>
-    </div>
+    </MenuCntainer>
 )
 export default MainMenu
