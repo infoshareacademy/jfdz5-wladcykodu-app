@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+
+import { fetchParts } from '../../state/parts'
+
 
 const ListOfBrands = styled.ul`
 	background: #f1a0a0;
@@ -11,6 +15,13 @@ class HomeView extends Component {
     state = {
         items: []
     }
+
+
+
+  /*  componentDidMount() {
+        this.props.fetchParts()
+    }*/
+
 
     componentDidMount() {
         fetch('/api/v2?lang=polish')
@@ -46,4 +57,15 @@ class HomeView extends Component {
     }
 }
 
+/*
 export default HomeView
+*/
+
+export default connect(
+    state => ({
+        parts: state.parts
+    }),
+    dispatch => ({
+        fetchParts: () => dispatch(fetchParts())
+    })
+)(HomeView)
