@@ -4,8 +4,23 @@ body {
   font-family: sans-serif;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 a img {
   height: 100%;
   width: auto;
   z-index: 1000;
+}
+
+.navbar-inverse {
+  background: black;
+}
+
+.navbar-brand {
+/*  padding: 0;
+  height: 100%;*/
+  padding: 0;
+
 }

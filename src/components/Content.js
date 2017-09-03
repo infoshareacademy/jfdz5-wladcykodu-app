@@ -2,7 +2,7 @@ import React from 'react'
 import HomeView from './views/HomeView'
 import SignIn from './authorization/SignIn'
 import SignUp from './authorization/SignUp'
-import UserPanel from './UserPanel'
+import UserPanelView from './views/UserPanelView'
 import CarModel from './views/CarModel'
 import {
     Switch,
@@ -17,6 +17,7 @@ const Content = () => (
             <Route exact path="/" component={HomeView}/>
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
+            <Route path="/userpanel" component={UserPanelView}/>
             <Route exact path="/brands/:pid" component={CarModel}/>
             <Route exact path="/brands/:pid/:cid" component={CarModel}/>
             <Route path="/userpanel" component={UserPanel}/>
