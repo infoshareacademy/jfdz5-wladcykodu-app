@@ -3,6 +3,7 @@ import HomeView from './views/HomeView'
 import SignIn from './authorization/SignIn'
 import SignUp from './authorization/SignUp'
 import UserPanelView from './views/UserPanelView'
+import CarModel from './views/CarModel'
 import {
     Switch,
     Route
@@ -17,6 +18,9 @@ const Content = () => (
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/userpanel" component={UserPanelView}/>
+            <Route exact path="/brands/:pid" component={CarModel}/>
+            <Route exact path="/brands/:pid/:cid" component={CarModel}/>
+            <Route path="/userpanel" component={UserPanel}/>
             <Route render={() => <h1>Not found</h1>}/>
         </Switch>
     </Grid>
