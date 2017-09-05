@@ -5,20 +5,20 @@ class PartCategory extends Component {
     state = {
         partsCat: [],
         pid: "",
-        cid: ""
+        cid: "",
+        eid: ""
     }
 
     componentDidMount() {
         let pid = this.props.match.params.pid
         this.setState({pid})
         let cid = this.props.match.params.cid
+        this.setState({cid})
+        let eid = this.props.match.params.eid
+        this.setState({eid})
 
 
-        if (cid !== undefined) {
-            pid = pid + "/" + cid
-        }
-
-        fetch('/api/v2/find/' + pid + cid)
+        fetch('/api/v2/find/' + pid + cid + eid)
 
             .then(result => result.json())
             .then(res => {
@@ -40,13 +40,12 @@ class PartCategory extends Component {
                                     this.state.partsCat.map(
                                         item => (
                                             <ListGroupItem bsStyle="info"
-                                                           key={item.id}>>{item.name}
+                                                           key={item.id}>{item.name}
                                             </ListGroupItem>))
                                     : <li>Loading...</li>
                             }
                         </ListGroup>
                         <br/>
-
 
                     </Col>
                 </Grid>

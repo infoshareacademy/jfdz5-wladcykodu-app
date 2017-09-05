@@ -38,7 +38,7 @@ class HomeView extends Component {
                                     this.state.items.length ?
                                         this.state.items.map(
                                             item => {
-                                                const url = '/brands/' + item.link.split("/")[item.link.split("/").length - 1]
+                                                const url = '/brands/' + item.name
                                                 return (
 
                                                     <ListGroupItem
@@ -49,7 +49,6 @@ class HomeView extends Component {
                                                     </ListGroupItem>)
                                             })
                                         : <li>Loading...</li>
-
                                 }
                             </ListGroup>
                         </ListOfBrands>

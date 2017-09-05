@@ -1,42 +1,55 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
 
 class CarModel extends Component {
     state = {
         items: [],
         engineTypes: [],
+        producent: "",
         pid: "",
-        cid: "",
+        searching: true
     }
 
     componentDidMount() {
-        let pid = this.props.match.params.pid
-        this.setState({pid})
-        let cid = this.props.match.params.cid
+        let producent = this.props.match.params.producent
+        this.setState({producent})
 
+        let pid = ""
 
-        if (cid !== undefined) {
-            pid = pid + "/" + cid
-        }
-
-        fetch('/api/v2/find/' + pid)
+        fetch('/api/v2?lang=polish')
             .then(result => result.json())
             .then(res => {
                 const items = res.data
                 this.setState({items})
-                this.state.items.forEach((item) => {
-                    fetch(item.link)
-                        .then(result => result.json())
-                        .then(
-                            res =>
-                                this.setState({
-                                    engineTypes: [{
-                                        item: item, resp: res.data
-                                    }].concat(this.state.engineTypes)
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i].name === producent) {
+                        pid = items[i].id
+                        this.setState({pid})
+                        fetch('/api/v2/find/' + pid)
+                            .then(result => result.json())
+                            .then(res => {
+                                const items = res.data
+                                this.setState({items})
+                                this.state.items.forEach((item) => {
+                                    fetch(item.link)
+                                        .then(result => result.json())
+                                        .then(
+                                            res =>
+                                                this.setState({
+                                                    engineTypes: [{
+                                                        item: item, resp: res.data
+                                                    }].concat(this.state.engineTypes)
+                                                })
+                                        )
                                 })
-                        )
-                })
+                            })
+                        break
+                    }
+                }
+                let searching = false
+                this.setState({searching})
+
             })
     }
 
@@ -74,11 +87,10 @@ class CarModel extends Component {
                                                     )
                                                 }
                                             </ListGroupItem>)) :
-                                    <li> loading... </li>}
+                                    <li>{this.state.searching === true ? "No producent" : "Loading..."}</li>}
 
                         </ListGroup>
                         <br/>
-
 
                     </Col>
                 </Grid>
