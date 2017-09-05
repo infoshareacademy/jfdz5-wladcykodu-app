@@ -20,8 +20,8 @@ const Content = () => (
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/userpanel" component={UserPanelView}/>
-            <Route exact path="/brands/:producent/:cid/:eid" component={PartCategory}/>
-            <Route exact path="/brands/:producent" component={CarModel}/>
+            <Route exact path="/brands/:manufacturer/:cid/:eid" component={PartCategory}/>
+            <Route exact path="/brands/:manufacturer" component={CarModel}/>
             <Route path="/userpanel" component={UserPanelView}/>
             <Route render={() => <h1>Not found</h1>}/>
         </Switch>

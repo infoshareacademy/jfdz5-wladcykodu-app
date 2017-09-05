@@ -6,14 +6,14 @@ class CarModel extends Component {
     state = {
         items: [],
         engineTypes: [],
-        producent: "",
+        manufacturer: "",
         pid: "",
         searching: true
     }
 
     componentDidMount() {
-        let producent = this.props.match.params.producent
-        this.setState({producent})
+        let manufacturer = this.props.match.params.manufacturer
+        this.setState({manufacturer})
 
         let pid = ""
 
@@ -23,7 +23,7 @@ class CarModel extends Component {
                 const items = res.data
                 this.setState({items})
                 for (let i = 0; i < items.length; i++) {
-                    if (items[i].name === producent) {
+                    if (items[i].name === manufacturer) {
                         pid = items[i].id
                         this.setState({pid})
                         fetch('/api/v2/find/' + pid)
@@ -87,7 +87,7 @@ class CarModel extends Component {
                                                     )
                                                 }
                                             </ListGroupItem>)) :
-                                    <li>{this.state.searching === true ? "No producent" : "Loading..."}</li>}
+                                    <li>{this.state.searching === true ? "No manufacturer" : "Loading..."}</li>}
 
                         </ListGroup>
                         <br/>
