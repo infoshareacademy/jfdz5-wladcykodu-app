@@ -4,21 +4,20 @@ import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
 class PartCategory extends Component {
     state = {
         partsCat: [],
-        pid: "",
+        manufacturer: "",
         cid: "",
         eid: ""
     }
 
     componentDidMount() {
-        let pid = this.props.match.params.pid
-        this.setState({pid})
+        let manufacturer = this.props.match.params.manufacturer
+        this.setState({manufacturer})
         let cid = this.props.match.params.cid
         this.setState({cid})
         let eid = this.props.match.params.eid
         this.setState({eid})
 
-
-        fetch('/api/v2/find/' + pid + cid + eid)
+        fetch('/api/v2/find/' + manufacturer + '/' + cid + '/' + eid)
 
             .then(result => result.json())
             .then(res => {
@@ -33,7 +32,7 @@ class PartCategory extends Component {
             <div>
                 <Grid>
                     <Col lg={6} lgPush={3} xs={12} sm={12} md={6} mdPush={3} style={{textAlign: "center"}}>
-                        <h2>Select car model and engine type</h2>
+                        <h2>Select category from list below:</h2>
                         <ListGroup>
                             {
                                 this.state.partsCat.length ?
