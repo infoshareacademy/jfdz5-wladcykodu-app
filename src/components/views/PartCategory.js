@@ -1,28 +1,42 @@
 import React, {Component} from 'react'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 class PartCategory extends Component {
     state = {
         partsCat: [],
-        manufacturer: "",
-        cid: "",
-        eid: ""
+        partsTypes: [],
+        manufacturer: '',
+        model: '',
+        engineId: ''
     }
 
     componentDidMount() {
-        let manufacturer = this.props.match.params.manufacturer
+        const manufacturer = this.props.match.params.manufacturer
         this.setState({manufacturer})
-        let cid = this.props.match.params.cid
-        this.setState({cid})
-        let eid = this.props.match.params.eid
-        this.setState({eid})
+        const model = this.props.match.params.model
+        this.setState({model})
+        const engineId = this.props.match.params.engineId
+        this.setState({engineId})
 
-        fetch('/api/v2/find/' + manufacturer + '/' + cid + '/' + eid)
 
+        fetch(`/api/v2/find/${manufacturer}/${model}/${engineId}`)
             .then(result => result.json())
             .then(res => {
                 const partsCat = res.data
                 this.setState({partsCat})
+                this.state.partsCat.forEach((item) => {
+                    fetch(item.link)
+                        .then(result => result.json())
+                        .then(
+                            res =>
+                                this.setState({
+                                    partsTypes: [{
+                                        item: item, resp: res.data
+                                    }].concat(this.state.partsTypes)
+                                })
+                        )
+                })
             })
     }
 
@@ -35,14 +49,31 @@ class PartCategory extends Component {
                         <h2>Select category from list below:</h2>
                         <ListGroup>
                             {
-                                this.state.partsCat.length ?
-                                    this.state.partsCat.map(
-                                        item => (
-                                            <ListGroupItem bsStyle="info"
-                                                           key={item.id}>{item.name}
-                                            </ListGroupItem>))
-                                    : <li>Loading...</li>
-                            }
+                                this.state.partsTypes.length ?
+                                    this.state.partsTypes.map(
+                                        (partsType, n) => (
+                                            <ListGroupItem
+                                                bsStyle="info"
+                                                key={n}
+                                            >
+                                                {partsType.item.name}
+                                                {
+                                                    partsType.resp.map(
+                                                        (i, m) => {
+                                                            const url = '/brands/' + i.link.split('/').slice(-4).join('/')
+                                                            return (
+                                                                <ListGroupItem
+                                                                    bsStyle="success"
+                                                                    key={m}
+                                                                >
+                                                                    <Link to={url}>{i.name}</Link>
+                                                                </ListGroupItem>
+                                                            )
+                                                        }
+                                                    )
+                                                }
+                                            </ListGroupItem>)) :
+                                    <li>Loading...</li>}
                         </ListGroup>
                         <br/>
 
