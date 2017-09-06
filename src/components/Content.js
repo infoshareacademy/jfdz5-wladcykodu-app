@@ -5,6 +5,8 @@ import SignUp from './authorization/SignUp'
 import UserPanelView from './views/UserPanelView'
 import CarModel from './views/CarModel'
 import PartCategory from './views/PartCategory'
+import PartsList from './views/PartsList'
+
 import {
     Switch,
     Route
@@ -20,6 +22,7 @@ const Content = () => (
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/userpanel" component={UserPanelView}/>
+            <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId" component={PartCategory}/>
             <Route exact path="/brands/:manufacturer" component={CarModel}/>
             <Route path="/userpanel" component={UserPanelView}/>

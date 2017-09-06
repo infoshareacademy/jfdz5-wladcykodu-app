@@ -60,7 +60,7 @@ class PartCategory extends Component {
                                                 {
                                                     partsType.resp.map(
                                                         (i, m) => {
-                                                            const url = '/brands/' + i.link.split('/').slice(-4).join('/')
+                                                            const url = '/brands/' + i.link.split('/').slice(-5).join('/')
                                                             return (
                                                                 <ListGroupItem
                                                                     bsStyle="success"
