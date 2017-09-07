@@ -6,6 +6,7 @@ import UserPanelView from './views/UserPanelView'
 import CarModel from './views/CarModel'
 import PartCategory from './views/PartCategory'
 import PartsList from './views/PartsList'
+import Part from './views/Part'
 
 import {
     Switch,
@@ -25,6 +26,7 @@ const Content = () => (
             <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId" component={PartsList}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId" component={PartCategory}/>
+            <Route exact path="/brands/:part/:partNum" component={Part}/>
             <Route exact path="/brands/:manufacturer" component={CarModel}/>
             <Route path="/userpanel" component={UserPanelView}/>
             <Route render={() => <h1>Not found</h1>}/>

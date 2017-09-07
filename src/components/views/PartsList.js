@@ -38,7 +38,7 @@ class PartsList extends Component {
 
             <div>
                 <Grid>
-                    <Col lg={6} lgPush={3} xs={12} sm={12} md={6} mdPush={3} style={{textAlign: "center"}}>
+                    <Col style={{textAlign: "center"}}>
                         <h2>Select part:</h2>
                         <ListGroup>
                             {
@@ -55,12 +55,12 @@ class PartsList extends Component {
                                                         <Link
                                                             to={'/brands/' + item.link.split('/').slice(-4).join('/')}>{item.name}</Link> :
                                                         <Link
-                                                            to={'/brands/' + item.link.split('/').slice(-5).join('/')}>{item.brand}\ {item.name}: {item.number}</Link>}
+                                                            to={'/brands/' + item.link.split('/').slice(-2).join('/')}>{item.brand}\ {item.name}: {item.number}</Link>}
                                                 </ListGroupItem>
                                             )
                                         }
                                     )
-                                    
+
                                     : <li>Loading...</li>
                             }
                         </ListGroup>

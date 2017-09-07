@@ -45,7 +45,7 @@ class PartCategory extends Component {
 
             <div>
                 <Grid>
-                    <Col lg={6} lgPush={3} xs={12} sm={12} md={6} mdPush={3} style={{textAlign: "center"}}>
+                    <Col style={{textAlign: "center"}}>
                         <h2>Select category from list below:</h2>
                         <ListGroup>
                             {

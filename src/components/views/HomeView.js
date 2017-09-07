@@ -29,7 +29,7 @@ class HomeView extends Component {
 
             <div>
                 <Grid>
-                    <Col lg={6} lgPush={3} xs={12} sm={12} md={6} mdPush={3} style={{textAlign: "center"}}>
+                    <Col style={{textAlign: "center"}}>
                         <h1>Welcome in our App :)</h1>
                         <h2>Select your car brand:</h2>
                         <ListOfBrands>
