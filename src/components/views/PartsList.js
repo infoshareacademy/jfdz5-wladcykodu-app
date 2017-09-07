@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 class PartsList extends Component {
     state = {
@@ -43,12 +44,23 @@ class PartsList extends Component {
                             {
                                 this.state.parts.length ?
                                     this.state.parts.map(
-                                        item => {
+                                        (item, m) => {
+
                                             return (
-                                                <ListGroupItem bsStyle="info"
-                                                               key={item.number}>{item.brand}\ {item.name}: {item.number}
-                                                </ListGroupItem>)
-                                        })
+                                                <ListGroupItem
+                                                    bsStyle="success"
+                                                    key={m}
+                                                >
+                                                    {item.has_children === true ?
+                                                        <Link
+                                                            to={'/brands/' + item.link.split('/').slice(-4).join('/')}>{item.name}</Link> :
+                                                        <Link
+                                                            to={'/brands/' + item.link.split('/').slice(-5).join('/')}>{item.brand}\ {item.name}: {item.number}</Link>}
+                                                </ListGroupItem>
+                                            )
+                                        }
+                                    )
+                                    
                                     : <li>Loading...</li>
                             }
                         </ListGroup>

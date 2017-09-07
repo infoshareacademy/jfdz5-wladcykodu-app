@@ -23,6 +23,7 @@ const Content = () => (
             <Route path="/signup" component={SignUp}/>
             <Route path="/userpanel" component={UserPanelView}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
+            <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId" component={PartsList}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId" component={PartCategory}/>
             <Route exact path="/brands/:manufacturer" component={CarModel}/>
             <Route path="/userpanel" component={UserPanelView}/>
