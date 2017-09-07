@@ -4,9 +4,8 @@ import {Grid, Col} from 'react-bootstrap'
 class Part extends Component {
 
     componentDidMount() {
-        const part = this.props.match.params.part
+        const {part, partNum} = this.props.match.params
         this.setState({part})
-        const partNum = this.props.match.params.partNum
         this.setState({partNum})
 
         fetch(`/api/v2/part/${part}/${partNum}`)

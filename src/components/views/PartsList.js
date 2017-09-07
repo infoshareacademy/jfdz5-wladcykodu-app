@@ -13,15 +13,11 @@ class PartsList extends Component {
     }
 
     componentDidMount() {
-        const manufacturer = this.props.match.params.manufacturer
+        const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
         this.setState({manufacturer})
-        const model = this.props.match.params.model
         this.setState({model})
-        const engineId = this.props.match.params.engineId
         this.setState({engineId})
-        const partsTypeId = this.props.match.params.partsTypeId
         this.setState({partsTypeId})
-        const partsId = this.props.match.params.partsId
         this.setState({partsId})
 
         fetch(`/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
