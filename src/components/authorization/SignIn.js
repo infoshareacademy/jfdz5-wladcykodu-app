@@ -23,7 +23,10 @@ class SignIn extends React.Component {
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 console.log('Logged in')
-            }).catch((event => console.log('Wrong email or password!')))
+            }).catch(error => {
+            this.setState({error})
+            console.log('Wrong email or password!')
+        })
     }
 
     render() {
@@ -76,9 +79,10 @@ class SignIn extends React.Component {
                             </ButtonToolbar>
                         </Col>
                     </FormGroup>
-
+                    <Col xsOffset={1} smOffset={2} xs={8}>
+                        <div>{this.state.error.message}</div>
+                    </Col>
                 </Form>
-
             </div>
         )
     }

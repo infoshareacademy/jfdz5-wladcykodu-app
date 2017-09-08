@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
+import {Form, FormGroup, FormControl, Checkbox, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {firebaseApp} from '../../firebase'
 
@@ -9,7 +9,10 @@ class SignUp extends React.Component {
         email: '',
         password: '',
         confirmPassword: '',
-        user: null
+        user: null,
+        error: {
+            message: ''
+        }
     }
 
     handleChange = event => this.setState({
@@ -29,7 +32,9 @@ class SignUp extends React.Component {
             firebaseApp.auth().createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     console.log('Success')
-                }).catch((event => console.log('error')))
+                }).catch(error => {
+                this.setState({error})
+            })
             this.setState({
                 email: '',
                 password: '',
@@ -109,7 +114,11 @@ class SignUp extends React.Component {
                                          className="login-form-control" required/>
                         </Col>
                     </FormGroup>
-
+                    <Col xsOffset={1} smOffset={2} xs={8}>
+                        <Checkbox required>
+                            By signing up, I agree to AutoPartsSearch's Terms of Service and Privacy Policy
+                        </Checkbox>
+                    </Col>
                     <FormGroup>
                         <Col xsOffset={1} smOffset={2} xs={8}>
                             <ButtonToolbar>
@@ -126,7 +135,9 @@ class SignUp extends React.Component {
                             </ButtonToolbar>
                         </Col>
                     </FormGroup>
-
+                    <Col xsOffset={1} smOffset={2} xs={8}>
+                        <div>{this.state.error.message}</div>
+                    </Col>
                 </Form>
             </div>
         )
