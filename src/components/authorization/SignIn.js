@@ -1,7 +1,7 @@
 import React from 'react'
 import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import { firebaseApp } from '../../firebase'
+import {firebaseApp} from '../../firebase'
 
 class SignIn extends React.Component {
 
@@ -18,7 +18,7 @@ class SignIn extends React.Component {
     })
 
     signInHandler = (event) => {
-        const { email, password } = this.state;
+        const {email, password} = this.state
         event.preventDefault()
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
@@ -43,7 +43,7 @@ class SignIn extends React.Component {
                                          onChange={this.handleChange}
                                          autoComplete="email"
                                          name="email"
-                                         className="login-form-control"/>
+                                         className="login-form-control" required/>
                         </Col>
                     </FormGroup>
 
@@ -53,12 +53,12 @@ class SignIn extends React.Component {
                         </Col>
                         <Col sm={10}>
                             <FormControl type="password"
-                                         placeholder="*******"
+                                         placeholder="**************"
                                          value={this.state.password}
                                          onChange={this.handleChange}
                                          autoComplete="new-password"
                                          name="password"
-                                         className="login-form-control"/>
+                                         className="login-form-control" required/>
                         </Col>
                     </FormGroup>
 
