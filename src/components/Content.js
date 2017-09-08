@@ -1,4 +1,15 @@
 import React from 'react'
+import {
+    Switch,
+    Route,
+    withRouter
+} from 'react-router-dom'
+import {
+    Grid
+} from 'react-bootstrap'
+import { connect } from 'react-redux'
+
+
 import HomeView from './views/HomeView'
 import SignIn from './authorization/SignIn'
 import SignUp from './authorization/SignUp'
@@ -7,14 +18,6 @@ import CarModel from './views/CarModel'
 import PartCategory from './views/PartCategory'
 import PartsList from './views/PartsList'
 import Part from './views/Part'
-
-import {
-    Switch,
-    Route
-} from 'react-router-dom'
-import {
-    Grid
-} from 'react-bootstrap'
 
 const Content = () => (
     <Grid>
@@ -33,4 +36,11 @@ const Content = () => (
         </Switch>
     </Grid>
 )
-export default Content
+
+const ConnectedContent = connect(
+    state => ({
+
+    })
+)(Content)
+
+export default withRouter(ConnectedContent)

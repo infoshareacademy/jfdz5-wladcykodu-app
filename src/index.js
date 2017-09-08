@@ -11,14 +11,13 @@ import 'bootstrap/dist/css/bootstrap-theme.css'
 import './index.css'
 
 import store from './store'
-import { firebaseApp } from './firebase'
 
 import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router>
             <App/>
         </Router>
     </Provider>,

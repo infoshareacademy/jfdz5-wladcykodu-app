@@ -1,36 +1,87 @@
 import React from 'react'
-import {Button} from 'react-bootstrap'
+import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import { firebaseApp } from '../../firebase'
 
 class SignIn extends React.Component {
 
-    constructor() {
-        super();
-
-        this.state = {
-            username: '',
-            password: ''
+    state = {
+        email: '',
+        password: '',
+        error: {
+            message: ''
         }
+    }
+
+    handleChange = event => this.setState({
+        [event.target.name]: event.target.value
+    })
+
+    signInHandler = (event) => {
+        const { email, password } = this.state;
+        event.preventDefault()
+        firebaseApp.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+                console.log('Logged in')
+            }).catch((event => console.log('Wrong email or password!')))
     }
 
     render() {
         return (
             <div>
                 <h1>Sign In form</h1>
-                <form>
-                    <fieldset className="form-group">
-                        <label>Email:</label>
-                        <input className="form-control" placeholder="youremailhere@example.com"/>
-                    </fieldset>
-                    <fieldset className="form-group">
-                        <label>Password:</label>
-                        <input type="password" className="form-control" placeholder="*******"/>
-                    </fieldset>
-                    <Button action="submit" bsStyle="success">Sign in</Button>
-                </form>
+                <Form horizontal onSubmit={this.signInHandler}>
+
+                    <FormGroup controlId="formHorizontalEmail">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Email
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="email"
+                                         placeholder="youremailhere@example.com"
+                                         value={this.state.email}
+                                         onChange={this.handleChange}
+                                         autoComplete="email"
+                                         name="email"
+                                         className="login-form-control"/>
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup controlId="formHorizontalPassword">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Password
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="password"
+                                         placeholder="*******"
+                                         value={this.state.password}
+                                         onChange={this.handleChange}
+                                         autoComplete="new-password"
+                                         name="password"
+                                         className="login-form-control"/>
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Col xsOffset={1} smOffset={2} xs={8}>
+                            <ButtonToolbar>
+                                <Button type="submit" className="login-btn login-btn-primary">
+                                    Sign in
+                                </Button>
+                                <Button type="submit" className="login-btn login-btn-primary">
+                                    <Link to={'/signup'}>
+                                        Need an account? Sign up instead
+                                    </Link>
+                                </Button>
+                            </ButtonToolbar>
+                        </Col>
+                    </FormGroup>
+
+                </Form>
+
             </div>
         )
     }
-
 }
 
 export default SignIn
