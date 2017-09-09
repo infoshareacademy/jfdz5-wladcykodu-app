@@ -7,12 +7,13 @@ import {
 import {
     Grid
 } from 'react-bootstrap'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
 
 import HomeView from './views/HomeView'
 import SignIn from './authorization/SignIn'
 import SignUp from './authorization/SignUp'
+import SignOut from './authorization/SignOut'
 import UserPanelView from './views/UserPanelView'
 import CarModel from './views/CarModel'
 import PartCategory from './views/PartCategory'
@@ -25,6 +26,7 @@ const Content = () => (
             <Route exact path="/" component={HomeView}/>
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
+            <Route path="/signout" component={SignOut}/>
             <Route path="/userpanel" component={UserPanelView}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId" component={PartsList}/>
@@ -38,9 +40,7 @@ const Content = () => (
 )
 
 const ConnectedContent = connect(
-    state => ({
-
-    })
+    state => ({})
 )(Content)
 
 export default withRouter(ConnectedContent)

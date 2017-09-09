@@ -2,6 +2,7 @@ import React from 'react'
 import {Nav, Navbar, NavItem} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import styled from 'styled-components'
+import * as firebase from 'firebase'
 
 
 const MenuCntainer = styled.div`
@@ -36,8 +37,8 @@ const MainMenu = () => (
                 </LinkContainer>
             </Nav>
             <Nav pullRight>
-                <LinkContainer to="#">
-                    <NavItem>Log Out</NavItem>
+                <LinkContainer to="/signout">
+                    <NavItem onClick={() => firebase.auth().signOut()}>Sign Out</NavItem>
                 </LinkContainer>
             </Nav>
         </Navbar>
