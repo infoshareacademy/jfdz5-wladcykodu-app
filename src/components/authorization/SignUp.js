@@ -2,6 +2,7 @@ import React from 'react'
 import {Form, FormGroup, FormControl, Checkbox, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {firebaseApp} from '../../firebase'
+import './auth.css'
 
 class SignUp extends React.Component {
 
@@ -123,11 +124,11 @@ class SignUp extends React.Component {
                         <Col xsOffset={1} smOffset={2} xs={8}>
                             <ButtonToolbar>
                                 <Button type="button" onClick={this.signUpHandler}
-                                        className="login-btn login-btn-primary">
+                                        className="login-btn">
                                     Sign up
                                 </Button>
                                 <Button type="submit"
-                                        className="login-btn login-btn-primary">
+                                        className="login-btn">
                                     <Link to={'/signin'}>
                                         Already have an account? Sign in
                                     </Link>

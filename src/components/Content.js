@@ -29,7 +29,7 @@ const Content = () => (
             <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId" component={PartsList}/>
             <Route exact path="/brands/:manufacturer/:model/:engineId" component={PartCategory}/>
-            <Route exact path="/brands/:part/:partNum" component={Part}/>
+            <Route exact path="/part/:part/:partNum" component={Part}/>
             <Route exact path="/brands/:manufacturer" component={CarModel}/>
             <Route path="/userpanel" component={UserPanelView}/>
             <Route render={() => <h1>Not found</h1>}/>

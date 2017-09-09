@@ -49,9 +49,9 @@ class PartsList extends Component {
                                                 >
                                                     {item.has_children === true ?
                                                         <Link
-                                                            to={'/brands/' + item.link.split('/').slice(-4).join('/')}>{item.name}</Link> :
+                                                            to={`/part/${item.link.split('/').slice(-4).join('/')}`}>{item.name}</Link> :
                                                         <Link
-                                                            to={'/brands/' + item.link.split('/').slice(-2).join('/')}>{item.brand}\ {item.name}: {item.number}</Link>}
+                                                            to={`/part/${item.link.split('/').slice(-2).join('/')}`}>{item.brand}\ {item.name}: {item.number}</Link>}
                                                 </ListGroupItem>
                                             )
                                         }

@@ -38,7 +38,7 @@ class HomeView extends Component {
                                     this.state.items.length ?
                                         this.state.items.map(
                                             item => {
-                                                const url = '/brands/' + item.name
+                                                const url = `/brands/${item.name}-${item.id}`
                                                 return (
 
                                                     <ListGroupItem

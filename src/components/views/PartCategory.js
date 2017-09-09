@@ -65,9 +65,9 @@ class PartCategory extends Component {
                                                                 >
                                                                     {i.has_children === true ?
                                                                         <Link
-                                                                            to={'/brands/' + i.link.split('/').slice(-4).join('/')}>{i.name}</Link> :
+                                                                            to={`/brands/${i.link.split('/').slice(-4).join('/')}`}>{i.name}</Link> :
                                                                         <Link
-                                                                            to={'/brands/' + i.link.split('/').slice(-5).join('/')}>{i.name}</Link>}
+                                                                            to={`/brands/${i.link.split('/').slice(-5).join('/')}`}>{i.name}</Link>}
                                                                 </ListGroupItem>
                                                             )
                                                         }

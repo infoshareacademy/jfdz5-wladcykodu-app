@@ -2,6 +2,12 @@ import React from 'react'
 import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {firebaseApp} from '../../firebase'
+import './auth.css'
+import {connect} from 'react-redux'
+import * as firebase from 'firebase'
+
+const providerForFacebook = new firebase.auth.FacebookAuthProvider()
+const providerForGoogle = new firebase.auth.GoogleAuthProvider()
 
 class SignIn extends React.Component {
 
@@ -13,6 +19,22 @@ class SignIn extends React.Component {
         }
     }
 
+    facebookLoginHandler = (event) => {
+        event.preventDefault()
+        firebase.auth().signInWithPopup(providerForFacebook).then(result => {
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+
+    googleLoginHandler = (event) => {
+        event.preventDefault()
+        firebase.auth().signInWithPopup(providerForGoogle).then(result => {
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+
     handleChange = event => this.setState({
         [event.target.name]: event.target.value
     })
@@ -20,6 +42,7 @@ class SignIn extends React.Component {
     signInHandler = (event) => {
         const {email, password} = this.state
         event.preventDefault()
+        this.props.isUserSignedIn(email, password)
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 console.log('Logged in')
@@ -34,6 +57,12 @@ class SignIn extends React.Component {
             <div>
                 <h1>Sign In form</h1>
                 <Form horizontal onSubmit={this.signInHandler}>
+
+                    <Button type="submit" className="login-btn"
+                            onClick={this.facebookLoginHandler}>Sign in with Facebook</Button>
+
+                    <Button type="submit" className="login-btn"
+                            onClick={this.googleLoginHandler}>Sign in with Google</Button>
 
                     <FormGroup controlId="formHorizontalEmail">
                         <Col componentClass={ControlLabel} sm={2}>
@@ -68,10 +97,10 @@ class SignIn extends React.Component {
                     <FormGroup>
                         <Col xsOffset={1} smOffset={2} xs={8}>
                             <ButtonToolbar>
-                                <Button type="submit" className="login-btn login-btn-primary">
+                                <Button type="submit">
                                     Sign in
                                 </Button>
-                                <Button type="submit" className="login-btn login-btn-primary">
+                                <Button type="submit">
                                     <Link to={'/signup'}>
                                         Need an account? Sign up instead
                                     </Link>
@@ -88,4 +117,11 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn
+const mapDispatchToProps = dispatch => ({
+    /*    isUserSignedIn: (email, password) => dispatch(isUserLoggedIn(email, password))*/
+})
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(SignIn)
