@@ -7,6 +7,8 @@ import {Link} from 'react-router-dom'
 import {firebaseApp} from '../../firebase'
 import {user} from '../../state/user'
 import './auth.css'
+import FaFacebook from 'react-icons/lib/fa/facebook'
+import FaGooglePlus from 'react-icons/lib/fa/google-plus'
 
 const providerForFacebook = new firebase.auth.FacebookAuthProvider()
 const providerForGoogle = new firebase.auth.GoogleAuthProvider()
@@ -61,10 +63,12 @@ class SignIn extends React.Component {
                 <Form horizontal onSubmit={this.signInHandler}>
 
                     <Button type="submit" className="login-btn"
-                            onClick={this.facebookLoginHandler}>Sign in with Facebook</Button>
+                            onClick={this.facebookLoginHandler}>
+                            Sign in with <FaFacebook size={25}/></Button>
 
                     <Button type="submit" className="login-btn"
-                            onClick={this.googleLoginHandler}>Sign in with Google</Button>
+                            onClick={this.googleLoginHandler}>
+                            Sign in with <FaGooglePlus size={25}/></Button>
 
                     <FormGroup controlId="formHorizontalEmail">
                         <Col componentClass={ControlLabel} sm={2}>
