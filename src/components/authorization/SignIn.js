@@ -1,10 +1,11 @@
 import React from 'react'
 import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
-import {firebaseApp} from '../../firebase'
-import './auth.css'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
+import {Link} from 'react-router-dom'
+import {firebaseApp} from '../../firebase'
+import {user} from '../../state/user'
+import './auth.css'
 
 const providerForFacebook = new firebase.auth.FacebookAuthProvider()
 const providerForGoogle = new firebase.auth.GoogleAuthProvider()
@@ -118,7 +119,7 @@ class SignIn extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    /*    isUserSignedIn: (email, password) => dispatch(isUserLoggedIn(email, password))*/
+    isUserSignedIn: (email, password) => dispatch(user(email, password))
 })
 
 export default connect(
