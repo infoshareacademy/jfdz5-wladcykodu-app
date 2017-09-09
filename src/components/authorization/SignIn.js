@@ -2,6 +2,7 @@ import React from 'react'
 import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
+import * as toastr from 'toastr'
 import {Link} from 'react-router-dom'
 import {firebaseApp} from '../../firebase'
 import {user} from '../../state/user'
@@ -24,7 +25,7 @@ class SignIn extends React.Component {
         event.preventDefault()
         firebase.auth().signInWithPopup(providerForFacebook).then(result => {
         }).catch(error => {
-            console.log(error.message)
+            toastr.error(error.message)
         })
     }
 
@@ -32,7 +33,7 @@ class SignIn extends React.Component {
         event.preventDefault()
         firebase.auth().signInWithPopup(providerForGoogle).then(result => {
         }).catch(error => {
-            console.log(error.message)
+            toastr.error(error.message)
         })
     }
 
@@ -46,10 +47,10 @@ class SignIn extends React.Component {
         this.props.isUserSignedIn(email, password)
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
-                console.log('Logged in')
+                toastr.success('You are now signed in !')
             }).catch(error => {
             this.setState({error})
-            console.log('Wrong email or password!')
+            toastr.error(error.message)
         })
     }
 

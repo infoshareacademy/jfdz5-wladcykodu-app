@@ -1,8 +1,10 @@
 import React from 'react'
 import {Form, FormGroup, FormControl, Checkbox, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import * as toastr from 'toastr'
 import {firebaseApp} from '../../firebase'
 import './auth.css'
+import {withRouter} from "react-router-dom"
 
 class SignUp extends React.Component {
 
@@ -32,9 +34,10 @@ class SignUp extends React.Component {
             event.preventDefault()
             firebaseApp.auth().createUserWithEmailAndPassword(email, password)
                 .then(() => {
-                    console.log('Success')
+                    toastr.success('Successfully signed up !')
                 }).catch(error => {
                 this.setState({error})
+                toastr.error(error.message)
             })
             this.setState({
                 email: '',
@@ -42,7 +45,7 @@ class SignUp extends React.Component {
                 confirmPassword: ''
             })
         } else if (password !== confirmPassword) {
-            console.log('Repeat password correctly!')
+            toastr.error('You need to repeat password correctly!')
             this.setState({
                 password: '',
                 confirmPassword: ''
@@ -56,10 +59,12 @@ class SignUp extends React.Component {
                 this.setState({
                     user: user
                 })
+                console.log('user is signed in or up', user)
             } else {
                 this.setState({
                     user: null
                 })
+                console.log('user is signed out')
             }
         })
     }
@@ -145,4 +150,4 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp
+export default withRouter(SignUp)
