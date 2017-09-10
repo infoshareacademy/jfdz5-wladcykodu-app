@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Form, FormGroup, FormControl, Checkbox, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as toastr from 'toastr'
@@ -6,7 +6,7 @@ import {firebaseApp} from '../../firebase'
 import './auth.css'
 import {withRouter} from "react-router-dom"
 
-class SignUp extends React.Component {
+class SignUp extends Component {
 
     state = {
         email: '',
@@ -132,7 +132,7 @@ class SignUp extends React.Component {
                                         className="login-btn">
                                     Sign up
                                 </Button>
-                                <Button type="submit"
+                                <Button type="button"
                                         className="login-btn">
                                     <Link to={'/signin'}>
                                         Already have an account? Sign in

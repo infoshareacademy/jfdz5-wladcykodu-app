@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
@@ -13,7 +13,7 @@ import FaGooglePlus from 'react-icons/lib/fa/google-plus'
 const providerForFacebook = new firebase.auth.FacebookAuthProvider()
 const providerForGoogle = new firebase.auth.GoogleAuthProvider()
 
-class SignIn extends React.Component {
+class SignIn extends Component {
 
     state = {
         email: '',
@@ -106,7 +106,7 @@ class SignIn extends React.Component {
                                 <Button type="submit">
                                     Sign in
                                 </Button>
-                                <Button type="submit">
+                                <Button type="button">
                                     <Link to={'/signup'}>
                                         Need an account? Sign up instead
                                     </Link>
