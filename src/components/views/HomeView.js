@@ -1,12 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
-import styled from 'styled-components'
-
-const ListOfBrands = styled.ul`
-	background: #f1a0a0;
-	border-radius: 3em;
-`
 
 class HomeView extends Component {
 
@@ -32,26 +26,24 @@ class HomeView extends Component {
                     <Col style={{textAlign: "center"}}>
                         <h1>Welcome in our App :)</h1>
                         <h2>Select your car brand:</h2>
-                        <ListOfBrands>
-                            <ListGroup>
-                                {
-                                    this.state.items.length ?
-                                        this.state.items.map(
-                                            item => {
-                                                const url = `/brands/${item.name}-${item.id}`
-                                                return (
+                        <ListGroup>
+                            {
+                                this.state.items.length ?
+                                    this.state.items.map(
+                                        item => {
+                                            const url = `/brands/${item.name}-${item.id}`
+                                            return (
 
-                                                    <ListGroupItem
-                                                        bsStyle="info"
-                                                        key={item.id}
-                                                    >
-                                                        <Link to={url}>{item.name}</Link>
-                                                    </ListGroupItem>)
-                                            })
-                                        : <li>Loading...</li>
-                                }
-                            </ListGroup>
-                        </ListOfBrands>
+                                                <ListGroupItem
+                                                    bsStyle="info"
+                                                    key={item.id}
+                                                >
+                                                    <Link to={url}>{item.name}</Link>
+                                                </ListGroupItem>)
+                                        })
+                                    : <li>Loading...</li>
+                            }
+                        </ListGroup>
                     </Col>
                 </Grid>
             </div>

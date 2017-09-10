@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
+import {ListGroup, Grid, Col, Row, Button, Panel} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import FaStar from 'react-icons/lib/fa/star'
 
 class PartsList extends Component {
     state = {
@@ -31,7 +32,6 @@ class PartsList extends Component {
 
     render() {
         return (
-
             <div>
                 <Grid>
                     <Col style={{textAlign: "center"}}>
@@ -41,22 +41,42 @@ class PartsList extends Component {
                                 this.state.parts.length ?
                                     this.state.parts.map(
                                         (item, m) => {
-
                                             return (
-                                                <ListGroupItem
-                                                    bsStyle="success"
-                                                    key={m}
-                                                >
-                                                    {item.has_children === true ?
-                                                        <Link
-                                                            to={`/part/${item.link.split('/').slice(-4).join('/')}`}>{item.name}</Link> :
-                                                        <Link
-                                                            to={`/part/${item.link.split('/').slice(-2).join('/')}`}>{item.brand}\ {item.name}: {item.number}</Link>}
-                                                </ListGroupItem>
+                                                <div key={m}>
+                                                    <Panel>
+                                                        <Grid>
+                                                            <Row>
+                                                                <Col>
+                                                                    <h3>{item.name}</h3>
+                                                                </Col>
+                                                                <Col>
+                                                                    <p>Brand: <span
+                                                                        className="text-info">{item.brand}</span></p>
+                                                                    <p>Number: <span
+                                                                        className="text-info">{item.number}</span></p>
+                                                                    <p>Status: <span className="text-warning"
+                                                                                     style={{"fontWeight": "bold"}}>
+                                                                    {item.status}</span>
+                                                                    </p>
+                                                                </Col>
+                                                                <Col>
+                                                                    {item.has_children === true ?
+                                                                        <Link
+                                                                            to={`/part/${item.link.split('/').slice(-4).join('/')}`}>
+                                                                            <Button>Details</Button>
+                                                                        </Link> :
+                                                                        <Link
+                                                                            to={`/part/${item.link.split('/').slice(-2).join('/')}`}>
+                                                                            <Button>Details</Button> </Link>}
+                                                                    <Button><FaStar size={20}/></Button>
+                                                                </Col>
+                                                            </Row>
+                                                        </Grid>
+                                                    </Panel>
+                                                </div>
                                             )
                                         }
                                     )
-
                                     : <li>Loading...</li>
                             }
                         </ListGroup>

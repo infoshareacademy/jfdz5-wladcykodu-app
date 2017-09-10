@@ -52,8 +52,8 @@ class PartCategory extends Component {
                                         (partsType, n) => (
                                             <ListGroupItem
                                                 bsStyle="info"
-                                                key={n}
-                                            >
+                                                key={n}>
+
                                                 {partsType.item.name}
                                                 {
                                                     partsType.resp.map(
@@ -61,8 +61,8 @@ class PartCategory extends Component {
                                                             return (
                                                                 <ListGroupItem
                                                                     bsStyle="success"
-                                                                    key={m}
-                                                                >
+                                                                    key={m}>
+
                                                                     {i.has_children === true ?
                                                                         <Link
                                                                             to={`/brands/${i.link.split('/').slice(-4).join('/')}`}>{i.name}</Link> :
