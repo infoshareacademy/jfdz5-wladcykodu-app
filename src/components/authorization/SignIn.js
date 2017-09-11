@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
+import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar, InputGroup} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
@@ -9,18 +9,25 @@ import {user} from '../../state/user'
 import './auth.css'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import FaGooglePlus from 'react-icons/lib/fa/google-plus'
+import FaEye from 'react-icons/lib/fa/eye'
+import FaEyeSlash from 'react-icons/lib/fa/eye-slash'
 
 const providerForFacebook = new firebase.auth.FacebookAuthProvider()
 const providerForGoogle = new firebase.auth.GoogleAuthProvider()
 
 class SignIn extends Component {
 
-    state = {
-        email: '',
-        password: '',
-        error: {
-            message: ''
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            password: '',
+            error: {
+                message: ''
+            },
+            type: 'password'
         }
+        this.showOrHide = this.showOrHide.bind(this)
     }
 
     facebookLoginHandler = (event) => {
@@ -53,6 +60,12 @@ class SignIn extends Component {
             }).catch(error => {
             this.setState({error})
             toastr.error(error.message)
+        })
+    }
+
+    showOrHide() {
+        this.setState({
+            type: this.state.type === 'password' ? 'input' : 'password'
         })
     }
 
@@ -90,13 +103,20 @@ class SignIn extends Component {
                             Password
                         </Col>
                         <Col sm={10}>
-                            <FormControl type="password"
-                                         placeholder="**************"
-                                         value={this.state.password}
-                                         onChange={this.handleChange}
-                                         autoComplete="new-password"
-                                         name="password"
-                                         className="login-form-control" required/>
+                            <InputGroup>
+                                <FormControl type={this.state.type}
+                                             placeholder="**************"
+                                             value={this.state.password}
+                                             onChange={this.handleChange}
+                                             autoComplete="new-password"
+                                             name="password"
+                                             className="login-form-control" required/>
+                                <InputGroup.Button>
+                                    <Button
+                                        onClick={this.showOrHide}>{this.state.type === 'input' ?
+                                        <FaEyeSlash size={18}/> : <FaEye size={18}/>}</Button>
+                                </InputGroup.Button>
+                            </InputGroup>
                         </Col>
                     </FormGroup>
 
