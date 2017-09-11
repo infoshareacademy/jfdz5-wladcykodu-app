@@ -5,21 +5,11 @@ import FaStar from 'react-icons/lib/fa/star'
 
 class PartsList extends Component {
     state = {
-        parts: [],
-        manufacturer: '',
-        model: '',
-        engineId: '',
-        partsTypeId: '',
-        partsId: ''
+        parts: []
     }
 
     componentDidMount() {
         const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
-        this.setState({manufacturer})
-        this.setState({model})
-        this.setState({engineId})
-        this.setState({partsTypeId})
-        this.setState({partsId})
 
         fetch(`/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
 

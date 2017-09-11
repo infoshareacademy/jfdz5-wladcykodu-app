@@ -6,17 +6,10 @@ class PartCategory extends Component {
     state = {
         partsCat: [],
         partsTypes: [],
-        manufacturer: '',
-        model: '',
-        engineId: ''
     }
 
     componentDidMount() {
         const {manufacturer, model, engineId} = this.props.match.params
-        this.setState({manufacturer})
-        this.setState({model})
-        this.setState({engineId})
-
 
         fetch(`/api/v2/find/${manufacturer}/${model}/${engineId}`)
             .then(result => result.json())

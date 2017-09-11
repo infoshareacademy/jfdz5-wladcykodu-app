@@ -7,7 +7,6 @@ class CarModel extends Component {
         items: [],
         engineTypes: [],
         manufacturer: '',
-        pid: '',
         searching: true
     }
 
@@ -15,8 +14,8 @@ class CarModel extends Component {
         const manufacturer = this.props.match.params.manufacturer
         this.setState({manufacturer})
 
-        let manufPid =  manufacturer.split('-')
-        let pid = manufPid[manufPid.length-1]
+        let manufPid = manufacturer.split('-')
+        let pid = manufPid[manufPid.length - 1]
 
         fetch(`/api/v2/find/${pid}`)
             .then(result => result.json())

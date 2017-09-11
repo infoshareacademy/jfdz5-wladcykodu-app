@@ -5,8 +5,6 @@ class Part extends Component {
 
     componentDidMount() {
         const {part, partNum} = this.props.match.params
-        this.setState({part})
-        this.setState({partNum})
 
         fetch(`/api/v2/part/${part}/${partNum}`)
 
