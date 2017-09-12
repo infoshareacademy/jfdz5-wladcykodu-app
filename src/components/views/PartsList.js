@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {ListGroup, Grid, Col, Row, Button, Panel} from 'react-bootstrap'
+import {ListGroup, Grid, Col, Row, Button, Panel, Image} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import FaStar from 'react-icons/lib/fa/star'
+import './partslist.css'
 
 class PartsList extends Component {
     state = {
@@ -16,7 +17,18 @@ class PartsList extends Component {
             .then(result => result.json())
             .then(res => {
                 const parts = res.data
-                this.setState({parts})
+                parts.forEach((item) => {
+                    fetch(item.link)
+                        .then(result => result.json())
+                        .then(
+                            res => {
+                                res.data.link = "/part/" + item.link.split("/").slice(-2).join("/")
+                                this.setState({
+                                    parts: [res.data].concat(this.state.parts)
+                                })
+                            }
+                        )
+                })
             })
     }
 
@@ -36,28 +48,27 @@ class PartsList extends Component {
                                                     <Panel>
                                                         <Grid>
                                                             <Row>
-                                                                <Col>
-                                                                    <h3>{item.name}</h3>
+                                                                <Col xs={6} md={4}>
+                                                                    <Image responsive src={item.part.jpg[0]}
+                                                                           alt="Picture of part"
+                                                                           className="img-part"/>
+                                                                    <h3>{item.part.data.name}</h3>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col xs={6} md={8}>
                                                                     <p>Brand: <span
-                                                                        className="text-info">{item.brand}</span></p>
+                                                                        className="text-info">{item.part.data.brand}</span>
+                                                                    </p>
                                                                     <p>Number: <span
-                                                                        className="text-info">{item.number}</span></p>
+                                                                        className="text-info">{item.part.data.number}</span>
+                                                                    </p>
                                                                     <p>Status: <span className="text-warning"
                                                                                      style={{"fontWeight": "bold"}}>
-                                                                    {item.status}</span>
+                                                                    {item.part.data.status}</span>
                                                                     </p>
                                                                 </Col>
                                                                 <Col>
-                                                                    {item.has_children === true ?
-                                                                        <Link
-                                                                            to={`/part/${item.link.split('/').slice(-4).join('/')}`}>
-                                                                            <Button>Details</Button>
-                                                                        </Link> :
-                                                                        <Link
-                                                                            to={`/part/${item.link.split('/').slice(-2).join('/')}`}>
-                                                                            <Button>Details</Button> </Link>}
+                                                                    <Link to={item.link}>
+                                                                        <Button>Details</Button> </Link>
                                                                     <Button><FaStar size={20}/></Button>
                                                                 </Col>
                                                             </Row>
@@ -65,8 +76,7 @@ class PartsList extends Component {
                                                     </Panel>
                                                 </div>
                                             )
-                                        }
-                                    )
+                                        })
                                     : <li>Loading...</li>
                             }
                         </ListGroup>

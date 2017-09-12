@@ -4,8 +4,7 @@ import {Link} from 'react-router-dom'
 
 class PartCategory extends Component {
     state = {
-        partsCat: [],
-        partsTypes: [],
+        partsTypes: []
     }
 
     componentDidMount() {
@@ -15,8 +14,7 @@ class PartCategory extends Component {
             .then(result => result.json())
             .then(res => {
                 const partsCat = res.data
-                this.setState({partsCat})
-                this.state.partsCat.forEach((item) => {
+                partsCat.forEach((item) => {
                     fetch(item.link)
                         .then(result => result.json())
                         .then(

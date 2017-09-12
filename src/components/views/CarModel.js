@@ -4,7 +4,6 @@ import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
 
 class CarModel extends Component {
     state = {
-        items: [],
         engineTypes: [],
         manufacturer: '',
         searching: true
@@ -21,8 +20,7 @@ class CarModel extends Component {
             .then(result => result.json())
             .then(res => {
                 const items = res.data
-                this.setState({items})
-                this.state.items.forEach((item) => {
+                items.forEach((item) => {
                     fetch(item.link)
                         .then(result => result.json())
                         .then(
