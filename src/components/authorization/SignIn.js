@@ -1,36 +1,153 @@
-import React from 'react'
-import {Button} from 'react-bootstrap'
+import React, {Component} from 'react'
+import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar, InputGroup} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import * as firebase from 'firebase'
+import * as toastr from 'toastr'
+import {Link} from 'react-router-dom'
+import {firebaseApp} from '../../firebase'
+import {user} from '../../state/user'
+import './auth.css'
+import FaFacebook from 'react-icons/lib/fa/facebook'
+import FaGooglePlus from 'react-icons/lib/fa/google-plus'
+import FaEye from 'react-icons/lib/fa/eye'
+import FaEyeSlash from 'react-icons/lib/fa/eye-slash'
 
-class SignIn extends React.Component {
+const providerForFacebook = new firebase.auth.FacebookAuthProvider()
+const providerForGoogle = new firebase.auth.GoogleAuthProvider()
 
-    constructor() {
-        super();
+class SignIn extends Component {
 
+    constructor(props) {
+        super(props)
         this.state = {
-            username: '',
-            password: ''
+            email: '',
+            password: '',
+            error: {
+                message: ''
+            },
+            type: 'password'
         }
+        this.showOrHide = this.showOrHide.bind(this)
+    }
+
+    facebookLoginHandler = (event) => {
+        event.preventDefault()
+        firebase.auth().signInWithPopup(providerForFacebook).then(result => {
+        }).catch(error => {
+            toastr.error(error.message)
+        })
+    }
+
+    googleLoginHandler = (event) => {
+        event.preventDefault()
+        firebase.auth().signInWithPopup(providerForGoogle).then(result => {
+        }).catch(error => {
+            toastr.error(error.message)
+        })
+    }
+
+    handleChange = event => this.setState({
+        [event.target.name]: event.target.value
+    })
+
+    signInHandler = (event) => {
+        const {email, password} = this.state
+        event.preventDefault()
+        this.props.isUserSignedIn(email, password)
+        firebaseApp.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+                toastr.success('You are now signed in !')
+            }).catch(error => {
+            this.setState({error})
+            toastr.error(error.message)
+        })
+    }
+
+    showOrHide() {
+        this.setState({
+            type: this.state.type === 'password' ? 'input' : 'password'
+        })
     }
 
     render() {
         return (
             <div>
                 <h1>Sign In form</h1>
-                <form>
-                    <fieldset className="form-group">
-                        <label>Email:</label>
-                        <input className="form-control" placeholder="youremailhere@example.com"/>
-                    </fieldset>
-                    <fieldset className="form-group">
-                        <label>Password:</label>
-                        <input type="password" className="form-control" placeholder="*******"/>
-                    </fieldset>
-                    <Button action="submit" bsStyle="success">Sign in</Button>
-                </form>
+                <Form horizontal onSubmit={this.signInHandler}>
+
+                    <Button type="submit" className="login-btn"
+                            onClick={this.facebookLoginHandler}>
+                            Sign in with <FaFacebook size={25}/></Button>
+
+                    <Button type="submit" className="login-btn"
+                            onClick={this.googleLoginHandler}>
+                            Sign in with <FaGooglePlus size={25}/></Button>
+
+                    <FormGroup controlId="formHorizontalEmail">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Email
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="email"
+                                         placeholder="youremailhere@example.com"
+                                         value={this.state.email}
+                                         onChange={this.handleChange}
+                                         autoComplete="email"
+                                         name="email"
+                                         className="login-form-control" required/>
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup controlId="formHorizontalPassword">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Password
+                        </Col>
+                        <Col sm={10}>
+                            <InputGroup>
+                                <FormControl type={this.state.type}
+                                             placeholder="**************"
+                                             value={this.state.password}
+                                             onChange={this.handleChange}
+                                             autoComplete="new-password"
+                                             name="password"
+                                             className="login-form-control" required/>
+                                <InputGroup.Button>
+                                    <Button
+                                        onClick={this.showOrHide}>{this.state.type === 'input' ?
+                                        <FaEyeSlash size={18}/> : <FaEye size={18}/>}</Button>
+                                </InputGroup.Button>
+                            </InputGroup>
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Col xsOffset={1} smOffset={2} xs={8}>
+                            <ButtonToolbar>
+                                <Button type="submit">
+                                    Sign in
+                                </Button>
+                                <Button type="button">
+                                    <Link to={'/signup'}>
+                                        Need an account? Sign up instead
+                                    </Link>
+                                </Button>
+                            </ButtonToolbar>
+                        </Col>
+                    </FormGroup>
+                    <Col xsOffset={1} smOffset={2} xs={8}>
+                        <div>{this.state.error.message}</div>
+                    </Col>
+                </Form>
             </div>
         )
     }
-
 }
 
-export default SignIn
+const mapDispatchToProps = dispatch => ({
+    isUserSignedIn: (email, password) => dispatch(user(email, password))
+})
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(SignIn)

@@ -1,30 +1,153 @@
-import React from 'react'
-import {Button} from 'react-bootstrap'
+import React, {Component} from 'react'
+import {Form, FormGroup, FormControl, Checkbox, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import * as toastr from 'toastr'
+import {firebaseApp} from '../../firebase'
+import './auth.css'
+import {withRouter} from "react-router-dom"
 
-const SignUp = () => (
+class SignUp extends Component {
 
-    <div>
-        <h1>Sign Up form</h1>
-        <form>
-            <fieldset className="form-group">
-                <label>Full Name:</label>
-                <input className="form-control" placeholder="Name Surname"  />
-            </fieldset>
-            <fieldset className="form-group">
-                <label>Email:</label>
-                <input className="form-control" placeholder="youremailhere@example.com"  />
-            </fieldset>
-            <fieldset className="form-group">
-                <label>Password:</label>
-                <input className="form-control" type="password" placeholder="*******" />
-            </fieldset>
-            <fieldset className="form-group">
-                <label>Confirm Password:</label>
-                <input className="form-control" type="password" placeholder="*******" />
-            </fieldset>
-            <Button action="submit" bsStyle="success">Sign up!</Button>
-        </form>
-    </div>
-)
+    state = {
+        email: '',
+        password: '',
+        confirmPassword: '',
+        user: null,
+        error: {
+            message: ''
+        }
+    }
 
-export default SignUp
+    handleChange = event => this.setState({
+        [event.target.name]: event.target.value
+    })
+
+    handleConfirmPassword = event =>
+        this.setState({
+            confirmPassword: event.target.value
+        })
+
+    signUpHandler = (event) => {
+
+        const {email, password, confirmPassword} = this.state
+        if (password === confirmPassword) {
+            event.preventDefault()
+            firebaseApp.auth().createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    toastr.success('Successfully signed up !')
+                }).catch(error => {
+                this.setState({error})
+                toastr.error(error.message)
+            })
+            this.setState({
+                email: '',
+                password: '',
+                confirmPassword: ''
+            })
+        } else if (password !== confirmPassword) {
+            toastr.error('You need to repeat password correctly!')
+            this.setState({
+                password: '',
+                confirmPassword: ''
+            })
+        }
+    }
+
+    componentWillMount() {
+        firebaseApp.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({
+                    user: user
+                })
+                console.log('user is signed in or up', user)
+            } else {
+                this.setState({
+                    user: null
+                })
+                console.log('user is signed out')
+            }
+        })
+    }
+
+    render() {
+        return (
+
+            <div>
+                <h1>Sign Up form</h1>
+                <Form horizontal>
+
+                    <FormGroup controlId="formHorizontalEmail">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Email
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="email"
+                                         placeholder="youremailhere@example.com"
+                                         value={this.state.email}
+                                         onChange={this.handleChange}
+                                         autoComplete="email"
+                                         name="email"
+                                         className="login-form-control" required/>
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup controlId="formHorizontalPassword">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Password
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="password"
+                                         placeholder="**************"
+                                         value={this.state.password}
+                                         onChange={this.handleChange}
+                                         autoComplete="new-password"
+                                         name="password"
+                                         className="login-form-control" required/>
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup controlId="formHorizontalPassword">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Confirm Password
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="password"
+                                         placeholder="**************"
+                                         value={this.state.confirmPassword}
+                                         onChange={this.handleConfirmPassword}
+                                         autoComplete="new-password"
+                                         name="confirm-password"
+                                         className="login-form-control" required/>
+                        </Col>
+                    </FormGroup>
+                    <Col xsOffset={1} smOffset={2} xs={8}>
+                        <Checkbox required>
+                            By signing up, I agree to AutoPartsSearch's Terms of Service and Privacy Policy
+                        </Checkbox>
+                    </Col>
+                    <FormGroup>
+                        <Col xsOffset={1} smOffset={2} xs={8}>
+                            <ButtonToolbar>
+                                <Button type="button" onClick={this.signUpHandler}
+                                        className="login-btn">
+                                    Sign up
+                                </Button>
+                                <Button type="button"
+                                        className="login-btn">
+                                    <Link to={'/signin'}>
+                                        Already have an account? Sign in
+                                    </Link>
+                                </Button>
+                            </ButtonToolbar>
+                        </Col>
+                    </FormGroup>
+                    <Col xsOffset={1} smOffset={2} xs={8}>
+                        <div>{this.state.error.message}</div>
+                    </Col>
+                </Form>
+            </div>
+        )
+    }
+}
+
+export default withRouter(SignUp)

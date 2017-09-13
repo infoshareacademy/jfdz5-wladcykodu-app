@@ -1,40 +1,32 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
-class CarModel extends Component {
+class PartCategory extends Component {
     state = {
-        engineTypes: [],
-        manufacturer: '',
-        searching: true
+        partsTypes: []
     }
 
     componentDidMount() {
-        const manufacturer = this.props.match.params.manufacturer
-        this.setState({manufacturer})
+        const {manufacturer, model, engineId} = this.props.match.params
 
-        let manufPid = manufacturer.split('-')
-        let pid = manufPid[manufPid.length - 1]
-
-        fetch(`/api/v2/find/${pid}`)
+        fetch(`/api/v2/find/${manufacturer}/${model}/${engineId}`)
             .then(result => result.json())
             .then(res => {
-                const items = res.data
-                items.forEach((item) => {
+                const partsCat = res.data
+                partsCat.forEach((item) => {
                     fetch(item.link)
                         .then(result => result.json())
                         .then(
                             res =>
                                 this.setState({
-                                    engineTypes: [{
+                                    partsTypes: [{
                                         item: item, resp: res.data
-                                    }].concat(this.state.engineTypes)
+                                    }].concat(this.state.partsTypes)
                                 })
                         )
                 })
             })
-        const searching = false
-        this.setState({searching})
     }
 
     render() {
@@ -43,37 +35,37 @@ class CarModel extends Component {
             <div>
                 <Grid>
                     <Col style={{textAlign: "center"}}>
-                        <h2>Select car model and engine type</h2>
+                        <h2>Select category from list below:</h2>
                         <ListGroup>
                             {
-                                this.state.engineTypes.length ?
-                                    this.state.engineTypes.map(
-                                        (engineType, n) => (
+                                this.state.partsTypes.length ?
+                                    this.state.partsTypes.map(
+                                        (partsType, n) => (
                                             <ListGroupItem
                                                 bsStyle="info"
                                                 key={n}>
 
-                                                {engineType.item.name}
+                                                {partsType.item.name}
                                                 {
-                                                    engineType.resp.map(
+                                                    partsType.resp.map(
                                                         (i, m) => {
-
-                                                            const url = `/brands/${this.state.manufacturer}/${i.link.split('/').slice(-2).join('/')}`
-
                                                             return (
                                                                 <ListGroupItem
                                                                     bsStyle="success"
                                                                     key={m}>
 
-                                                                    <Link to={url}>{i.name}</Link>
+                                                                    {i.has_children === true ?
+                                                                        <Link
+                                                                            to={`/brands/${i.link.split('/').slice(-4).join('/')}`}>{i.name}</Link> :
+                                                                        <Link
+                                                                            to={`/brands/${i.link.split('/').slice(-5).join('/')}`}>{i.name}</Link>}
                                                                 </ListGroupItem>
                                                             )
                                                         }
                                                     )
                                                 }
                                             </ListGroupItem>)) :
-                                    <li>{this.state.searching === true ? "Loading..." : "No manufacturer"}</li>}
-
+                                    <li>Loading...</li>}
                         </ListGroup>
                         <br/>
 
@@ -84,4 +76,4 @@ class CarModel extends Component {
     }
 }
 
-export default CarModel
+export default PartCategory
