@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-import {Form, FormGroup, FormControl, Checkbox, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
+import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as toastr from 'toastr'
 import {firebaseApp} from '../../firebase'
 import './auth.css'
-import {withRouter} from "react-router-dom"
+import {connect} from 'react-redux'
+import {authUser} from '../../state/user'
 
 class SignUp extends Component {
 
@@ -120,11 +121,6 @@ class SignUp extends Component {
                                          className="login-form-control" required/>
                         </Col>
                     </FormGroup>
-                    <Col xsOffset={1} smOffset={2} xs={8}>
-                        <Checkbox required>
-                            By signing up, I agree to AutoPartsSearch's Terms of Service and Privacy Policy
-                        </Checkbox>
-                    </Col>
                     <FormGroup>
                         <Col xsOffset={1} smOffset={2} xs={8}>
                             <ButtonToolbar>
@@ -139,9 +135,11 @@ class SignUp extends Component {
                                     </Link>
                                 </Button>
                             </ButtonToolbar>
+                            <p className="form-note"> By clicking "Sign up", you agree to AutoPartsSearch's Terms of
+                                Service and Privacy Policy</p>
                         </Col>
                     </FormGroup>
-                    <Col xsOffset={1} smOffset={2} xs={8}>
+                    <Col>
                         <div>{this.state.error.message}</div>
                     </Col>
                 </Form>
@@ -150,4 +148,11 @@ class SignUp extends Component {
     }
 }
 
-export default withRouter(SignUp)
+const mapDispatchToProps = dispatch => ({
+    authUser: (user) => dispatch(authUser(user))
+})
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(SignUp)
