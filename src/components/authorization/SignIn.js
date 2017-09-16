@@ -5,7 +5,7 @@ import * as firebase from 'firebase'
 import * as toastr from 'toastr'
 import {Link} from 'react-router-dom'
 import {firebaseApp} from '../../firebase'
-import {user} from '../../state/user'
+import {authUser} from '../../state/user'
 import './auth.css'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import FaGooglePlus from 'react-icons/lib/fa/google-plus'
@@ -32,7 +32,8 @@ class SignIn extends Component {
 
     facebookLoginHandler = (event) => {
         event.preventDefault()
-        firebase.auth().signInWithPopup(providerForFacebook).then(result => {
+        firebase.auth().signInWithPopup(providerForFacebook).then(() => {
+            toastr.success('Successfully signed in with Facebook')
         }).catch(error => {
             toastr.error(error.message)
         })
@@ -40,7 +41,8 @@ class SignIn extends Component {
 
     googleLoginHandler = (event) => {
         event.preventDefault()
-        firebase.auth().signInWithPopup(providerForGoogle).then(result => {
+        firebase.auth().signInWithPopup(providerForGoogle).then(() => {
+            toastr.success('Successfully signed in with Google')
         }).catch(error => {
             toastr.error(error.message)
         })
@@ -53,7 +55,6 @@ class SignIn extends Component {
     signInHandler = (event) => {
         const {email, password} = this.state
         event.preventDefault()
-        this.props.isUserSignedIn(email, password)
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 toastr.success('You are now signed in !')
@@ -144,7 +145,7 @@ class SignIn extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    isUserSignedIn: (email, password) => dispatch(user(email, password))
+    authUser: (user) => dispatch(authUser(user))
 })
 
 export default connect(

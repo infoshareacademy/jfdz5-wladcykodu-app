@@ -1,16 +1,15 @@
 // Action type
-const USER_SIGNED_IN = 'user/USER_SIGNED_IN'
+const USER_SIGNED_IN = 'auth/USER_SIGNED_IN'
 
 // Action creator
-export const user = (email, password) => ({
+export const authUser = (user) => ({
     type: USER_SIGNED_IN,
-    email,
-    password
+    user
 })
 
 // Initial state
 const initialState = {
-   user: null
+    user: null
 }
 
 // Reducer
@@ -19,9 +18,7 @@ export default (state = initialState, action) => {
         case USER_SIGNED_IN:
             return {
                 ...state,
-                user: {
-                    email: action.email,
-                }
+                user: action.user
             }
         default:
             return state
