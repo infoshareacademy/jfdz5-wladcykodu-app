@@ -107,7 +107,7 @@ class SignUp extends Component {
                         </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="formHorizontalPassword">
+                    <FormGroup controlId="formHorizontalConfirmPassword">
                         <Col componentClass={ControlLabel} sm={2}>
                             Confirm Password
                         </Col>

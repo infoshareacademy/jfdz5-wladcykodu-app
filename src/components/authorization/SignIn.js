@@ -32,19 +32,29 @@ class SignIn extends Component {
 
     facebookLoginHandler = (event) => {
         event.preventDefault()
-        firebase.auth().signInWithPopup(providerForFacebook).then(() => {
+        firebase.auth().signInWithPopup(providerForFacebook).then(result => {
             toastr.success('Successfully signed in with Facebook')
-        }).catch(error => {
-            toastr.error(error.message)
+            const user = result.user
+            firebase.database().ref('users/' + user.uid).set({
+                email: user.email,
+                name: user.displayName
+            }).catch(error => {
+                toastr.error(error.message)
+            })
         })
     }
 
     googleLoginHandler = (event) => {
         event.preventDefault()
-        firebase.auth().signInWithPopup(providerForGoogle).then(() => {
+        firebase.auth().signInWithPopup(providerForGoogle).then(result => {
             toastr.success('Successfully signed in with Google')
-        }).catch(error => {
-            toastr.error(error.message)
+            const user = result.user
+            firebase.database().ref('users/' + user.uid).set({
+                email: user.email,
+                name: user.displayName
+            }).catch(error => {
+                toastr.error(error.message)
+            })
         })
     }
 
