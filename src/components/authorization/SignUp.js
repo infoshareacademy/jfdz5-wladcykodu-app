@@ -3,7 +3,6 @@ import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} 
 import {Link} from 'react-router-dom'
 import * as toastr from 'toastr'
 import * as firebase from 'firebase'
-import {firebaseApp} from '../../firebase'
 import './auth.css'
 import {connect} from 'react-redux'
 import {authUser} from '../../state/user'
@@ -41,12 +40,9 @@ class SignUp extends Component {
         const {email, password, confirmPassword, username} = this.state
         if (password === confirmPassword) {
             event.preventDefault()
-            firebaseApp.auth().createUserWithEmailAndPassword(email, password)
-                .then(user => {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(() => {
                     toastr.success('Successfully signed up !')
-                    firebase.database().ref('users/' + user.uid).set({
-                        email: user.email
-                    })
                     firebase.auth().currentUser.updateProfile({
                         displayName: username
                     })
@@ -60,6 +56,7 @@ class SignUp extends Component {
                 confirmPassword: '',
                 username: ''
             })
+
         } else if (password !== confirmPassword) {
             toastr.error('You need to repeat password correctly!')
             this.setState({
@@ -69,13 +66,17 @@ class SignUp extends Component {
         }
     }
 
-    componentWillMount() {
-        firebaseApp.auth().onAuthStateChanged(user => {
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.setState({
                     user: user
                 })
                 console.log('user is signed in or up', user)
+                firebase.database().ref('users/' + user.uid).set({
+                    email: user.email,
+                    name: user.displayName
+                })
             } else {
                 this.setState({
                     user: null
