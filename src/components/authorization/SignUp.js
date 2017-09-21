@@ -41,10 +41,14 @@ class SignUp extends Component {
         if (password === confirmPassword) {
             event.preventDefault()
             firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(() => {
+                .then((user) => {
                     toastr.success('Successfully signed up !')
-                    firebase.auth().currentUser.updateProfile({
+                    user.updateProfile({
                         displayName: username
+                    })
+                    firebase.database().ref('users/' + user.uid).set({
+                        email: user.email,
+                        name: username
                     })
                 }).catch(error => {
                 this.setState({error})
@@ -73,10 +77,7 @@ class SignUp extends Component {
                     user: user
                 })
                 console.log('user is signed in or up', user)
-                firebase.database().ref('users/' + user.uid).set({
-                    email: user.email,
-                    name: user.displayName
-                })
+
             } else {
                 this.setState({
                     user: null

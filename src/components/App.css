@@ -40,3 +40,10 @@
 .sign-container {
     position: relative;
 }
+
+.navbar-brand > img {
+    display: inline-block;
+    height: 100%;
+    width: auto;
+    z-index: 1000;
+}

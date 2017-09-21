@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
 import {Link} from 'react-router-dom'
-import {firebaseApp} from '../../firebase'
 import {authUser} from '../../state/user'
 import './auth.css'
 import FaFacebook from 'react-icons/lib/fa/facebook'
@@ -65,7 +64,7 @@ class SignIn extends Component {
     signInHandler = (event) => {
         const {email, password} = this.state
         event.preventDefault()
-        firebaseApp.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 toastr.success('You are now signed in !')
             }).catch(error => {

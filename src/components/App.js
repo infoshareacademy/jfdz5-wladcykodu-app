@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {firebaseApp} from '../firebase'
+import * as firebase from 'firebase'
 import {Grid, Col, Image, Tabs, Tab} from 'react-bootstrap'
 import MainMenu from './MainMenu'
 import Content from './Content'
@@ -7,7 +7,7 @@ import Footer from './Footer'
 import SignIn from './authorization/SignIn'
 import SignUp from './authorization/SignUp'
 import './App.css'
-
+import {history} from '../index'
 
 class App extends Component {
 
@@ -16,15 +16,19 @@ class App extends Component {
     }
 
     componentDidMount() {
-        firebaseApp.auth().onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.setState({
                     user: user
                 })
+                if (history.location.pathname === '/') {
+                    history.push('/dashboard')
+                }
             } else {
                 this.setState({
                     user: null
                 })
+                history.push('/')
             }
         })
     }
