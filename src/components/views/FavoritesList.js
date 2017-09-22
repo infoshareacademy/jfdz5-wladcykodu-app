@@ -45,28 +45,31 @@ class FavoritesList extends React.Component {
                             Your favorites:
                         </h3>
                     </Col>
-                    {this.state.favorites.map((item, favId) => {
-                        return (
-                            <Panel key="favId">
-                                <Grid>
-                                    <Row>
-                                        <Col xs={6} md={8} className="text-center">
-                                            <FavImage className="image-size" responsive src={item[0].part.jpg[0]}/>
-                                            <FavText>{item[0].part.data.name}</FavText>
-                                        </Col>
-                                        <Col xs={6} md={4}>
-                                            <ButtonToolbar>
-                                                <Button>Details</Button>
-                                                <Button
-                                                    onClick={this.handleRemoveFromFav}><FaTrash
-                                                    size={20}/></Button>
-                                            </ButtonToolbar>
-                                        </Col>
-                                    </Row>
-                                </Grid>
-                            </Panel>
-                        )
-                    })}
+                    { (this.state.favorites !== null) ?
+                        this.state.favorites.map((item, favId) => {
+                            return (
+                                <Panel key="favId">
+                                    <Grid>
+                                        <Row>
+                                            <Col xs={6} md={8} className="text-center">
+                                                <FavImage className="image-size" responsive src={item[0].part.jpg[0]}/>
+                                                <FavText>{item[0].part.data.name}</FavText>
+                                            </Col>
+                                            <Col xs={6} md={4}>
+                                                <ButtonToolbar>
+                                                    <Button>Details</Button>
+                                                    <Button
+                                                        onClick={this.handleRemoveFromFav}><FaTrash
+                                                        size={20}/></Button>
+                                                </ButtonToolbar>
+                                            </Col>
+                                        </Row>
+                                    </Grid>
+                                </Panel>
+                            )
+                        })
+                        : <h3>You haven't added any part to favorites list yet</h3>
+                    }
                 </Row>
             </Grid>
         )
