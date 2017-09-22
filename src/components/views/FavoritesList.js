@@ -52,7 +52,8 @@ class FavoritesList extends React.Component {
                                     <Grid>
                                         <Row>
                                             <Col xs={6} md={8} className="text-center">
-                                                <FavImage className="image-size" responsive src={item[0].part.jpg[0]}/>
+                                                <FavImage className="image-size" responsive src={item[0].part.jpg[0]} />
+                                                {/*   TODO handle case when no picture is added*/}
                                                 <FavText>{item[0].part.data.name}</FavText>
                                             </Col>
                                             <Col xs={6} md={4}>
