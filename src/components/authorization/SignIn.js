@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
 import {Link} from 'react-router-dom'
-import {firebaseApp} from '../../firebase'
 import {authUser} from '../../state/user'
 import './auth.css'
 import FaFacebook from 'react-icons/lib/fa/facebook'
@@ -32,19 +31,29 @@ class SignIn extends Component {
 
     facebookLoginHandler = (event) => {
         event.preventDefault()
-        firebase.auth().signInWithPopup(providerForFacebook).then(() => {
+        firebase.auth().signInWithPopup(providerForFacebook).then(result => {
             toastr.success('Successfully signed in with Facebook')
-        }).catch(error => {
-            toastr.error(error.message)
+            const user = result.user
+            firebase.database().ref('users/' + user.uid).set({
+                email: user.email,
+                name: user.displayName
+            }).catch(error => {
+                toastr.error(error.message)
+            })
         })
     }
 
     googleLoginHandler = (event) => {
         event.preventDefault()
-        firebase.auth().signInWithPopup(providerForGoogle).then(() => {
+        firebase.auth().signInWithPopup(providerForGoogle).then(result => {
             toastr.success('Successfully signed in with Google')
-        }).catch(error => {
-            toastr.error(error.message)
+            const user = result.user
+            firebase.database().ref('users/' + user.uid).set({
+                email: user.email,
+                name: user.displayName
+            }).catch(error => {
+                toastr.error(error.message)
+            })
         })
     }
 
@@ -55,7 +64,7 @@ class SignIn extends Component {
     signInHandler = (event) => {
         const {email, password} = this.state
         event.preventDefault()
-        firebaseApp.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 toastr.success('You are now signed in !')
             }).catch(error => {

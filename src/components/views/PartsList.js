@@ -1,12 +1,24 @@
 import React, {Component} from 'react'
 import {ListGroup, Grid, Col, Row, Button, Panel, Image} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import * as firebase from 'firebase'
 import FaStar from 'react-icons/lib/fa/star'
 import './partslist.css'
 
 class PartsList extends Component {
     state = {
         parts: []
+    }
+    
+    handleAddToFav = () => {
+        const user = firebase.auth().currentUser
+
+        if (user) {
+            firebase.database().ref('/users').child(user.uid).child('favorites:/').set({test: 'test'})
+                .then(() => {
+                    console.log('Added to Firebase')
+                })
+        }
     }
 
     componentDidMount() {
@@ -69,7 +81,8 @@ class PartsList extends Component {
                                                                 <Col>
                                                                     <Link to={item.link}>
                                                                         <Button>Details</Button> </Link>
-                                                                    <Button><FaStar size={20}/></Button>
+                                                                    <Button onClick={this.handleAddToFav}><FaStar
+                                                                        size={20}/></Button>
                                                                 </Col>
                                                             </Row>
                                                         </Grid>
