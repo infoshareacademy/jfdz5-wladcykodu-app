@@ -26,16 +26,19 @@ class MainMenu extends React.Component {
                     <Navbar.Header>
                         <Navbar.Brand>
                             <LinkContainer exact to="/">
-                                <img src={require('../images/logo-image.png')} alt="logo of auto parts app" />
+                                <img src={require('../images/logo-image.png')} alt="logo of auto parts app"/>
                             </LinkContainer>
                             <LinkContainer exact to="/">
-                                <img src={require('../images/logo-name.png')} alt="logo of auto parts app" />
+                                <img src={require('../images/logo-name.png')} alt="logo of auto parts app"/>
                             </LinkContainer>
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
                         <LinkContainer exact to="/">
                             <NavItem>Home</NavItem>
+                        </LinkContainer>
+                        <LinkContainer to="/favorites">
+                            <NavItem>Favorites</NavItem>
                         </LinkContainer>
                         <LinkContainer to="/userpanel">
                             <NavItem>User Panel</NavItem>
