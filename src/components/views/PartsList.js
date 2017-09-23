@@ -11,13 +11,11 @@ class PartsList extends Component {
         favorites: []
     }
 
-    handleAddToFav = () => {
-        console.log(this.state.parts[0].link)
+    handleAddToFav = (item) => {
         const user = firebase.auth().currentUser
 
-        this.state.favorites.push(this.state.parts)
+        this.state.favorites.push(item)
         if (user) {
-            /*firebase.database().ref('/users').child(user.uid).child('favorites:/').set({test: 'test'})*/
             firebase.database().ref('/users').child(user.uid).child('favorites:/').set(this.state.favorites)
                 .then(() => {
                     console.log('Added to Firebase')
@@ -87,7 +85,8 @@ class PartsList extends Component {
                                                                 <Col>
                                                                     <Link to={item.link}>
                                                                         <Button>Details</Button> </Link>
-                                                                    <Button onClick={this.handleAddToFav}><FaStar
+                                                                    <Button
+                                                                        onClick={() => this.handleAddToFav(item)}><FaStar
                                                                         size={20}/></Button>
                                                                 </Col>
                                                             </Row>
@@ -96,7 +95,8 @@ class PartsList extends Component {
                                                 </div>
                                             )
                                         })
-                                    : <li>Loading...</li>
+                            :
+                            <li>Loading...</li>
                             }
                         </ListGroup>
                         <br/>
