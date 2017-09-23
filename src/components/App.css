@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 .App {
   text-align: center;
 }
@@ -46,4 +48,22 @@
     height: 100%;
     width: auto;
     z-index: 1000;
+}
+body {
+    background-image: url("../images/signinuppagebackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.app-container {
+    color: floralwhite;
+    font-family: Montserrat, Arial, sans-serif;
+    font-weight: 400;
+}
+
+.app-container-private {
+    background: floralwhite;
+    min-height: 100vh;
+    color: black;
 }

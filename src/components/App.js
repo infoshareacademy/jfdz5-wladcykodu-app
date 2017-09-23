@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import * as firebase from 'firebase'
-import {Grid, Col, Image, Tabs, Tab} from 'react-bootstrap'
+import {Grid, Col, Image, Tabs, Tab, Row} from 'react-bootstrap'
 import MainMenu from './MainMenu'
 import Content from './Content'
 import Footer from './Footer'
@@ -40,25 +40,32 @@ class App extends Component {
                     this.state.user === null ?
                         (<div className="sign-container">
                                 <Grid>
-                                    <Col xs={6} className="sign-in-up">
-                                        <Image src={require('../images/logo-image.png')} alt="logo of auto parts app"/>
-                                        <h2>Welcome... to search from our awesome car parts, please sign in/up</h2>
+                                    <Row>
+                                        <Col xs={12} md={6}>
+                                            <Image src={require('../images/logo-image.png')}
+                                                   alt="logo of auto parts app"/>
+                                            <h2>Welcome to AutoParts search app!</h2>
+                                            <h4>We hope you'll find the car parts you're looking for. </h4>
+                                            <h5>To start searching from our awesome parts, please sign in or sign
+                                                up.</h5>
+                                        </Col>
+                                        <Col xs={12} md={6}>
+                                            <Tabs defaultActiveKey={1} id="tab">
+                                                <Tab eventKey={1} title="Sign in">
+                                                    <SignIn/>
+                                                </Tab>
 
-                                        <Tabs defaultActiveKey={1} id="tab">
-                                            <Tab eventKey={1} title="Sign in">
-                                                <SignIn/>
-                                            </Tab>
-
-                                            <Tab eventKey={2} title="Sign up">
-                                                <SignUp/>
-                                            </Tab>
-                                        </Tabs>
-                                    </Col>
+                                                <Tab eventKey={2} title="Sign up">
+                                                    <SignUp/>
+                                                </Tab>
+                                            </Tabs>
+                                        </Col>
+                                    </Row>
                                 </Grid>
                             </div>
                         )
                         :
-                        <div>
+                        <div className="app-container-private">
                             <MainMenu/>
                             <Content/>
                             <Footer/>
