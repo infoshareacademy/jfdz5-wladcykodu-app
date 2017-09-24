@@ -19,23 +19,23 @@ class UserPanelView extends React.Component {
     confirmNewEmail: '',
     newPass: '',
     confirmNewPass: '',
-  };
+  }
 
   handlePasswordChange = event => this.setState({
     newPass: event.target.value
-  });
+  })
 
 
   handleConfirmPasswordChange = event => this.setState({
     confirmNewPass: event.target.value
-  });
+  })
 
 
   changeUserPassword = event => {
-    event.preventDefault();
-    const user = firebase.auth().currentUser;
-    const newPassword = this.state.newPass;
-    const confirmPassword = this.state.confirmNewPass;
+    event.preventDefault()
+    const user = firebase.auth().currentUser
+    const newPassword = this.state.newPass
+    const confirmPassword = this.state.confirmNewPass
 
 
     user.updatePassword(newPassword).then(function () {
@@ -44,26 +44,26 @@ class UserPanelView extends React.Component {
       }
     }).catch(function (error) {
       return console.log(error)
-    });
+    })
 
   }
 
 
   handleEmailChange = event => this.setState({
     newEmail: event.target.value
-  });
+  })
 
 
   handleConfirmEmailChange = event => this.setState({
     confirmNewEmail: event.target.value
-  });
+  })
 
 
   changeUserMail = event => {
-    event.preventDefault();
-    const user = firebase.auth().currentUser;
-    const newEmail = this.state.newEmail;
-    const confirmNewEmail = this.state.confirmNewEmail;
+    event.preventDefault()
+    const user = firebase.auth().currentUser
+    const newEmail = this.state.newEmail
+    const confirmNewEmail = this.state.confirmNewEmail
 
 
     user.updateEmail(newEmail).then(function () {
@@ -72,7 +72,7 @@ class UserPanelView extends React.Component {
       }
     }).catch(function (error) {
       return console.log(error)
-    });
+    })
 
   }
 
