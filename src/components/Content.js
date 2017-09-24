@@ -1,11 +1,11 @@
 import React from 'react'
 import {
-    Switch,
-    Route,
-    withRouter
+  Switch,
+  Route,
+  withRouter
 } from 'react-router-dom'
 import {
-    Grid
+  Grid
 } from 'react-bootstrap'
 import {connect} from 'react-redux'
 
@@ -19,23 +19,23 @@ import Part from './views/Part'
 import FavoritesList from './views/FavoritesList'
 
 const Content = () => (
-    <Grid>
-        <Switch>
-            <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
-            <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId" component={PartsList}/>
-            <Route exact path="/brands/:manufacturer/:model/:engineId" component={PartCategory}/>
-            <Route exact path="/part/:part/:partNum" component={Part}/>
-            <Route exact path="/brands/:manufacturer" component={CarModel}/>
-            <Route exact path="/userpanel" component={UserPanelView}/>
-            <Route exact path="/favorites" component={FavoritesList}/>
-            <Route exact path="/" component={HomeView}/>
-            <Route render={() => <h1>Not found</h1>}/>
-        </Switch>
-    </Grid>
+  <Grid>
+    <Switch>
+      <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
+      <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId" component={PartsList}/>
+      <Route exact path="/brands/:manufacturer/:model/:engineId" component={PartCategory}/>
+      <Route exact path="/part/:part/:partNum" component={Part}/>
+      <Route exact path="/brands/:manufacturer" component={CarModel}/>
+      <Route exact path="/userpanel" component={UserPanelView}/>
+      <Route exact path="/favorites" component={FavoritesList}/>
+      <Route exact path="/" component={HomeView}/>
+      <Route render={() => <h1>Not found</h1>}/>
+    </Switch>
+  </Grid>
 )
 
 const ConnectedContent = connect(
-    state => ({})
+  state => ({})
 )(Content)
 
 export default withRouter(ConnectedContent)
