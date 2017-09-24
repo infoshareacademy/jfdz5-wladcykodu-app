@@ -28,7 +28,7 @@ class PartsList extends Component {
   componentDidMount() {
     const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
 
-    fetch(`https://isa.mateuszmarzecki.pl/v1/proxy?url=http://infoshareacademycom.2find.ru/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
+    fetch(`/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
 
       .then(result => result.json())
       .then(res => {
