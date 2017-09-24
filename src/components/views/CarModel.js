@@ -16,7 +16,7 @@ class CarModel extends Component {
         let manufPid = manufacturer.split('-')
         let pid = manufPid[manufPid.length - 1]
 
-        fetch(`/api/v2/find/${pid}`)
+        fetch(`https://isa.mateuszmarzecki.pl/v1/proxy?url=http://infoshareacademycom.2find.ru/api/v2/find/${pid}`)
             .then(result => result.json())
             .then(res => {
                 const items = res.data

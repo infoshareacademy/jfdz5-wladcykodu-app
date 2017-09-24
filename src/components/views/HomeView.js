@@ -9,7 +9,7 @@ class HomeView extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/v2?lang=polish')
+    fetch('https://isa.mateuszmarzecki.pl/v1/proxy?url=http://infoshareacademycom.2find.ru/api/v2?lang=polish')
       .then(result => result.json())
       .then(res => {
         const items = res.data
