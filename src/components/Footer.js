@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 const FooterContainer = styled.div`
-	bottom: 0;
 	background: grey;
 	color: white;
-	position: absolute;
+	position: fixed;
+	bottom: 0;
 	left: 0;
 	right: 0;
 	display: flex;
@@ -41,4 +41,6 @@ const Footer = () => (
 
   </FooterContainer>
 )
+
+
 export default Footer
