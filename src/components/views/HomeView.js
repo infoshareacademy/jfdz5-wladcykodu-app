@@ -24,7 +24,6 @@ class HomeView extends Component {
             <div>
                 <Grid>
                     <Col style={{textAlign: "center"}}>
-                        <h1>Welcome in our App :)</h1>
                         <h2>Select your car brand:</h2>
                         <ListGroup>
                             {

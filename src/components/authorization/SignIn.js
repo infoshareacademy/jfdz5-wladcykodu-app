@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
-import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar, InputGroup} from 'react-bootstrap'
+import {Form, FormGroup, FormControl, Col, Button, ButtonToolbar, InputGroup} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
 import {Link} from 'react-router-dom'
-import {firebaseApp} from '../../firebase'
 import {authUser} from '../../state/user'
 import './auth.css'
 import FaFacebook from 'react-icons/lib/fa/facebook'
-import FaGooglePlus from 'react-icons/lib/fa/google-plus'
+import FaGoogle from 'react-icons/lib/fa/google'
 import FaEye from 'react-icons/lib/fa/eye'
 import FaEyeSlash from 'react-icons/lib/fa/eye-slash'
 
@@ -32,19 +31,29 @@ class SignIn extends Component {
 
     facebookLoginHandler = (event) => {
         event.preventDefault()
-        firebase.auth().signInWithPopup(providerForFacebook).then(() => {
+        firebase.auth().signInWithPopup(providerForFacebook).then(result => {
             toastr.success('Successfully signed in with Facebook')
-        }).catch(error => {
-            toastr.error(error.message)
+            const user = result.user
+            firebase.database().ref('users/' + user.uid).set({
+                email: user.email,
+                name: user.displayName
+            }).catch(error => {
+                toastr.error(error.message)
+            })
         })
     }
 
     googleLoginHandler = (event) => {
         event.preventDefault()
-        firebase.auth().signInWithPopup(providerForGoogle).then(() => {
+        firebase.auth().signInWithPopup(providerForGoogle).then(result => {
             toastr.success('Successfully signed in with Google')
-        }).catch(error => {
-            toastr.error(error.message)
+            const user = result.user
+            firebase.database().ref('users/' + user.uid).set({
+                email: user.email,
+                name: user.displayName
+            }).catch(error => {
+                toastr.error(error.message)
+            })
         })
     }
 
@@ -55,7 +64,7 @@ class SignIn extends Component {
     signInHandler = (event) => {
         const {email, password} = this.state
         event.preventDefault()
-        firebaseApp.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 toastr.success('You are now signed in !')
             }).catch(error => {
@@ -78,19 +87,16 @@ class SignIn extends Component {
 
                     <Button type="submit" className="login-btn"
                             onClick={this.facebookLoginHandler}>
-                            Sign in with <FaFacebook size={25}/></Button>
+                        Sign in with <FaFacebook size={25}/></Button>
 
                     <Button type="submit" className="login-btn"
                             onClick={this.googleLoginHandler}>
-                            Sign in with <FaGooglePlus size={25}/></Button>
+                        Sign in with <FaGoogle size={25}/></Button>
 
                     <FormGroup controlId="formHorizontalEmail">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Email
-                        </Col>
                         <Col sm={10}>
                             <FormControl type="email"
-                                         placeholder="youremailhere@example.com"
+                                         placeholder="E-mail"
                                          value={this.state.email}
                                          onChange={this.handleChange}
                                          autoComplete="email"
@@ -100,13 +106,10 @@ class SignIn extends Component {
                     </FormGroup>
 
                     <FormGroup controlId="formHorizontalPassword">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Password
-                        </Col>
                         <Col sm={10}>
                             <InputGroup>
                                 <FormControl type={this.state.type}
-                                             placeholder="**************"
+                                             placeholder="Password"
                                              value={this.state.password}
                                              onChange={this.handleChange}
                                              autoComplete="new-password"
@@ -122,12 +125,12 @@ class SignIn extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Col xsOffset={1} smOffset={2} xs={8}>
+                        <Col xs={8}>
                             <ButtonToolbar>
-                                <Button type="submit">
+                                <Button type="submit" className="login-btn">
                                     Sign in
                                 </Button>
-                                <Button type="button">
+                                <Button type="button" className="login-btn">
                                     <Link to={'/signup'}>
                                         Need an account? Sign up instead
                                     </Link>

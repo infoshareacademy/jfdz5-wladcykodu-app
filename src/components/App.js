@@ -1,18 +1,79 @@
-import React from 'react'
-
+import React, {Component} from 'react'
+import * as firebase from 'firebase'
+import {Grid, Col, Image, Tabs, Tab, Row} from 'react-bootstrap'
 import MainMenu from './MainMenu'
 import Content from './Content'
 import Footer from './Footer'
+import SignIn from './authorization/SignIn'
+import SignUp from './authorization/SignUp'
+import './App.css'
+import {history} from '../index'
 
-const App = () => (
-    <div>
-        <MainMenu/>
-        <Content/>
-        {/*  <Sidebar/>*/}
-         <Footer/>
-    </div>
-)
+class App extends Component {
+
+    state = {
+        user: null,
+    }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({
+                    user: user
+                })
+                if (history.location.pathname === '/') {
+                    history.push('/dashboard')
+                }
+            } else {
+                this.setState({
+                    user: null
+                })
+                history.push('/')
+            }
+        })
+    }
+
+    render() {
+        return (
+            <div className="app-container">
+                {
+                    this.state.user === null ?
+                        (<div className="sign-container">
+                                <Grid>
+                                    <Row>
+                                        <Col xs={12} md={6}>
+                                            <Image src={require('../images/logo-image.png')}
+                                                   alt="logo of auto parts app"/>
+                                            <h2>Welcome to AutoParts search app!</h2>
+                                            <h4>We hope you'll find the car parts you're looking for. </h4>
+                                            <h5>To start searching from our awesome parts, please sign in or sign
+                                                up.</h5>
+                                        </Col>
+                                        <Col xs={12} md={6}>
+                                            <Tabs defaultActiveKey={1} id="tab">
+                                                <Tab eventKey={1} title="Sign in">
+                                                    <SignIn/>
+                                                </Tab>
+
+                                                <Tab eventKey={2} title="Sign up">
+                                                    <SignUp/>
+                                                </Tab>
+                                            </Tabs>
+                                        </Col>
+                                    </Row>
+                                </Grid>
+                            </div>
+                        )
+                        :
+                        <div className="app-container-private">
+                            <MainMenu/>
+                            <Content/>
+                            <Footer/>
+                        </div>
+                }
+            </div>
+        )
+    }
+}
 
 export default App
-
-

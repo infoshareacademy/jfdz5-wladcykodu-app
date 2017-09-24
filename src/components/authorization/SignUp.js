@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as toastr from 'toastr'
-import {firebaseApp} from '../../firebase'
+import * as firebase from 'firebase'
 import './auth.css'
 import {connect} from 'react-redux'
 import {authUser} from '../../state/user'
@@ -13,6 +13,7 @@ class SignUp extends Component {
         email: '',
         password: '',
         confirmPassword: '',
+        username: '',
         user: null,
         error: {
             message: ''
@@ -28,14 +29,27 @@ class SignUp extends Component {
             confirmPassword: event.target.value
         })
 
+    handleUserName = event => {
+        this.setState({
+            username: event.target.value
+        })
+    }
+
     signUpHandler = (event) => {
 
-        const {email, password, confirmPassword} = this.state
+        const {email, password, confirmPassword, username} = this.state
         if (password === confirmPassword) {
             event.preventDefault()
-            firebaseApp.auth().createUserWithEmailAndPassword(email, password)
-                .then(() => {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((user) => {
                     toastr.success('Successfully signed up !')
+                    user.updateProfile({
+                        displayName: username
+                    })
+                    firebase.database().ref('users/' + user.uid).set({
+                        email: user.email,
+                        name: username
+                    })
                 }).catch(error => {
                 this.setState({error})
                 toastr.error(error.message)
@@ -43,8 +57,10 @@ class SignUp extends Component {
             this.setState({
                 email: '',
                 password: '',
-                confirmPassword: ''
+                confirmPassword: '',
+                username: ''
             })
+
         } else if (password !== confirmPassword) {
             toastr.error('You need to repeat password correctly!')
             this.setState({
@@ -54,13 +70,14 @@ class SignUp extends Component {
         }
     }
 
-    componentWillMount() {
-        firebaseApp.auth().onAuthStateChanged(user => {
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.setState({
                     user: user
                 })
                 console.log('user is signed in or up', user)
+
             } else {
                 this.setState({
                     user: null
@@ -76,6 +93,21 @@ class SignUp extends Component {
             <div>
                 <h1>Sign Up form</h1>
                 <Form horizontal>
+
+                    <FormGroup controlId="formHorizontalName">
+                        <Col componentClass={ControlLabel} sm={2}>
+                            Name
+                        </Col>
+                        <Col sm={10}>
+                            <FormControl type="text"
+                                         placeholder="Enter Your Name"
+                                         value={this.state.username}
+                                         onChange={this.handleUserName}
+                                         autoComplete="name"
+                                         name="name"
+                                         className="login-form-control" required/>
+                        </Col>
+                    </FormGroup>
 
                     <FormGroup controlId="formHorizontalEmail">
                         <Col componentClass={ControlLabel} sm={2}>
@@ -107,7 +139,7 @@ class SignUp extends Component {
                         </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="formHorizontalPassword">
+                    <FormGroup controlId="formHorizontalConfirmPassword">
                         <Col componentClass={ControlLabel} sm={2}>
                             Confirm Password
                         </Col>
