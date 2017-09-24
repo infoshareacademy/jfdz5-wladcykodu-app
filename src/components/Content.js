@@ -17,6 +17,7 @@ import PartCategory from './views/PartCategory'
 import PartsList from './views/PartsList'
 import Part from './views/Part'
 import FavoritesList from './views/FavoritesList'
+import ComparisionView from './views/ComparisionView'
 
 const Content = () => (
   <Grid>
@@ -28,6 +29,7 @@ const Content = () => (
       <Route exact path="/brands/:manufacturer" component={CarModel}/>
       <Route exact path="/userpanel" component={UserPanelView}/>
       <Route exact path="/favorites" component={FavoritesList}/>
+      <Route exact path="/comparision" component={ComparisionView}/>
       <Route exact path="/" component={HomeView}/>
       <Route render={() => <h1>Not found</h1>}/>
     </Switch>

@@ -44,6 +44,9 @@ class MainMenu extends React.Component {
             <LinkContainer to="/userpanel">
               <NavItem>User Panel</NavItem>
             </LinkContainer>
+            <LinkContainer to="/comparision">
+              <NavItem>Comparision</NavItem>
+            </LinkContainer>
           </Nav>
           <Nav pullRight>
             <LinkContainer to="/">
