@@ -160,8 +160,8 @@ class SignUp extends Component {
                         className="login-btn">
                   Sign up
                 </Button>
-                <Button type="button"
-                        className="login-btn">
+
+                <Button className="login-btn" onClick={() => this.props.handleTabChange(1)}>
                   <Link to={'/signin'}>
                     Already have an account? Sign in
                   </Link>

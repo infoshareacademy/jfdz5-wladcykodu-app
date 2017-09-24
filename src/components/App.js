@@ -13,6 +13,7 @@ class App extends Component {
 
   state = {
     user: null,
+    tabKey: 1
   }
 
   componentDidMount() {
@@ -33,6 +34,8 @@ class App extends Component {
     })
   }
 
+  handleTabChange = key => this.setState({ tabKey: key })
+
   render() {
     return (
       <div className="app-container">
@@ -50,13 +53,13 @@ class App extends Component {
                         up.</h5>
                     </Col>
                     <Col xs={12} md={6}>
-                      <Tabs defaultActiveKey={1} id="tab">
+                      <Tabs activeKey={this.state.tabKey} id="tab" onSelect={this.handleTabChange}>
                         <Tab eventKey={1} title="Sign in">
-                          <SignIn/>
+                          <SignIn handleTabChange={this.handleTabChange} />
                         </Tab>
 
                         <Tab eventKey={2} title="Sign up">
-                          <SignUp/>
+                          <SignUp handleTabChange={this.handleTabChange} />
                         </Tab>
                       </Tabs>
                     </Col>

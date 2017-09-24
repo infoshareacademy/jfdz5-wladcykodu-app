@@ -85,11 +85,11 @@ class SignIn extends Component {
         <h1>Sign In form</h1>
         <Form horizontal onSubmit={this.signInHandler}>
 
-          <Button type="submit" className="login-btn"
+          <Button className="login-btn"
                   onClick={this.facebookLoginHandler}>
             Sign in with <FaFacebook size={25}/></Button>
 
-          <Button type="submit" className="login-btn"
+          <Button className="login-btn"
                   onClick={this.googleLoginHandler}>
             Sign in with <FaGoogle size={25}/></Button>
 
@@ -130,7 +130,8 @@ class SignIn extends Component {
                 <Button type="submit" className="login-btn">
                   Sign in
                 </Button>
-                <Button type="button" className="login-btn">
+
+                <Button className="login-btn" onClick={() => this.props.handleTabChange(2)}>
                   <Link to={'/signup'}>
                     Need an account? Sign up instead
                   </Link>
