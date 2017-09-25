@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
+import {API_URL} from '../App'
 
 class HomeView extends Component {
 
@@ -9,7 +10,7 @@ class HomeView extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/v2?lang=polish')
+    fetch(`${API_URL}/api/v2?lang=polish`)
       .then(result => result.json())
       .then(res => {
         const items = res.data

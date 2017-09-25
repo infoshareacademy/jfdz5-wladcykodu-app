@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import {API_URL} from '../App'
 
 class PartCategory extends Component {
   state = {
@@ -10,12 +11,12 @@ class PartCategory extends Component {
   componentDidMount() {
     const {manufacturer, model, engineId} = this.props.match.params
 
-    fetch(`/api/v2/find/${manufacturer}/${model}/${engineId}`)
+    fetch(`${API_URL}/api/v2/find/${manufacturer}/${model}/${engineId}`)
       .then(result => result.json())
       .then(res => {
         const partsCat = res.data
         partsCat.forEach((item) => {
-          fetch(item.link)
+          fetch(`${API_URL}${item.link}`)
             .then(result => result.json())
             .then(
               res =>
