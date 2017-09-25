@@ -70,23 +70,6 @@ class SignUp extends Component {
     }
   }
 
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState({
-          user: user
-        })
-        console.log('user is signed in or up', user)
-
-      } else {
-        this.setState({
-          user: null
-        })
-        console.log('user is signed out')
-      }
-    })
-  }
-
   render() {
     return (
 

@@ -22,14 +22,14 @@ class App extends Component {
         this.setState({
           user: user
         })
-        if (history.location.pathname === '/') {
-          history.push('/dashboard')
+        if (history.location.pathname === '/signin' || '/signup') {
+          history.push('/')
         }
       } else {
         this.setState({
           user: null
         })
-        history.push('/')
+        history.push('/signin')
       }
     })
   }
