@@ -5,6 +5,8 @@ import * as firebase from 'firebase'
 import FaStar from 'react-icons/lib/fa/star'
 import './partslist.css'
 import {API_URL} from '../App'
+import {connect} from 'react-redux'
+import {addFav} from '../../state/favs'
 
 class PartsList extends Component {
   state = {
@@ -109,4 +111,11 @@ class PartsList extends Component {
   }
 }
 
-export default PartsList
+const mapDispatchToProps = dispatch => ({
+  addToFav: (favId) => dispatch(addFav(favId))
+})
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(PartsList)
