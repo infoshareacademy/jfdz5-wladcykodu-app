@@ -19,7 +19,11 @@ class PartsList extends Component {
 
     this.state.favorites.push(item)
     if (user) {
-      firebase.database().ref('/users').child(user.uid).child('favorites:/').set(this.state.favorites)
+      const favId = item.link
+
+      firebase.database().ref(
+        '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
+      ).set(this.state.favorites)
         .then(() => {
           console.log('Added to Firebase')
         }).catch((e) => {
@@ -111,11 +115,8 @@ class PartsList extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  addToFav: (favId) => dispatch(addFav(favId))
-})
-
 export default connect(
-  null,
-  mapDispatchToProps,
+  state => ({
+    addToFav: state.favs.favorites
+  })
 )(PartsList)

@@ -16,17 +16,13 @@ const providerForGoogle = new firebase.auth.GoogleAuthProvider()
 
 class SignIn extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: '',
-      error: {
-        message: ''
-      },
-      type: 'password'
-    }
-    this.showOrHide = this.showOrHide.bind(this)
+  state = {
+    email: '',
+    password: '',
+    error: {
+      message: ''
+    },
+    type: 'password'
   }
 
   facebookLoginHandler = (event) => {
@@ -117,7 +113,7 @@ class SignIn extends Component {
                              className="login-form-control" required/>
                 <InputGroup.Button>
                   <Button
-                    onClick={this.showOrHide}>{this.state.type === 'input' ?
+                    onClick={() => this.showOrHide()}>{this.state.type === 'input' ?
                     <FaEyeSlash size={18}/> : <FaEye size={18}/>}</Button>
                 </InputGroup.Button>
               </InputGroup>

@@ -3,6 +3,8 @@ import {Button, Row, Col, Grid, Panel, ButtonToolbar} from 'react-bootstrap'
 import * as firebase from 'firebase'
 import styled from 'styled-components'
 import FaTrash from 'react-icons/lib/fa/trash'
+import {connect} from 'react-redux'
+import {addFav} from '../../state/favs'
 
 const FavImage = styled.img`
     max-width: 100%;
@@ -22,14 +24,12 @@ class FavoritesList extends React.Component {
 
   componentWillMount() {
     const user = firebase.auth().currentUser
-    firebase.database().ref('/users').child(user.uid).child('favorites:/').once('value')
+    firebase.database().ref('/favorites').child(user.uid).child('/part').once('value')
       .then((snapshot) => {
-        console.log('Data from Firebase:', snapshot.val())
-        this.setState({
-            favorites: snapshot.val()
-          }
-        )
-      })
+          console.log('Data from Firebase:', snapshot.val())
+          addFav(snapshot.val())
+        }
+      )
   }
 
   handleRemoveFromFav() {
@@ -77,4 +77,11 @@ class FavoritesList extends React.Component {
   }
 }
 
-export default FavoritesList
+const mapDispatchToProps = dispatch => ({
+  addToFav: (favId) => dispatch(addFav(favId))
+})
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(FavoritesList)

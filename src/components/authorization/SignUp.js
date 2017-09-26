@@ -24,17 +24,6 @@ class SignUp extends Component {
     [event.target.name]: event.target.value
   })
 
-  handleConfirmPassword = event =>
-    this.setState({
-      confirmPassword: event.target.value
-    })
-
-  handleUserName = event => {
-    this.setState({
-      username: event.target.value
-    })
-  }
-
   signUpHandler = (event) => {
 
     const {email, password, confirmPassword, username} = this.state
@@ -77,7 +66,7 @@ class SignUp extends Component {
         <h1>Sign Up form</h1>
         <Form horizontal>
 
-          <FormGroup controlId="formHorizontalName">
+          <FormGroup controlId="formHorizontalName" onChange={this.handleChange}>
             <Col componentClass={ControlLabel} sm={2}>
               Name
             </Col>
@@ -85,14 +74,13 @@ class SignUp extends Component {
               <FormControl type="text"
                            placeholder="Enter Your Name"
                            value={this.state.username}
-                           onChange={this.handleUserName}
                            autoComplete="name"
-                           name="name"
+                           name="username"
                            className="login-form-control" required/>
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalEmail">
+          <FormGroup controlId="formHorizontalEmail" onChange={this.handleChange}>
             <Col componentClass={ControlLabel} sm={2}>
               Email
             </Col>
@@ -100,14 +88,13 @@ class SignUp extends Component {
               <FormControl type="email"
                            placeholder="youremailhere@example.com"
                            value={this.state.email}
-                           onChange={this.handleChange}
                            autoComplete="email"
                            name="email"
                            className="login-form-control" required/>
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup controlId="formHorizontalPassword" onChange={this.handleChange}>
             <Col componentClass={ControlLabel} sm={2}>
               Password
             </Col>
@@ -115,14 +102,13 @@ class SignUp extends Component {
               <FormControl type="password"
                            placeholder="**************"
                            value={this.state.password}
-                           onChange={this.handleChange}
                            autoComplete="new-password"
                            name="password"
                            className="login-form-control" required/>
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalConfirmPassword">
+          <FormGroup controlId="formHorizontalConfirmPassword" onChange={this.handleChange}>
             <Col componentClass={ControlLabel} sm={2}>
               Confirm Password
             </Col>
@@ -130,9 +116,8 @@ class SignUp extends Component {
               <FormControl type="password"
                            placeholder="**************"
                            value={this.state.confirmPassword}
-                           onChange={this.handleConfirmPassword}
                            autoComplete="new-password"
-                           name="confirm-password"
+                           name="confirmPassword"
                            className="login-form-control" required/>
             </Col>
           </FormGroup>
