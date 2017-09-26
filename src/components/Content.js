@@ -28,7 +28,7 @@ const Content = () => (
       <Route exact path="/brands/:manufacturer" component={CarModel}/>
       <Route exact path="/userpanel" component={UserPanelView}/>
       <Route exact path="/favorites" component={FavoritesList}/>
-      <Route exact path="/" component={HomeView}/>
+      <Route path="/" component={HomeView}/>
       <Route render={() => <h1>Not found</h1>}/>
     </Switch>
   </Grid>
