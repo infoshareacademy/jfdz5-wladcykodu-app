@@ -4,6 +4,9 @@ import {Link} from 'react-router-dom'
 import * as firebase from 'firebase'
 import FaStar from 'react-icons/lib/fa/star'
 import './partslist.css'
+import {API_URL} from '../App'
+import {connect} from 'react-redux'
+import {addFav} from '../../state/favs'
 
 class PartsList extends Component {
   state = {
@@ -28,13 +31,13 @@ class PartsList extends Component {
   componentDidMount() {
     const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
 
-    fetch(`/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
+    fetch(`${API_URL}/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
 
       .then(result => result.json())
       .then(res => {
         const parts = res.data
         parts.forEach((item) => {
-          fetch(item.link)
+          fetch(`${API_URL}${item.link}`)
             .then(result => result.json())
             .then(
               res => {
@@ -108,4 +111,11 @@ class PartsList extends Component {
   }
 }
 
-export default PartsList
+const mapDispatchToProps = dispatch => ({
+  addToFav: (favId) => dispatch(addFav(favId))
+})
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(PartsList)

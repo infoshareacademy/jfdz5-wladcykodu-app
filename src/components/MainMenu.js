@@ -49,7 +49,7 @@ class MainMenu extends React.Component {
             </LinkContainer>
           </Nav>
           <Nav pullRight>
-            <LinkContainer to="/">
+            <LinkContainer to="/signin">
               <NavItem onClick={this.signOutUser}>Sign Out</NavItem>
             </LinkContainer>
           </Nav>

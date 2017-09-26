@@ -70,23 +70,6 @@ class SignUp extends Component {
     }
   }
 
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState({
-          user: user
-        })
-        console.log('user is signed in or up', user)
-
-      } else {
-        this.setState({
-          user: null
-        })
-        console.log('user is signed out')
-      }
-    })
-  }
-
   render() {
     return (
 
@@ -160,8 +143,8 @@ class SignUp extends Component {
                         className="login-btn">
                   Sign up
                 </Button>
-                <Button type="button"
-                        className="login-btn">
+
+                <Button className="login-btn" onClick={() => this.props.handleTabChange(1)}>
                   <Link to={'/signin'}>
                     Already have an account? Sign in
                   </Link>

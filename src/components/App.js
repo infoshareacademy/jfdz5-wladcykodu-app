@@ -13,6 +13,7 @@ class App extends Component {
 
   state = {
     user: null,
+    tabKey: 1
   }
 
   componentDidMount() {
@@ -21,17 +22,19 @@ class App extends Component {
         this.setState({
           user: user
         })
-        if (history.location.pathname === '/') {
-          history.push('/dashboard')
+        if (history.location.pathname === '/signin' || '/signup') {
+          history.push('/')
         }
       } else {
         this.setState({
           user: null
         })
-        history.push('/')
+        history.push('/signin')
       }
     })
   }
+
+  handleTabChange = key => this.setState({tabKey: key})
 
   render() {
     return (
@@ -50,13 +53,13 @@ class App extends Component {
                         up.</h5>
                     </Col>
                     <Col xs={12} md={6}>
-                      <Tabs defaultActiveKey={1} id="tab">
+                      <Tabs activeKey={this.state.tabKey} id="tab" onSelect={this.handleTabChange}>
                         <Tab eventKey={1} title="Sign in">
-                          <SignIn/>
+                          <SignIn handleTabChange={this.handleTabChange}/>
                         </Tab>
 
                         <Tab eventKey={2} title="Sign up">
-                          <SignUp/>
+                          <SignUp handleTabChange={this.handleTabChange}/>
                         </Tab>
                       </Tabs>
                     </Col>
@@ -75,5 +78,7 @@ class App extends Component {
     )
   }
 }
+const API_URL = 'https://isa.mateuszmarzecki.pl/v1/proxy?url=http://infoshareacademycom.2find.ru'
 
 export default App
+export {API_URL}

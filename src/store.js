@@ -2,9 +2,11 @@ import {createStore, compose, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
 import auth, {authUser} from './state/user'
 import {firebaseApp} from './firebase'
+import favs from './state/favs'
 
 const reducer = combineReducers({
-  auth
+  auth,
+  favs
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
