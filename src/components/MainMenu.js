@@ -1,6 +1,7 @@
 import React from 'react'
 import {Nav, Navbar, NavItem} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
+import {connect} from 'react-redux'
 import styled from 'styled-components'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
@@ -10,8 +11,12 @@ const MenuCntainer = styled.div`
 	background: black
 `
 
+
 class MainMenu extends React.Component {
 
+  state = {
+    comparision: []
+  }
   signOutUser = () => {
     firebase.auth().signOut().then(() => {
       toastr.success('Sign out successfully')
@@ -44,9 +49,14 @@ class MainMenu extends React.Component {
             <LinkContainer to="/userpanel">
               <NavItem>User Panel</NavItem>
             </LinkContainer>
-            <LinkContainer to="/comparision">
-              <NavItem>Comparision</NavItem>
-            </LinkContainer>
+
+            { (this.state.comparison.val !== null) ?
+                <LinkContainer to="/comparision">
+                  <NavItem>Comparision</NavItem>
+                </LinkContainer>
+              : null
+            }
+
           </Nav>
           <Nav pullRight>
             <LinkContainer to="/signin">
@@ -59,4 +69,7 @@ class MainMenu extends React.Component {
   }
 }
 
-export default MainMenu
+
+export default connect(
+  null
+)(MainMenu)

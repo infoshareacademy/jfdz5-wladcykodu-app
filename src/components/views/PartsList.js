@@ -2,16 +2,20 @@ import React, {Component} from 'react'
 import {ListGroup, Grid, Col, Row, Button, Panel, Image} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as firebase from 'firebase'
-import FaStar from 'react-icons/lib/fa/star'
+/*import FaStar from 'react-icons/lib/fa/star'
+import FaPlusCircle from 'react-icons/lib/fa/plus-circle'*/
+import {FaStar, FaPlusCircle} from 'react-icons/lib/fa'
 import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import {addFav} from '../../state/favs'
+import {addComp} from '../../state/comparision'
 
 class PartsList extends Component {
   state = {
     parts: [],
-    favorites: []
+    favorites: [],
+    comparision: []
   }
 
   handleAddToFav = (item) => {
@@ -24,6 +28,20 @@ class PartsList extends Component {
           console.log('Added to Firebase')
         }).catch((e) => {
         console.log('Failed:', e)
+      })
+    }
+  }
+
+  handleAddToComparision = (item) => {
+    const user = firebase.auth().currentUser
+
+    this.state.comparision.push(item)
+    if (user) {
+      firebase.database().ref('/users').child(user.uid).child('comparision:/').set(this.state.comparision)
+        .then(() => {
+          console.log('Added to Comparison')
+        }).catch((error) => {
+        console.log('Failed:', error)
       })
     }
   }
@@ -91,6 +109,9 @@ class PartsList extends Component {
                                   <Button
                                     onClick={() => this.handleAddToFav(item)}><FaStar
                                     size={20}/></Button>
+                                  <Button
+                                    onClick={() => this.handleAddToComparision(item)}>Comparision <FaPlusCircle
+                                    size={20}/></Button>
                                 </Col>
                               </Row>
                             </Grid>
@@ -112,7 +133,8 @@ class PartsList extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToFav: (favId) => dispatch(addFav(favId))
+  addToFav: (favId) => dispatch(addFav(favId)),
+  addToCompare: (comparisionId) => dispatch(addComp(comparisionId))
 })
 
 export default connect(
