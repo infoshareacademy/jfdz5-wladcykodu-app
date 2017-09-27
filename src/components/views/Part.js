@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Grid, Col, Image} from 'react-bootstrap'
+import {API_URL} from '../App'
 
 class Part extends Component {
 
@@ -10,7 +11,7 @@ class Part extends Component {
   componentDidMount() {
     const {part, partNum} = this.props.match.params
 
-    fetch(`/api/v2/part/${part}/${partNum}`)
+    fetch(`${API_URL}/api/v2/part/${part}/${partNum}`)
       .then(result => result.json())
       .then(res => {
         const partData = res.data
