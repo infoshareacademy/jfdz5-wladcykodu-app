@@ -6,7 +6,6 @@ import FaStar from 'react-icons/lib/fa/star'
 import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
-import {addFav} from '../../state/favs'
 
 class PartsList extends Component {
   state = {
@@ -19,7 +18,8 @@ class PartsList extends Component {
 
     this.state.favorites.push(item)
     if (user) {
-      const favId = item.link
+      const favLink = item.link
+      const favId = favLink.split('/').join('')
 
       firebase.database().ref(
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
@@ -78,20 +78,21 @@ class PartsList extends Component {
                                   <h3>{item.part.data.name}</h3>
                                 </Col>
                                 <Col xs={6} md={8}>
-                                  <p>Brand: <span
-                                    className="text-info">{item.part.data.brand}</span>
+                                  <p>Brand: <span className="text-info">{item.part.data.brand}</span>
                                   </p>
-                                  <p>Number: <span
-                                    className="text-info">{item.part.data.number}</span>
+                                  <p>Number: <span className="text-info">{item.part.data.number}</span>
                                   </p>
-                                  <p>Status: <span className="text-warning"
-                                                   style={{"fontWeight": "bold"}}>
-                                                                    {item.part.data.status}</span>
+                                  <p>Status:
+                                    <span className="text-warning"
+                                          style={{"fontWeight": "bold"}}>
+                                    {item.part.data.status}
+                                    </span>
                                   </p>
                                 </Col>
                                 <Col>
                                   <Link to={item.link}>
-                                    <Button>Details</Button> </Link>
+                                    <Button>Details</Button>
+                                  </Link>
                                   <Button
                                     onClick={() => this.handleAddToFav(item)}><FaStar
                                     size={20}/></Button>

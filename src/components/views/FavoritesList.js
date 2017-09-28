@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button, Row, Col, Grid, Panel, ButtonToolbar} from 'react-bootstrap'
 import * as firebase from 'firebase'
+import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import FaTrash from 'react-icons/lib/fa/trash'
 import {connect} from 'react-redux'
@@ -24,15 +25,20 @@ class FavoritesList extends React.Component {
 
   componentWillMount() {
     const user = firebase.auth().currentUser
-    firebase.database().ref('/favorites').child(user.uid).child('/part').once('value')
+    firebase.database().ref('/favorites').child(user.uid).once('value')
       .then((snapshot) => {
-          console.log('Data from Firebase:', snapshot.val())
-          addFav(snapshot.val())
+          console.log('Object.entries :', Object.entries(snapshot.val()))
+          console.log('Data from Firebase :', snapshot.val())
+          console.log("before", this.state.favorites)
+          this.setState({
+            favorites: Object.entries(snapshot.val())
+          })
+          console.log("after", this.state.favorites)
         }
       )
   }
 
-  handleRemoveFromFav() {
+  handleRemoveFromFav(item) {
     // TODO : remove item from favorites (also in Firebase)
   }
 
@@ -52,13 +58,15 @@ class FavoritesList extends React.Component {
                   <Grid>
                     <Row>
                       <Col xs={6} md={8} className="text-center">
-                        <FavImage className="image-size" responsive src={item.part.jpg[0]}/>
+                        <FavImage className="image-size" responsive src={item[1][0].part.jpg[0]}/>
                         {/*   TODO handle case when no picture is added*/}
-                        <FavText>{item.part.data.name}</FavText>
+                        <FavText>{item[1][0].part.data.name}</FavText>
                       </Col>
                       <Col xs={6} md={4}>
                         <ButtonToolbar>
-                          <Button>Details</Button>
+                          <Link to={item[1][0].link}>
+                            <Button>Details</Button>
+                          </Link>
                           <Button
                             onClick={this.handleRemoveFromFav}><FaTrash
                             size={20}/></Button>
