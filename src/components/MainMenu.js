@@ -1,16 +1,16 @@
 import React from 'react'
-import {Nav, Navbar, NavItem} from 'react-bootstrap'
+import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
 import './App.css'
+import FaUser from 'react-icons/lib/fa/user'
 
 const MenuCntainer = styled.div`
 	background: black
 `
-
 
 class MainMenu extends React.Component {
 
@@ -28,7 +28,7 @@ class MainMenu extends React.Component {
   render() {
     return (
       <MenuCntainer>
-        <Navbar inverse>
+        <Navbar inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
               <LinkContainer exact to="/">
@@ -38,34 +38,36 @@ class MainMenu extends React.Component {
                 <img src={require('../images/logo-name.png')} alt="logo of auto parts app"/>
               </LinkContainer>
             </Navbar.Brand>
+            <Navbar.Toggle />
           </Navbar.Header>
-          <Nav>
-            <LinkContainer exact to="/">
-              <NavItem>Home</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/favorites">
-              <NavItem>Favorites</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/userpanel">
-              <NavItem>User Panel</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/comparision">
-              <NavItem>Comparision</NavItem>
-            </LinkContainer>
-
-{/*            { (this.state.comparison.val !== null) ?
-                <LinkContainer to="/comparision">
-                  <NavItem>Comparision</NavItem>
+          <Navbar.Collapse>
+            <Nav>
+              <NavItem eventKey={1}>
+                <LinkContainer to="/brands/:manufacturer">
+                  <NavItem>Home</NavItem>
                 </LinkContainer>
-              : null
-            }*/}
-
-          </Nav>
-          <Nav pullRight>
-            <LinkContainer to="/signin">
-              <NavItem onClick={this.signOutUser}>Sign Out</NavItem>
-            </LinkContainer>
-          </Nav>
+              </NavItem>
+              <NavItem eventKey={2} href="/favorites">
+                <LinkContainer to="/favorites">
+                  <NavItem>Favorites</NavItem>
+                </LinkContainer>
+              </NavItem>
+            </Nav>
+            <Nav pullRight>
+              <NavDropdown eventKey={3} title={<FaUser size={25}/>} id="basic-nav-dropdown">
+                <MenuItem eventKey={3.1}>
+                  <LinkContainer to="/userpanel">
+                    <NavItem>User Panel</NavItem>
+                  </LinkContainer>
+                </MenuItem>
+                <MenuItem eventKey={3.2} href="/singin">
+                  <LinkContainer to="/signin">
+                    <NavItem onClick={this.signOutUser}>Sign Out</NavItem>
+                  </LinkContainer>
+                </MenuItem>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
       </MenuCntainer>
     )
