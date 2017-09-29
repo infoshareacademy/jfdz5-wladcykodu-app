@@ -32,7 +32,7 @@ class Part extends Component {
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
       ).set((this.props.favProducts[favId] ? null : this.state.partData))
         .then(() => {
-          console.log('Added to Firebase')
+          console.log('Added/Removed to Firebase')
         }).catch((e) => {
         console.log('Failed:', e)
       })
@@ -82,7 +82,7 @@ class Part extends Component {
                               </div>
                             )
                           })
-                        : <p>No data for this product, ask distributor for more info.</p>
+                        : <p>No properties for this product, ask distributor for more info.</p>
                     }
                   </div>
                 </Row>
@@ -90,8 +90,12 @@ class Part extends Component {
                   <Col>
                     <Button
                       active={!!this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')]}
-                      onClick={() => this.handleAddToFav(this.state.partData)}><FaStar
-                      size={20}/> Add to favorites</Button>
+                      onClick={() => this.handleAddToFav(this.state.partData)}>
+                      {this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')] ?
+                        <FaStar color='red' size={20}/> :
+                        <FaStar color='black' size={20}/>
+                      } Add to favorites
+                    </Button>
                   </Col>
                 </Row>
               </Col>
@@ -110,11 +114,9 @@ class Part extends Component {
                         })
                       :
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur.</p>
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                   }
                 </Row>
               </Col>

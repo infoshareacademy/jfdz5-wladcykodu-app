@@ -27,7 +27,7 @@ class PartsList extends Component {
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
       ).set(this.props.favProducts[favId] ? null : item)
         .then(() => {
-          console.log('Added to Firebase')
+          console.log('Added/Removed to Firebase')
         }).catch((e) => {
         console.log('Failed:', e)
       })
@@ -97,8 +97,12 @@ class PartsList extends Component {
                                         </Link>
                                         <Button
                                           active={!!this.props.favProducts[item.link.split('/').join('')]}
-                                          onClick={() => this.handleAddToFav(item)}><FaStar
-                                          size={20}/></Button>
+                                          onClick={() => this.handleAddToFav(item)}>
+                                          {this.props.favProducts[item.link.split('/').join('')] ?
+                                            <FaStar color='red' size={20}/> :
+                                            <FaStar color='black' size={20}/>
+                                          }
+                                        </Button>
                                       </Col>
                                     </Row>
                                   </Grid>

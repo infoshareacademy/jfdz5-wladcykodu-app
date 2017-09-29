@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import FaTrash from 'react-icons/lib/fa/trash'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
+import * as toastr from 'toastr'
 
 const FavImage = styled.img`
     max-width: 100%;
@@ -28,9 +29,9 @@ class FavoritesList extends React.Component {
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
       ).set(this.props.favProducts[favId] = null)
         .then(() => {
-          console.log('Removed Firebase')
-        }).catch((e) => {
-        console.log('Failed:', e)
+          toastr.success('Successfully removed from favorites !')
+        }).catch((error) => {
+        toastr.error(error.message)
       })
     }
   }

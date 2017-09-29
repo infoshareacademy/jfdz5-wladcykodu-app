@@ -1,23 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
 @keyframes App-logo-spin {
@@ -49,6 +49,7 @@
     width: auto;
     z-index: 1000;
 }
+
 body {
     background-image: url("../images/signinuppagebackground.png");
     background-repeat: no-repeat;
@@ -76,4 +77,19 @@ body {
     height: 200px;
     max-width: 100%;
     margin: auto;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active {
+    outline: 0 !important;
 }
