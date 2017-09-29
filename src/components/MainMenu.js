@@ -49,13 +49,16 @@ class MainMenu extends React.Component {
             <LinkContainer to="/userpanel">
               <NavItem>User Panel</NavItem>
             </LinkContainer>
+            <LinkContainer to="/comparision">
+              <NavItem>Comparision</NavItem>
+            </LinkContainer>
 
-            { (this.state.comparison.val !== null) ?
+{/*            { (this.state.comparison.val !== null) ?
                 <LinkContainer to="/comparision">
                   <NavItem>Comparision</NavItem>
                 </LinkContainer>
               : null
-            }
+            }*/}
 
           </Nav>
           <Nav pullRight>

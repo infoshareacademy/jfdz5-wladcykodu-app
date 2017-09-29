@@ -7,7 +7,7 @@ import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import {addFav} from '../../state/favs'
-import { add } from '../../state/comparison'
+import { add } from '../../state/comparision'
 
 class PartsList extends Component {
   state = {
@@ -30,14 +30,15 @@ class PartsList extends Component {
     }
   }
 
-  handleAddToComparision = () => {
-    this.props.addToComparision(this.state.comparison)
+  handleAddToComparision = (item) => {
+    this.props.addToComparision(this.state.comparison.push(item))
 
     this.setState({
-      comparison: ''
+      comparison: this.state.comparison.concat([item])
     })
     console.log('add to comp')
   }
+
 
 
   componentDidMount() {
@@ -104,7 +105,7 @@ class PartsList extends Component {
                                     onClick={() => this.handleAddToFav(item)}><FaStar
                                     size={20}/></Button>
                                   <Button
-                                    onClick={() => this.handleAddToComparision()}>Comparison <FaStar
+                                    onClick={() => this.handleAddToComparision(item)}>Comparison <FaStar
                                     size={20}/></Button>
                                 </Col>
                               </Row>
