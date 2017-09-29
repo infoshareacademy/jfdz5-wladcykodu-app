@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import FaTrash from 'react-icons/lib/fa/trash'
 import {connect} from 'react-redux'
+import * as firebase from 'firebase'
 
 const FavImage = styled.img`
     max-width: 100%;
@@ -16,11 +17,22 @@ const FavText = styled.p`
     color: lightblue;
 `
 
-
 class FavoritesList extends React.Component {
 
-  handleRemoveFromFav(item) {
-    // TODO : remove item from favorites (also in Firebase)
+  handleRemoveFromFav = (item) => {
+    const user = firebase.auth().currentUser
+
+    if (user) {
+      const favId = item.link.split('/').join('')
+      firebase.database().ref(
+        '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
+      ).set(this.props.favProducts[favId] = null)
+        .then(() => {
+          console.log('Removed Firebase')
+        }).catch((e) => {
+        console.log('Failed:', e)
+      })
+    }
   }
 
   render() {
@@ -41,8 +53,8 @@ class FavoritesList extends React.Component {
                   <Grid>
                     <Row>
                       <Col xs={6} md={8} className="text-center">
-                        <FavImage className="image-size" responsive src={item.part.jpg[0]}/>
-                        {/*   TODO handle case when no picture is added*/}
+                        <FavImage responsive src={item.part.jpg[0]} alt="Picture of part"/>
+                        {/*      TODO: handle when no picture in base*/}
                         <FavText>{item.part.data.name}</FavText>
                       </Col>
                       <Col xs={6} md={4}>
@@ -51,7 +63,7 @@ class FavoritesList extends React.Component {
                             <Button>Details</Button>
                           </Link>
                           <Button
-                            onClick={this.handleRemoveFromFav}><FaTrash
+                            onClick={() => this.handleRemoveFromFav(item)}><FaTrash
                             size={20}/></Button>
                         </ButtonToolbar>
                       </Col>
