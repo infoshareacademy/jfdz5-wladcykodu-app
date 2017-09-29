@@ -1,10 +1,15 @@
 import React from 'react'
+import {Grid, Row, Col} from 'react-bootstrap'
 import styled from 'styled-components'
+import FaFacebookSquare from 'react-icons/lib/fa/facebook-square'
+import FaTwitterSquare from 'react-icons/lib/fa/twitter-square'
+import FaGithubSquare from 'react-icons/lib/fa/github-square'
 
 const FooterContainer = styled.div`
-	background: grey;
-	color: white;
+	background: black;
+	color: lightgrey;
 	position: fixed;
+	font-size: 10px;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -17,28 +22,30 @@ const FooterContainer = styled.div`
 
 const Footer = () => (
   <FooterContainer>
-    <div>
-      <p>Władcy Kodu © 2017</p>
-      <img src={require('../images/facebook.svg')} alt=""/>
-      <img src={require('../images/twitter.svg')} alt=""/>
-      <img src={require('../images/github.svg')} alt=""/>
-    </div>
-    <div>
-      <h4>About us</h4>
-      <p>WWW</p>
-    </div>
-    <div>
-      <h4>For users</h4>
-      <p>FAQ</p>
-    </div>
-    <div>
-      <p>Władcy Kodu<br/>
-        Grunwaldzka Street<br/>
-        Gdansk, Poland<br/>
-        +48 777 77 77<br/>
-        support@wladcykodu.com</p>
-    </div>
-
+    <Grid>
+      <Row className="show-grid">
+        <Col xs={12} md={3}>
+          <h5>Władcy Kodu © 2017</h5>
+          <FaFacebookSquare size={30}/>
+          <FaTwitterSquare size={30}/>
+          <FaGithubSquare size={30}/>
+        </Col>
+        <Col xs={12} md={3}>
+          <h5>About us</h5>
+          <p>WWW</p>
+        </Col>
+        <Col xs={12} md={3}>
+          <h5>For users</h5>
+          <p>FAQ</p>
+        </Col>
+        <Col xs={12} md={3}>
+          <p>Władcy Kodu<br/>
+            Grunwaldzka Street, Gdansk, Poland<br/>
+            +48 777 77 77<br/>
+            support@wladcykodu.com</p>
+        </Col>
+      </Row>
+    </Grid>
   </FooterContainer>
 )
 
