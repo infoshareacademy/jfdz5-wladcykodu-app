@@ -93,3 +93,8 @@ label:focus,
 .btn.active {
     outline: 0 !important;
 }
+
+.list-group,
+.thumbnail {
+    margin-top: 2em;
+}

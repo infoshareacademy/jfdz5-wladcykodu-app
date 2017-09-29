@@ -25,12 +25,15 @@ class Part extends Component {
   handleAddToFav = () => {
     const user = firebase.auth().currentUser
     const {part, partNum} = this.props.match.params
-    this.state.partData.link = `/part/${part}/${partNum}`
+    let fav = {}
+    for (let key in this.state.partData) fav[key] = this.state.partData[key]
+    fav.link = `/part/${part}/${partNum}`
+
     if (user) {
       const favId = this.state.partData.parts[0].link.split('/').slice(-3).join('')
       firebase.database().ref(
-        '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
-      ).set((this.props.favProducts[favId] ? null : this.state.partData))
+        `/favorites/${firebase.auth().currentUser.uid}/${favId}`
+      ).set((this.props.favProducts[favId] ? null : fav))
         .then(() => {
           console.log('Added/Removed to Firebase')
         }).catch((e) => {
@@ -47,8 +50,12 @@ class Part extends Component {
 
             <Grid>
               <Col xs={12} md={4}>
-                <Image responsive src={this.state.partData.part.jpg[0]}
-                       alt="Picture of part"/>
+                {(('jpg' in this.state.partData.part) && (this.state.partData.part.jpg !== null) && (this.state.partData.part.jpg.length > 0)) ?
+                  <Image responsive src={this.state.partData.part.jpg[0]}
+                         alt="Picture of part"/>
+                  :
+                  <Image responsive src='http://via.placeholder.com/350?text=No picture available'
+                         alt="Picture of part"/>}
               </Col>
               <Col xs={12} md={4}>
                 <Row>
@@ -59,7 +66,6 @@ class Part extends Component {
                   <p><span>Number:</span> {this.state.partData.part.data.number}
                   </p>
                   <p><span>Status:</span> {this.state.partData.part.data.status}
-                    {console.log("xxx:", this.state.partData.part.properties)}
                   </p>
                   <div><p>Properties:</p>
                     {

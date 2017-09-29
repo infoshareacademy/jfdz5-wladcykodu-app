@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ListGroup, Grid, Col, Row, Button, Panel, Image, Tab, Tabs, Thumbnail} from 'react-bootstrap'
+import {ListGroup, Grid, Col, Row, Button, Panel, Tab, Tabs, Thumbnail} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as firebase from 'firebase'
 import FaStar from 'react-icons/lib/fa/star'
@@ -7,7 +7,13 @@ import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import '../App.css'
+import styled from 'styled-components'
 
+const PartImage = styled.img`
+    max-width: 100%;
+    width: 8em;
+    height: auto;
+`
 
 class PartsList extends Component {
   state = {
@@ -76,9 +82,12 @@ class PartsList extends Component {
                                   <Grid>
                                     <Row>
                                       <Col xs={6} md={4}>
-                                        <Image responsive src={item.part.jpg[0]}
-                                               alt="Picture of part"
-                                               className="img-part"/>
+                                        {(('jpg' in item.part) && (item.part.jpg !== null) && (item.part.jpg.length > 0)) ?
+                                          <PartImage responsive src={item.part.jpg[0]} alt="Picture of part"/>
+                                          :
+                                          <PartImage responsive
+                                                     src='http://via.placeholder.com/350?text=No picture available'
+                                                     alt="Picture of part"/>}
                                         <h3>{item.part.data.name}</h3>
                                       </Col>
                                       <Col xs={6} md={8}>
@@ -124,7 +133,9 @@ class PartsList extends Component {
                             (item, m) => {
                               return (
                                 <Col key={m} xs={6} md={4}>
-                                  <Thumbnail src={item.part.jpg[0]} alt="Picture of part">
+                                  <Thumbnail
+                                    src={(('jpg' in item.part) && (item.part.jpg !== null) && (item.part.jpg.length > 0)) ? item.part.jpg[0] : 'http://via.placeholder.com/350?text=No picture available'}
+                                    alt="Picture of part">
                                     <h3>{item.part.data.name}</h3>
                                     <p>Brand: <span className="text-info">{item.part.data.brand}</span>
                                     </p>

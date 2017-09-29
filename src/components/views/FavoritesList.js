@@ -26,7 +26,7 @@ class FavoritesList extends React.Component {
     if (user) {
       const favId = item.link.split('/').join('')
       firebase.database().ref(
-        '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
+        `/favorites/${firebase.auth().currentUser.uid}/${favId}`
       ).set(this.props.favProducts[favId] = null)
         .then(() => {
           toastr.success('Successfully removed from favorites !')
@@ -54,8 +54,11 @@ class FavoritesList extends React.Component {
                   <Grid>
                     <Row>
                       <Col xs={6} md={8} className="text-center">
-                        <FavImage responsive src={item.part.jpg[0]} alt="Picture of part"/>
-                        {/*      TODO: handle when no picture in base*/}
+                        {(('jpg' in item.part) && (item.part.jpg !== null) && (item.part.jpg.length > 0)) ?
+                          <FavImage responsive src={item.part.jpg[0]} alt="Picture of part"/>
+                          :
+                          <FavImage responsive src='http://via.placeholder.com/350?text=No picture available'
+                                    alt="Picture of part"/>}
                         <FavText>{item.part.data.name}</FavText>
                       </Col>
                       <Col xs={6} md={4}>
