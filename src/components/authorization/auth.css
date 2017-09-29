@@ -7,3 +7,24 @@
 .form-note {
     font-size: 0.9em;
 }
+
+.modal-container {
+    position: relative;
+}
+
+.modal-container .modal, .modal-container .modal-backdrop {
+    position: absolute;
+}
+
+#contained-modal-title {
+    color: black;
+}
+
+.modal-body {
+    color: black;
+}
+
+.modal-form{
+    width: 90%;
+    margin: auto;
+}
