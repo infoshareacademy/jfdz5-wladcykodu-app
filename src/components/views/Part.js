@@ -27,18 +27,11 @@ class Part extends Component {
     const {part, partNum} = this.props.match.params
     this.state.partData.link = `/part/${part}/${partNum}`;
     if (user) {
-      const favLink = this.state.partData.parts[0].link
-      const favId = favLink.split('/').join('')
+      const favId = this.state.partData.parts[0].link.split('/').join('')
 
       firebase.database().ref(
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
-      ).set([{
-        partData: {
-          link: `/part/${part}/${partNum}`,
-          part: this.state.partData.part,
-          parts: this.state.partData.parts
-        }
-      }])
+      ).set([this.state.partData])
         .then(() => {
           console.log('Added to Firebase')
         }).catch((e) => {

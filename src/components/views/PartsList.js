@@ -12,7 +12,7 @@ import '../App.css'
 class PartsList extends Component {
   state = {
     parts: [],
-    favorites: [],
+    //favorites: [],
     tabKey: 1
   }
 
@@ -21,13 +21,13 @@ class PartsList extends Component {
   handleAddToFav = (item) => {
     const user = firebase.auth().currentUser
 
-    this.state.favorites.push(item)
+    //this.state.favorites.push(item)
     if (user) {
       const favId = item.link.split('/').join('')
 
       firebase.database().ref(
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
-      ).set(this.state.favorites[favId] ? null : item)
+      ).set(this.props.favAdd[favId] ? null : item)
         .then(() => {
           console.log('Added to Firebase')
         }).catch((e) => {
@@ -97,10 +97,14 @@ class PartsList extends Component {
                                         <Link to={item.link}>
                                           <Button className="button-product-list">Details</Button>
                                         </Link>
-                                        <Button className="button-product-list"
+                                        <Button
+                                        active={!!this.props.favAdd[item.link.split('/').join('')]}
+                                        onClick={() => this.handleAddToFav(item)}><FaStar
+                                        size={20}/></Button>
+                                        {/*<Button className="button-product-list"
                                                 active={!!this.state.favorites[item.link.split('/').join('')]}
                                                 onClick={() => this.handleAddToFav(item)}><FaStar
-                                          size={20}/></Button>
+                                          size={20}/></Button>*/}
                                       </Col>
                                     </Row>
                                   </Grid>
