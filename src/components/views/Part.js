@@ -31,7 +31,7 @@ class Part extends Component {
 
       firebase.database().ref(
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
-      ).set([this.state.partData])
+      ).set((this.props.favProducts[favId] ? null : [this.state.partData]))
         .then(() => {
           console.log('Added to Firebase')
         }).catch((e) => {
@@ -89,8 +89,9 @@ class Part extends Component {
                 </Row>
                 <Row>
                   <Col>
-                    <Button className="button-product-list"
-                            onClick={() => this.handleAddToFav(this.state.partData)}><FaStar
+                    <Button
+                      active={!!this.props.favProducts[this.state.partData.parts[0].link.split('/').join('')]}
+                      onClick={() => this.handleAddToFav(this.state.partData)}><FaStar
                       size={20}/> Add to favorites</Button>
                   </Col>
                 </Row>
@@ -114,6 +115,6 @@ class Part extends Component {
 
 export default connect(
   state => ({
-    addToFav: state.favs.favorites
+    favProducts: state.favs.favorites
   })
 )(Part)

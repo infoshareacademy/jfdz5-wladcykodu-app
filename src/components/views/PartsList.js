@@ -12,7 +12,6 @@ import '../App.css'
 class PartsList extends Component {
   state = {
     parts: [],
-    //favorites: [],
     tabKey: 1
   }
 
@@ -21,13 +20,12 @@ class PartsList extends Component {
   handleAddToFav = (item) => {
     const user = firebase.auth().currentUser
 
-    //this.state.favorites.push(item)
     if (user) {
       const favId = item.link.split('/').join('')
 
       firebase.database().ref(
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
-      ).set(this.props.favAdd[favId] ? null : item)
+      ).set(this.props.favProducts[favId] ? null : item)
         .then(() => {
           console.log('Added to Firebase')
         }).catch((e) => {
@@ -98,13 +96,9 @@ class PartsList extends Component {
                                           <Button className="button-product-list">Details</Button>
                                         </Link>
                                         <Button
-                                        active={!!this.props.favAdd[item.link.split('/').join('')]}
-                                        onClick={() => this.handleAddToFav(item)}><FaStar
-                                        size={20}/></Button>
-                                        {/*<Button className="button-product-list"
-                                                active={!!this.state.favorites[item.link.split('/').join('')]}
-                                                onClick={() => this.handleAddToFav(item)}><FaStar
-                                          size={20}/></Button>*/}
+                                          active={!!this.props.favProducts[item.link.split('/').join('')]}
+                                          onClick={() => this.handleAddToFav(item)}><FaStar
+                                          size={20}/></Button>
                                       </Col>
                                     </Row>
                                   </Grid>
@@ -140,8 +134,9 @@ class PartsList extends Component {
                                       <Link to={item.link}>
                                         <Button className="button-product-list">Details</Button>
                                       </Link>
-                                      <Button className="button-product-list"
-                                              onClick={() => this.handleAddToFav(item)}><FaStar
+                                      <Button
+                                        active={!!this.props.favProducts[item.link.split('/').join('')]}
+                                        onClick={() => this.handleAddToFav(item)}><FaStar
                                         size={20}/></Button>
                                     </p>
                                   </Thumbnail>
@@ -167,6 +162,6 @@ class PartsList extends Component {
 
 export default connect(
   state => ({
-    favAdd: state.favs.favorites
+    favProducts: state.favs.favorites
   })
 )(PartsList)

@@ -1,7 +1,7 @@
 import {createStore, compose, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
 import auth, {authUser} from './state/user'
-import favs, {addFav}from './state/favs'
+import favs, {setFavs}from './state/favs'
 import {firebaseApp} from './firebase'
 import * as firebase from 'firebase'
 
@@ -28,7 +28,7 @@ firebaseApp.auth().onAuthStateChanged(user => {
     const user = firebase.auth().currentUser
 
     firebase.database().ref('/favorites/' + user.uid).on('value', snapshot => {
-      store.dispatch(addFav(snapshot.val() || []))
+      store.dispatch(setFavs(snapshot.val() || []))
     })
   }
 })

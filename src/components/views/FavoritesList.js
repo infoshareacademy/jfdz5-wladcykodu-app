@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import FaTrash from 'react-icons/lib/fa/trash'
 import {connect} from 'react-redux'
-import {addFav} from '../../state/favs'
 
 const FavImage = styled.img`
     max-width: 100%;
@@ -85,11 +84,8 @@ class FavoritesList extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  addToFav: (favId) => dispatch(addFav(favId))
-})
-
 export default connect(
-  null,
-  mapDispatchToProps,
+  state => ({
+    favProducts: state.favs.favorites
+  })
 )(FavoritesList)
