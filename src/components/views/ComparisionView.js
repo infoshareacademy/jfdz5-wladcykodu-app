@@ -1,36 +1,27 @@
 import React from 'react'
-import { connect } from 'react-redux'
-/*import styled from 'styled-components'
-import {Button, Row, Col, Grid, Panel, ButtonToolbar} from 'react-bootstrap'*/
+import styled from 'styled-components'
 
 
-/*const ComparisonContainer = styled.div`
+
+const ComparisionContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
-`*/
-
-class ComparisonView extends React.Component {
-  state = {
-    comparison: []
-  }
+`
 
 
-//functions
+class ComparisionView extends React.Component {
 
   render() {
     return (
-      <h3>Comparison</h3>
+        <ComparisionContainer>
+            <h3>Comparision</h3>
 
-    )
+        </ComparisionContainer>
+    );
   }
+
 }
 
-
-export default connect(
-  state => ({
-    compareParts: state.compareParts,
-    comparison: state.comparison
-  })
-)(ComparisonView)
+export default ComparisionView
