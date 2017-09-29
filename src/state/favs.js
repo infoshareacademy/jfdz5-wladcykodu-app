@@ -1,10 +1,10 @@
 // Action type
-export const ADD = 'favs/ADD'
+const SET_FAVS = 'favs/SET_FAVS'
 
 // Action creator
-export const addFav = (favId) => ({
-  type: ADD,
-  favId
+export const setFavs = favs => ({
+  type: SET_FAVS,
+  favs
 })
 
 // Initial state
@@ -13,11 +13,10 @@ const initialState = {
 }
 
 // Reducer
-export default (state = initialState, action) => {
+export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case ADD:
+    case SET_FAVS:
       return {
-        ...state,
         favorites: action.favs
       }
     default:
