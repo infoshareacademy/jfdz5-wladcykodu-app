@@ -7,11 +7,13 @@ import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import {addFav} from '../../state/favs'
+import { add } from '../../state/comparison'
 
 class PartsList extends Component {
   state = {
     parts: [],
-    favorites: []
+    favorites: [],
+    comparison: []
   }
 
   handleAddToFav = (item) => {
@@ -27,6 +29,16 @@ class PartsList extends Component {
       })
     }
   }
+
+  handleAddToComparision = () => {
+    this.props.addToComparision(this.state.comparison)
+
+    this.setState({
+      comparison: ''
+    })
+    console.log('add to comp')
+  }
+
 
   componentDidMount() {
     const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
@@ -91,6 +103,9 @@ class PartsList extends Component {
                                   <Button
                                     onClick={() => this.handleAddToFav(item)}><FaStar
                                     size={20}/></Button>
+                                  <Button
+                                    onClick={() => this.handleAddToComparision()}>Comparison <FaStar
+                                    size={20}/></Button>
                                 </Col>
                               </Row>
                             </Grid>
@@ -112,7 +127,8 @@ class PartsList extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToFav: (favId) => dispatch(addFav(favId))
+  addToFav: (favId) => dispatch(addFav(favId)),
+  addToComparision:  comparePart => dispatch(add(comparePart))
 })
 
 export default connect(
