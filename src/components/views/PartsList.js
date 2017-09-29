@@ -7,7 +7,7 @@ import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import {addFav} from '../../state/favs'
-import { add } from '../../state/comparison'
+import { add } from '../../state/comparision'
 
 class PartsList extends Component {
   state = {

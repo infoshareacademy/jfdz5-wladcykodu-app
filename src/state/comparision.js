@@ -1,24 +1,19 @@
-// Action type
-export const ADD = 'comparision/ADD'
+const ADD = 'comparison/ADD'
+export const add = comparePart => ({ type: ADD, comparePart })
 
-// Action creator
-export const addComp = (comparisionId) => ({
-  type: ADD,
-  comparisionId
-})
+const REMOVE = 'comparison/REMOVE'
+export const remove = partId => ({ type: REMOVE, partId })
 
-// Initial state
+
 const initialState = {
-  comparision: []
+  comparison: []
 }
 
-// Reducer
-export default (state = initialState, action) => {
-  switch (action.type) {
+export default (state = initialState, action = {}) => {
+  switch(action.type) {
     case ADD:
       return {
-        ...state,
-        comparision: action.comp
+        items: action.comparison
       }
     default:
       return state

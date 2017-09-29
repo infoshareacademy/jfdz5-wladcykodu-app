@@ -4,7 +4,7 @@ import persistState from 'redux-localstorage'
 import auth, {authUser} from './state/user'
 import {firebaseApp} from './firebase'
 import favs from './state/favs'
-import compareParts from './state/comparison'
+import compareParts from './state/comparision'
 
 const reducer = combineReducers({
   auth,

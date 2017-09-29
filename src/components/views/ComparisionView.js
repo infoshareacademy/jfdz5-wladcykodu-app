@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
-import {Button, Row, Col, Grid, Panel, ButtonToolbar} from 'react-bootstrap'
+/*import styled from 'styled-components'
+import {Button, Row, Col, Grid, Panel, ButtonToolbar} from 'react-bootstrap'*/
 
 
 /*const ComparisonContainer = styled.div`
