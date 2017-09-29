@@ -3,10 +3,12 @@ import thunk from 'redux-thunk'
 import auth, {authUser} from './state/user'
 import {firebaseApp} from './firebase'
 import favs from './state/favs'
+import treenodes from './state/treenodes'
 
 const reducer = combineReducers({
   auth,
-  favs
+  favs,
+  treenodes
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
