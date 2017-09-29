@@ -1,6 +1,5 @@
 import React from 'react'
 import {Button, Row, Col, Grid, Panel, ButtonToolbar} from 'react-bootstrap'
-import * as firebase from 'firebase'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import FaTrash from 'react-icons/lib/fa/trash'
@@ -17,31 +16,15 @@ const FavText = styled.p`
     color: lightblue;
 `
 
-class FavoritesList extends React.Component {
-  state = {
-    favorites: []
-  }
 
-  componentWillMount() {
-    const user = firebase.auth().currentUser
-    firebase.database().ref('/favorites').child(user.uid).once('value')
-      .then((snapshot) => {
-          console.log('Object.entries :', Object.entries(snapshot.val()))
-          console.log('Data from Firebase :', snapshot.val())
-          console.log("before", this.state.favorites)
-          this.setState({
-            favorites: Object.entries(snapshot.val())
-          })
-          console.log("after", this.state.favorites)
-        }
-      )
-  }
+class FavoritesList extends React.Component {
 
   handleRemoveFromFav(item) {
     // TODO : remove item from favorites (also in Firebase)
   }
 
   render() {
+    console.log(this.props.favProducts)
     return (
       <Grid>
         <Row className="text-center">
@@ -50,20 +33,21 @@ class FavoritesList extends React.Component {
               Your favorites:
             </h3>
           </Col>
-          {(this.state.favorites !== null) ?
-            this.state.favorites.map((item, id) => {
+          {(this.props.favProducts !== null) ?
+            Object.entries(this.props.favProducts).map(([id, item]) => {
+              console.log(id, item)
               return (
                 <Panel key={id}>
                   <Grid>
                     <Row>
                       <Col xs={6} md={8} className="text-center">
-                        <FavImage className="image-size" responsive src={item[1].part.jpg[0]}/>
+                        <FavImage className="image-size" responsive src={item.part.jpg[0]}/>
                         {/*   TODO handle case when no picture is added*/}
-                        <FavText>{item[1].part.data.name}</FavText>
+                        <FavText>{item.part.data.name}</FavText>
                       </Col>
                       <Col xs={6} md={4}>
                         <ButtonToolbar>
-                          <Link to={item[1].link}>
+                          <Link to={item.link}>
                             <Button>Details</Button>
                           </Link>
                           <Button
