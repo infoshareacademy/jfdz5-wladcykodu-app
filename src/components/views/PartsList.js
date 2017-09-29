@@ -8,6 +8,7 @@ import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import '../App.css'
 
+
 class PartsList extends Component {
   state = {
     parts: [],
@@ -22,12 +23,11 @@ class PartsList extends Component {
 
     this.state.favorites.push(item)
     if (user) {
-      const favLink = item.link
-      const favId = favLink.split('/').join('')
+      const favId = item.link.split('/').join('')
 
       firebase.database().ref(
         '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
-      ).set(this.state.favorites)
+      ).set(this.state.favorites[favId] ? null : item)
         .then(() => {
           console.log('Added to Firebase')
         }).catch((e) => {
@@ -98,6 +98,7 @@ class PartsList extends Component {
                                           <Button className="button-product-list">Details</Button>
                                         </Link>
                                         <Button className="button-product-list"
+                                                active={!!this.state.favorites[item.link.split('/').join('')]}
                                                 onClick={() => this.handleAddToFav(item)}><FaStar
                                           size={20}/></Button>
                                       </Col>
@@ -162,6 +163,6 @@ class PartsList extends Component {
 
 export default connect(
   state => ({
-    addToFav: state.favs.favorites
+    favAdd: state.favs.favorites
   })
 )(PartsList)

@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
+import * as firebase from 'firebase'
 import {Grid, Row, Col, Image, Button} from 'react-bootstrap'
 import {API_URL} from '../App'
 import FaStar from 'react-icons/lib/fa/star'
+import {connect} from 'react-redux'
 
 class Part extends Component {
 
@@ -18,6 +20,31 @@ class Part extends Component {
         const partData = res.data
         this.setState({partData})
       })
+  }
+
+  handleAddToFav = () => {
+    const user = firebase.auth().currentUser
+    const {part, partNum} = this.props.match.params
+    this.state.partData.link = `/part/${part}/${partNum}`;
+    if (user) {
+      const favLink = this.state.partData.parts[0].link
+      const favId = favLink.split('/').join('')
+
+      firebase.database().ref(
+        '/favorites/' + firebase.auth().currentUser.uid + '/' + favId
+      ).set([{
+        partData: {
+          link: `/part/${part}/${partNum}`,
+          part: this.state.partData.part,
+          parts: this.state.partData.parts
+        }
+      }])
+        .then(() => {
+          console.log('Added to Firebase')
+        }).catch((e) => {
+        console.log('Failed:', e)
+      })
+    }
   }
 
   render() {
@@ -69,7 +96,9 @@ class Part extends Component {
                 </Row>
                 <Row>
                   <Col>
-                    <Button><FaStar size={20}/> Add to favorites</Button>
+                    <Button className="button-product-list"
+                            onClick={() => this.handleAddToFav(this.state.partData)}><FaStar
+                      size={20}/> Add to favorites</Button>
                   </Col>
                 </Row>
               </Col>
@@ -90,4 +119,8 @@ class Part extends Component {
   }
 }
 
-export default Part
+export default connect(
+  state => ({
+    addToFav: state.favs.favorites
+  })
+)(Part)
