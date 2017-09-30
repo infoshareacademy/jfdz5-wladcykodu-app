@@ -1,14 +1,15 @@
 import React from 'react'
-import {Form, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
+import {Form, FormGroup, FormControl, ControlLabel, Button, Grid, Row, Col} from 'react-bootstrap'
 import styled from 'styled-components'
 import * as firebase from 'firebase'
+import * as toastr from 'toastr'
 
 
 const UserFormsContainer = styled.div`
-	display: flex;
+/*	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	align-items: center;
+	align-items: center;*/
 `
 
 
@@ -40,10 +41,10 @@ class UserPanelView extends React.Component {
 
     user.updatePassword(newPassword).then(function () {
       if (newPassword === confirmPassword) {
-        return console.log("ok")
+        toastr.success('Successfully changed password')
       }
     }).catch(function (error) {
-      return console.log(error)
+      toastr.error(error.message)
     })
 
   }
@@ -68,70 +69,84 @@ class UserPanelView extends React.Component {
 
     user.updateEmail(newEmail).then(function () {
       if (newEmail === confirmNewEmail) {
-        return console.log("ok")
+        toastr.success('Successfully changed e-mail!')
       }
     }).catch(function (error) {
-      return console.log(error)
+      toastr.error(error.message)
     })
-
   }
+
+  removeAccount = () => {
+    const user = firebase.auth().currentUser
+    user.delete().then(function () {
+      toastr.success('Your account has been deleted!')
+    }).catch(function (error) {
+      toastr.error(error.message)
+    });
+  }
+
 
   render() {
     return (
-      <div>
+      <UserFormsContainer>
         <h1>User Panel</h1>
-        <UserFormsContainer>
 
-          <div>
-            <h3>Change password</h3>
-            <Form horizontal>
-              <FormGroup controlId="formInlinePassword">
-                <ControlLabel>New password</ControlLabel>
+        <Grid>
+          <Row>
+            <Col xs="12" md="6" className="user-form">
+              <h3>Change password</h3>
+              <Form horizontal>
+                <FormGroup controlId="formInlinePassword">
+                  <ControlLabel>New password</ControlLabel>
+                  {' '}
+                  <FormControl id="formInlinePassword" type="password" onChange={this.handlePasswordChange}
+                               placeholder="********"/>
+                </FormGroup>
                 {' '}
-                <FormControl id="formInlinePassword" type="password" onChange={this.handlePasswordChange}
-                             placeholder="********"/>
-              </FormGroup>
-              {' '}
-              <FormGroup controlId="formInlineConfirmPassword">
-                <ControlLabel>Confirm new password</ControlLabel>
+                <FormGroup controlId="formInlineConfirmPassword">
+                  <ControlLabel>Confirm new password</ControlLabel>
+                  {' '}
+                  <FormControl id="formInlineConfirmPassword" type="password" onChange={this.handleConfirmPasswordChange}
+                               placeholder="********"/>
+                </FormGroup>
                 {' '}
-                <FormControl id="formInlineConfirmPassword" type="text" onChange={this.handleConfirmPasswordChange}
-                             placeholder="********"/>
-              </FormGroup>
-              {' '}
-              <Button id="change-password-button" onClick={this.changeUserPassword} type="submit"
-                      bsStyle="success">
-                Save
+                <Button id="change-password-button" onClick={this.changeUserPassword} type="submit"
+                        bsStyle="success">
+                  Save
+                </Button>
+              </Form>
+            </Col>
+            <Col xs="12" md="6" className="user-form">
+              <h3>Change e-mail</h3>
+              <Form horizontal>
+                <FormGroup controlId="formInlineNewMail">
+                  <ControlLabel>New e-mail</ControlLabel>
+                  {' '}
+                  <FormControl id="formInlineNewMail" type="email" onChange={this.handleEmailChange}
+                               placeholder="jane@example.com"/>
+                </FormGroup>
+                {' '}
+                <FormGroup controlId="formInlineConfirmEmail">
+                  <ControlLabel>Confirm new e-mail</ControlLabel>
+                  {' '}
+                  <FormControl id="formInlineConfirmEmail" type="email" onChange={this.handleConfirmEmailChange}
+                               placeholder="jane.doe@example.com"/>
+                </FormGroup>
+                {' '}
+                <Button type="submit" onClick={this.changeUserMail} bsStyle="success">
+                  Save
+                </Button>
+              </Form>
+            </Col>
+            <Col xs="12">
+              <Button type="submit" onClick={this.removeAccount} bsStyle="danger">
+                Delete your account
               </Button>
-            </Form>
-          </div>
+            </Col>
+          </Row>
+        </Grid>
 
-
-          <div>
-            <h3>Change e-mail</h3>
-            <Form horizontal>
-              <FormGroup controlId="formInlineNewMail">
-                <ControlLabel>New e-mail</ControlLabel>
-                {' '}
-                <FormControl id="formInlineNewMail" type="email" onChange={this.handleEmailChange}
-                             placeholder="jane@example.com"/>
-              </FormGroup>
-              {' '}
-              <FormGroup controlId="formInlineConfirmEmail">
-                <ControlLabel>Confirm new e-mail</ControlLabel>
-                {' '}
-                <FormControl id="formInlineConfirmEmail" type="email" onChange={this.handleConfirmEmailChange}
-                             placeholder="jane.doe@example.com"/>
-              </FormGroup>
-              {' '}
-              <Button type="submit" onClick={this.changeUserMail} bsStyle="success">
-                Save
-              </Button>
-            </Form>
-          </div>
-
-        </UserFormsContainer>
-      </div>
+      </UserFormsContainer>
     );
   }
 

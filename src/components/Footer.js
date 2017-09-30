@@ -19,8 +19,42 @@ const FooterContainer = styled.div`
 	align-items: center;
 `
 
+class Footer extends React.Component {
 
-const Footer = () => (
+  render() {
+    return (
+      <FooterContainer>
+        <Grid>
+          <Row className="show-grid">
+            <Col xs={12} md={3}>
+              <h5>Władcy Kodu © 2017</h5>
+              <FaFacebookSquare size={30}/>
+              <FaTwitterSquare size={30}/>
+              <FaGithubSquare size={30}/>
+            </Col>
+            <Col xs={12} md={3}>
+              <h5>About us</h5>
+              <p>WWW</p>
+            </Col>
+            <Col xs={12} md={3}>
+              <h5>For users</h5>
+              <p>FAQ</p>
+            </Col>
+            <Col xs={12} md={3}>
+              <p>Władcy Kodu<br/>
+                Grunwaldzka Street, Gdansk, Poland<br/>
+                +48 777 77 77<br/>
+                support@wladcykodu.com</p>
+            </Col>
+          </Row>
+        </Grid>
+      </FooterContainer>
+    )
+  }
+}
+
+/*const Footer = () => (
+
   <FooterContainer>
     <Grid>
       <Row className="show-grid">
@@ -47,7 +81,7 @@ const Footer = () => (
       </Row>
     </Grid>
   </FooterContainer>
-)
+)*/
 
 
 export default Footer

@@ -74,7 +74,4 @@ class MainMenu extends React.Component {
   }
 }
 
-
-export default connect(
-  null
-)(MainMenu)
+export default MainMenu
