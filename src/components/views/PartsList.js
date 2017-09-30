@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {ListGroup, Grid, Col, Row, Button, Panel, Image} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as firebase from 'firebase'
-import FaStar from 'react-icons/lib/fa/star'
+import {FaStar, FaPlusCircle} from 'react-icons/lib/fa'
 import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
@@ -104,8 +104,9 @@ class PartsList extends Component {
                                   <Button
                                     onClick={() => this.handleAddToFav(item)}><FaStar
                                     size={20}/></Button>
+                                  {' '}
                                   <Button
-                                    onClick={() => this.handleAddToComparision(item)}>Comparison <FaStar
+                                    onClick={() => this.handleAddToComparision(item)}>Comparison <FaPlusCircle
                                     size={20}/></Button>
                                 </Col>
                               </Row>
