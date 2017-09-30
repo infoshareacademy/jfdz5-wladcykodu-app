@@ -1,5 +1,14 @@
 import React, {Component} from 'react'
-import {Form, FormGroup, FormControl, Col, Button, ButtonToolbar, InputGroup} from 'react-bootstrap'
+import {
+  Form,
+  FormGroup,
+  FormControl,
+  InputGroup,
+  Col,
+  Button,
+  ButtonToolbar,
+  Modal,
+} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
@@ -16,17 +25,15 @@ const providerForGoogle = new firebase.auth.GoogleAuthProvider()
 
 class SignIn extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: '',
-      error: {
-        message: ''
-      },
-      type: 'password'
-    }
-    this.showOrHide = this.showOrHide.bind(this)
+  state = {
+    email: '',
+    password: '',
+    error: {
+      message: ''
+    },
+    type: 'password',
+    show: false,
+    emailForSendPassword: ''
   }
 
   facebookLoginHandler = (event) => {
@@ -73,6 +80,19 @@ class SignIn extends Component {
     })
   }
 
+  resetPasswordHandler = (event) => {
+    event.preventDefault();
+    const {emailForSendPassword} = this.state
+
+    firebase.auth().sendPasswordResetEmail(emailForSendPassword)
+      .then(() => {
+        toastr.success('Check your e-mail for the confirmation link!')
+      }).catch(error => {
+      this.setState({error})
+      toastr.error(error.message)
+    })
+  }
+
   showOrHide() {
     this.setState({
       type: this.state.type === 'password' ? 'input' : 'password'
@@ -80,6 +100,8 @@ class SignIn extends Component {
   }
 
   render() {
+    let close = () => this.setState({show: false});
+
     return (
       <div>
         <h1>Sign In form</h1>
@@ -117,7 +139,7 @@ class SignIn extends Component {
                              className="login-form-control" required/>
                 <InputGroup.Button>
                   <Button
-                    onClick={this.showOrHide}>{this.state.type === 'input' ?
+                    onClick={() => this.showOrHide()}>{this.state.type === 'input' ?
                     <FaEyeSlash size={18}/> : <FaEye size={18}/>}</Button>
                 </InputGroup.Button>
               </InputGroup>
@@ -143,6 +165,46 @@ class SignIn extends Component {
             <div>{this.state.error.message}</div>
           </Col>
         </Form>
+        <div className="modal-container" style={{height: 200}}>
+          <Button
+            className="login-btn"
+            bsSize="xsmall"
+            onClick={() => this.setState({show: true})}
+          >
+            Forgot Password?
+          </Button>
+
+          <Modal
+            show={this.state.show}
+            onHide={close}
+            container={this}
+            aria-labelledby="contained-modal-title"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title">Forgot Password?</Modal.Title>
+            </Modal.Header>
+            <Form horizontal onSubmit={this.resetPasswordHandler}>
+              <Modal.Body className="modal-body">
+                <p>Please enter your email to reset password for your account.</p>
+                <FormGroup controlId="formHorizontalEmailReset" onChange={this.handleChange}>
+                  <Col>
+                    <FormControl
+                      type="email"
+                      placeholder="E-mail"
+                      value={this.state.emailForSendPassword}
+                      autoComplete="emailForSendPassword"
+                      name="emailForSendPassword"
+                      className="login-form-control modal-form" required/>
+                  </Col>
+                </FormGroup>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button type="submit">Send</Button>
+                <Button onClick={close}>Cancel</Button>
+              </Modal.Footer>
+            </Form>
+          </Modal>
+        </div>
       </div>
     )
   }
