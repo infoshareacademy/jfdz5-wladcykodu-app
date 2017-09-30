@@ -199,7 +199,7 @@ class SignIn extends Component {
                 </FormGroup>
               </Modal.Body>
               <Modal.Footer>
-                <Button type="submit">Send</Button>
+                <Button type="submit" onClick={close}>Send</Button>
                 <Button onClick={close}>Cancel</Button>
               </Modal.Footer>
             </Form>

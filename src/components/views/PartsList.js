@@ -11,8 +11,7 @@ import styled from 'styled-components'
 
 const PartImage = styled.img`
     max-width: 100%;
-    width: 8em;
-    height: auto;
+    height: 5em;
 `
 
 class PartsList extends Component {

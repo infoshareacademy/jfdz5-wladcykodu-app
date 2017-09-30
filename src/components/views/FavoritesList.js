@@ -9,8 +9,7 @@ import * as toastr from 'toastr'
 
 const FavImage = styled.img`
     max-width: 100%;
-    width: 8em;
-    height: auto;
+    height: 5em;
 `
 const FavText = styled.p`
     font-weight: bold;

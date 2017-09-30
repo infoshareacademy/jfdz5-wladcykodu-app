@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import * as firebase from 'firebase'
-import {Grid, Row, Col, Image, Button} from 'react-bootstrap'
+import {Grid, Row, Col, Image, Button, Thumbnail} from 'react-bootstrap'
 import {API_URL} from '../App'
 import FaStar from 'react-icons/lib/fa/star'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class Part extends Component {
 
@@ -11,15 +12,20 @@ class Part extends Component {
     partData: null
   }
 
-  componentDidMount() {
-    const {part, partNum} = this.props.match.params
-
+  fetchPartData(part, partNum) {
     fetch(`${API_URL}/api/v2/part/${part}/${partNum}`)
       .then(result => result.json())
       .then(res => {
         const partData = res.data
         this.setState({partData})
+        window.scrollTo(0, 0)
       })
+  }
+
+  componentDidMount() {
+    const {part, partNum} = this.props.match.params
+
+    this.fetchPartData(part, partNum)
   }
 
   handleAddToFav = () => {
@@ -69,7 +75,7 @@ class Part extends Component {
                   </p>
                   <div><p>Properties:</p>
                     {
-                      this.state.partData.part.properties.length ?
+                      (('properties' in this.state.partData.part) && (this.state.partData.part.properties !== null) && (this.state.partData.part.properties.length)) ?
                         this.state.partData.part.properties.map(
                           (item, m) => {
                             return (
@@ -106,10 +112,10 @@ class Part extends Component {
                 </Row>
               </Col>
               <Col xs={12} md={4}>
-                <Row>
+                <Row>{console.log(this.state.partData.part)}{console.log(this.state.partData.parts[0].name)}
                   <h5>More info:</h5>
                   {
-                    this.state.partData.part.more_info.length ?
+                    (('more_info' in this.state.partData.part) && (this.state.partData.part.more_info !== null) && (this.state.partData.part.more_info.length)) ?
                       this.state.partData.part.more_info.map(
                         (item, m) => {
                           return (
@@ -126,8 +132,52 @@ class Part extends Component {
                   }
                 </Row>
               </Col>
+
             </Grid>
+
         }
+
+        {
+          this.state.partData === null ? <p>Loading…</p> :
+            <Grid>
+              <Col xs={12} md={12}>
+                <Row>
+                  <h3 className="more-info-title">More matching products that might interest you:</h3>
+                  {
+                    this.state.partData.parts.length ?
+                      this.state.partData.parts.slice(1, this.state.partData.parts.length).map(
+                        (item, m) => {
+                          return (
+                            <Col key={m} xs={6} md={3}>
+                              <Thumbnail className="thumbnail-2"
+                                         src={(('jpg' in this.state.partData.part) && (this.state.partData.part.jpg !== null) && (this.state.partData.part.jpg.length > 0)) ? this.state.partData.part.jpg[0] : 'http://via.placeholder.com/350?text=Select this part'}
+                                         alt="Picture of part">
+                                <h5>{item.name}</h5>
+                                <p>Brand: <span className="text-info">{item.brand}</span>
+                                </p>
+                                <p>Number: <span className="text-info">{item.number}</span>
+                                </p>
+                                <p>Status:
+                                  <span className="text-warning"
+                                        style={{"fontWeight": "bold"}}>{item.status}</span>
+                                </p>
+
+                                <Link to={`/${item.link.split('/').slice(-3).join('/')}/#`}>
+                                  <Button
+                                    onClick={() => this.fetchPartData(item.link.split('/').slice(-2)[0], item.link.split('/').slice(-2)[1])}
+                                    className="button-product-list">Details</Button>
+                                </Link>
+
+                              </Thumbnail>
+                            </Col>
+                          )
+                        })
+                      :
+                      <p>No similar products...</p>
+                  }
+                </Row>
+              </Col>
+            </Grid>}
       </div>
     )
   }
