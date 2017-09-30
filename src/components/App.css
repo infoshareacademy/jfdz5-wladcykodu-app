@@ -120,3 +120,14 @@ label:focus,
 .more-info-title {
     margin-top: 4em;
 }
+
+.page-num {
+    list-style: none;
+    display: flex;
+}
+
+.page-num > li {
+    user-select: none;
+    cursor: pointer;
+    margin-right: 0.5em;
+}

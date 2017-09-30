@@ -15,9 +15,12 @@ const PartImage = styled.img`
 `
 
 class PartsList extends Component {
+
   state = {
     parts: [],
-    tabKey: 1
+    tabKey: 1,
+    currentPage: 1,
+    partsPerPage: 10
   }
 
   handleTabChange = key => this.setState({tabKey: key})
@@ -41,31 +44,53 @@ class PartsList extends Component {
 
   componentDidMount() {
     const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
+    this.setState({isLoading: true});
 
     fetch(`${API_URL}/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
 
       .then(result => result.json())
       .then(res => {
         const parts = res.data
-        parts.forEach((item) => {
-          fetch(`${API_URL}${item.link}`)
+        return Promise.all(parts.map((item) => {
+          return fetch(`${API_URL}${item.link}`)
             .then(result => result.json())
             .then(
               res => {
                 res.data.link = "/part/" + item.link.split("/").slice(-2).join("/")
                 this.setState({
-                  parts: [res.data].concat(this.state.parts)
+                  parts: [res.data].concat(this.state.parts),
                 })
-              }
-            )
-        })
+              })
+        }))
       })
+      .then(() => this.setState({
+        isLoading: false
+      }))
+      .catch(error => this.setState({
+          isLoading: false
+        })
+      )
+  }
+
+  handleClick(event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    })
   }
 
   render() {
+    const {parts, currentPage, partsPerPage} = this.state
+    const indexOfLastPart = currentPage * partsPerPage
+    const indexOfFirstPart = indexOfLastPart - partsPerPage
+    const pageNumbers = []
+    for (let i = 1; i <= Math.ceil(parts.length / partsPerPage); i++) {
+      pageNumbers.push(i)
+    }
+
     return (
       <div>
         <Grid>
+          <p>{this.state.isLoading ? "LOADING" : "NOT LOADING"}</p>
           <Col style={{textAlign: "center"}}>
             <div>
               <Tabs activeKey={this.state.tabKey} id="tab" onSelect={this.handleTabChange}>
@@ -73,7 +98,7 @@ class PartsList extends Component {
                   <ListGroup>
                     {
                       this.state.parts.length ?
-                        this.state.parts.map(
+                        this.state.parts.slice(indexOfFirstPart, indexOfLastPart).map(
                           (item, m) => {
                             return (
                               <div key={m}>
@@ -169,6 +194,15 @@ class PartsList extends Component {
 
           </Col>
         </Grid>
+        <ul className="page-num">
+          {pageNumbers.map(number => {
+            return (
+              <li key={number} id={number} onClick={this.handleClick.bind(this)}>
+                {number}
+              </li>
+            )
+          })}
+        </ul>
       </div>
     )
   }
