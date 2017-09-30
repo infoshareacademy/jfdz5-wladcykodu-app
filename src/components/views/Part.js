@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import * as firebase from 'firebase'
-import {Grid, Row, Col, Image, Button, Thumbnail} from 'react-bootstrap'
+import {Grid, Row, Col, Image, Button} from 'react-bootstrap'
 import {API_URL} from '../App'
 import FaStar from 'react-icons/lib/fa/star'
 import {connect} from 'react-redux'
@@ -149,10 +149,8 @@ class Part extends Component {
                         (item, m) => {
                           return (
                             <Col key={m} xs={6} md={3}>
-                              <Thumbnail className="thumbnail-2"
-                                         src={(('jpg' in this.state.partData.part) && (this.state.partData.part.jpg !== null) && (this.state.partData.part.jpg.length > 0)) ? this.state.partData.part.jpg[0] : 'http://via.placeholder.com/350?text=Select this part'}
-                                         alt="Picture of part">
-                                <h5>{item.name}</h5>
+                              <div className="thumbnail-2">
+                                <h4>{item.name}</h4>
                                 <p>Brand: <span className="text-info">{item.brand}</span>
                                 </p>
                                 <p>Number: <span className="text-info">{item.number}</span>
@@ -168,7 +166,7 @@ class Part extends Component {
                                     className="button-product-list">Details</Button>
                                 </Link>
 
-                              </Thumbnail>
+                              </div>
                             </Col>
                           )
                         })

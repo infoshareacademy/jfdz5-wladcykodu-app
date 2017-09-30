@@ -8,6 +8,7 @@ import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import '../App.css'
 import styled from 'styled-components'
+import Spinner from 'react-spinner'
 
 const PartImage = styled.img`
     max-width: 100%;
@@ -90,7 +91,8 @@ class PartsList extends Component {
     return (
       <div>
         <Grid>
-          <p>{this.state.isLoading ? "LOADING" : "NOT LOADING"}</p>
+          <p>{this.state.isLoading ? <Spinner /> : "NOT LOADING"}</p>
+          <div>{this.state.isLoading ? "LOADING" : "NOT LOADING"}</div>
           <Col style={{textAlign: "center"}}>
             <div>
               <Tabs activeKey={this.state.tabKey} id="tab" onSelect={this.handleTabChange}>

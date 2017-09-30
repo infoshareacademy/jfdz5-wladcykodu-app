@@ -21,8 +21,12 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .sign-in-up {
@@ -101,6 +105,16 @@ label:focus,
 
 .thumbnail-2 {
     margin: 1em 1.5em 0.5em;
+    display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border .2s ease-in-out;
+    height: 12em;
+    width: 12em;
 }
 
 .thumbnail-2 p {
@@ -130,4 +144,52 @@ label:focus,
     user-select: none;
     cursor: pointer;
     margin-right: 0.5em;
+}
+
+.react-spinner {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    left: 50%;
+}
+
+.react-spinner_bar {
+    -webkit-animation: react-spinner_spin 1.2s linear infinite;
+    -moz-animation: react-spinner_spin 1.2s linear infinite;
+    animation: react-spinner_spin 1.2s linear infinite;
+    border-radius: 5px;
+    background-color: white;
+    position: absolute;
+    width: 40%;
+    height: 20%;
+    top: -3.9%;
+    left: -10%;
+}
+
+@keyframes react-spinner_spin {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.15;
+    }
+}
+
+@-moz-keyframes react-spinner_spin {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.15;
+    }
+}
+
+@-webkit-keyframes react-spinner_spin {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.15;
+    }
 }
