@@ -2,16 +2,16 @@
 export const SET = 'tree/SET'
 
 // Action creator
-export const setTreeNode = (node, level, position) => ({
+export const setTreeNode = (level, node, parentPosition) => ({
     type: SET,
-    node,
     level,
-    position
+    node,
+    parentPosition
 })
 
 // Initial state
 const initialState = {
-    tree: [],
+    dataNodes: [],
     positions: []
 }
 
@@ -21,17 +21,17 @@ export default (state = initialState, action) => {
         case SET:
             return {
                 ...state,
-                tree: action.level > 0 && state.tree.length >= action.level
-                    ? state.tree.slice(0, action.level).concat([action.node])
+                dataNodes: action.level > 0 && state.dataNodes.length >= action.level
+                    ? state.dataNodes.slice(0, action.level).concat(action.node)
                     : ( action.level === 0
                         ? [action.node]
-                        : state.tree ),
+                        : state.dataNodes ),
                 positions: action.level > 0 && state.positions.length >= action.level
                     ? state.positions.slice(0, action.level - 1)
-                        .concat([
-                            action.position || state.positions[action.level - 1],
+                        .concat(
+                            action.parentPosition || state.positions[action.level - 1],
                             0
-                        ])
+                        )
                     : ( action.level === 0
                         ? [0]
                         : state.positions )

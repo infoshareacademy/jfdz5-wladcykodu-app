@@ -38,6 +38,9 @@ class MainMenu extends React.Component {
             <LinkContainer exact to="/">
               <NavItem>Home</NavItem>
             </LinkContainer>
+            <LinkContainer exact to="/makes">
+              <NavItem>Makes</NavItem>
+            </LinkContainer>
             <LinkContainer to="/favorites">
               <NavItem>Favorites</NavItem>
             </LinkContainer>
