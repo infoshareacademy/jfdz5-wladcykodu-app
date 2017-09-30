@@ -1,6 +1,7 @@
 import React from 'react'
 import {Form, FormGroup, FormControl, ControlLabel, Button, Grid, Row, Col} from 'react-bootstrap'
 import styled from 'styled-components'
+import './UserPanelView.css'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
 
@@ -89,8 +90,6 @@ class UserPanelView extends React.Component {
   render() {
     return (
       <UserFormsContainer>
-        <h1>User Panel</h1>
-
         <Grid>
           <Row>
             <Col xs="12" md="6" className="user-form">
@@ -106,7 +105,8 @@ class UserPanelView extends React.Component {
                 <FormGroup controlId="formInlineConfirmPassword">
                   <ControlLabel>Confirm new password</ControlLabel>
                   {' '}
-                  <FormControl id="formInlineConfirmPassword" type="password" onChange={this.handleConfirmPasswordChange}
+                  <FormControl id="formInlineConfirmPassword" type="password"
+                               onChange={this.handleConfirmPasswordChange}
                                placeholder="********"/>
                 </FormGroup>
                 {' '}
@@ -138,9 +138,10 @@ class UserPanelView extends React.Component {
                 </Button>
               </Form>
             </Col>
-            <Col xs="12">
+            <Col xs="12" className="delete-account">
+              <h5>Do you want delete your account? Think carefully.</h5>
               <Button type="submit" onClick={this.removeAccount} bsStyle="danger">
-                Delete your account
+                Delete account
               </Button>
             </Col>
           </Row>

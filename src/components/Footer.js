@@ -8,8 +8,9 @@ import FaGithubSquare from 'react-icons/lib/fa/github-square'
 const FooterContainer = styled.div`
 	background: black;
 	color: lightgrey;
-	position: fixed;
 	font-size: 10px;
+	padding: 25px;
+	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;

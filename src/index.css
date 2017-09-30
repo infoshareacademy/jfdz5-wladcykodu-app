@@ -8,20 +8,13 @@ body {
     min-height: 100vh;
 }
 
-a img {
-    height: 100%;
-    width: auto;
-    z-index: 1000;
-}
-
 .navbar-inverse {
     background: black;
 }
 
-.navbar-brand {
-/*      padding: 0;
-      height: 5%;*/
-    color: lightgrey;
-    padding: 0;
-
+.navbar-brand > img {
+    display: inline-block;
+    height: 50%;
+    width: auto;
+    z-index: 1000;
 }

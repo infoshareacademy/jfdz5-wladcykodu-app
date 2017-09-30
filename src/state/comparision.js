@@ -1,6 +1,6 @@
 const ADD = 'comparison/ADD'
 
-export const add = comparePart => ({ type: ADD, comparePart })
+export const add = compareParts => ({ type: ADD, compareParts })
 
 /*
 const REMOVE = 'comparison/REMOVE'
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case ADD:
       return {
         ...state,
-        comparison: action.comparison
+        comparison: [...state.comparison, action.compareParts]
       }
     default:
       return state

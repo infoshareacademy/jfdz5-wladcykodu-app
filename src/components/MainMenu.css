@@ -1,0 +1,51 @@
+.navbar-brand {
+    padding: 0;
+}
+
+
+.brand-name {
+    height: 20px;
+}
+
+.brand-logo {
+    height: 50px;
+}
+
+img.active {
+    height: 150px;
+}
+
+
+.navbar {
+    margin: 0;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.nav > .dropdown.hidden-on-mobile {
+    display: flex;
+}
+
+.nav > li.hidden-on-mobile {
+    display: none;
+}
+
+
+@media screen and (max-width: 990px) {
+    .nav > li.hidden-on-mobile {
+        display: flex;
+    }
+
+    .nav > .dropdown.hidden-on-mobile {
+        display: none;
+    }
+}
+
+ul.dropdown-menu {
+    background-color: black;
+    border: 1px solid grey;
+}
+
+.sign-out {
+    background-color: red;
+}

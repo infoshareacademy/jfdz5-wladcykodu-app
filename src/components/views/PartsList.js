@@ -43,7 +43,8 @@ class PartsList extends Component {
   }
 
   handleAddToComparision = (item) => {
-    this.props.addToComparision(this.state.comparison.push(item))
+    this.state.comparison.push(item);
+    this.props.addToComparision(item);
 
     this.setState({
       comparison: this.state.comparison.concat([item])
