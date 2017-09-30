@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
-import {setTreeNode} from '../../state/tree'
+import {setTreeNode, truncateTree} from '../../state/tree'
 import testNodes from '../../data/testdata.json'
 
 class PartsView extends Component {
@@ -54,6 +54,7 @@ class PartsView extends Component {
       this.fetchData(`${API_URL}${url}`, newLevel, inputPosition)
     } else {
       // tree/TRUNCATE, newLevel
+      this.props.trucateTree(newLevel)
     }
 
 
@@ -172,7 +173,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setTree: (level, node, parentPosition) => dispatch(setTreeNode(level, node, parentPosition))
+  setTree: (level, node, parentPosition) => dispatch(setTreeNode(level, node, parentPosition)),
+  trucateTree: (level) => dispatch(truncateTree(level))
 })
 
 export default connect(

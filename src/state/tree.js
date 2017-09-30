@@ -9,6 +9,17 @@ export const setTreeNode = (level, node, parentPosition) => ({
     parentPosition
 })
 
+
+// Action type
+export const TRUNCATE = 'tree/TRUNCATE'
+
+// Action creator
+export const truncateTree = (level) => ({
+  type: TRUNCATE,
+  level
+})
+
+
 // Initial state
 const initialState = {
     dataNodes: [],
@@ -36,6 +47,12 @@ export default (state = initialState, action) => {
                         ? [0]
                         : state.positions )
             }
+      case TRUNCATE:
+        return {
+          ...state,
+          dataNodes: state.dataNodes.slice(0, action.level),
+          positions: state.positions.slice(0, action.level)
+        }
         default:
             return state
     }
