@@ -5,7 +5,7 @@ import auth, {authUser} from './state/user'
 import favs, {setFavs}from './state/favs'
 import {firebaseApp} from './firebase'
 import * as firebase from 'firebase'
-import compareParts from './state/comparision'
+import compareParts from './state/comparison'
 
 const reducer = combineReducers({
   auth,

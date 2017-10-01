@@ -9,7 +9,7 @@ import * as firebase from 'firebase'
 import * as toastr from 'toastr'
 import './App.css'
 import FaUser from 'react-icons/lib/fa/user'
-import { add } from '../state/comparision'
+import { add } from '../state/comparison'
 
 const MenuCntainer = styled.div`
 	background: black;
@@ -110,7 +110,7 @@ class MainMenu extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToComparision:  comparePart => dispatch(add(comparePart))
+  addToComparison:  comparePart => dispatch(add(comparePart))
 })
 
 export default connect(

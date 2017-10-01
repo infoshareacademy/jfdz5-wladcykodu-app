@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 import {ListGroup, Grid, Col, Row, Button, Panel, Tab, Tabs, Thumbnail} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as firebase from 'firebase'
+import * as toastr from 'toastr'
 import {FaStar, FaPlusCircle} from 'react-icons/lib/fa'
 import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import '../App.css'
-import { add } from '../../state/comparision'
+import { add } from '../../state/comparison'
 import styled from 'styled-components'
 
 const PartImage = styled.img`
@@ -42,14 +43,23 @@ class PartsList extends Component {
     }
   }
 
-  handleAddToComparision = (item) => {
-    this.state.comparison.push(item);
-    this.props.addToComparision(item);
+  handleAddToComparison = (item) => {
+    console.log(item)
 
-    this.setState({
-      comparison: this.state.comparison.concat([item])
-    })
-    console.log('add to comp')
+      if(this.state.comparison.length < 3) {
+        this.state.comparison.push(item);
+        this.props.addToComparison(item);
+        this.setState({
+          comparison: this.state.comparison.concat([item])
+        })
+        toastr.success('Successfully add to comparison!')
+        console.log('add to comp')
+      } else {
+        toastr.error('You are already comparing the maximum number of parts.')
+      }
+      console.log(this.state.comparison)
+    console.log(this.state.comparison.length)
+
   }
 
 
@@ -127,7 +137,7 @@ class PartsList extends Component {
                                           }
                                         </Button>
                                         <Button
-                                          onClick={() => this.handleAddToComparision(item)}>Comparison <FaPlusCircle
+                                          onClick={() => this.handleAddToComparison(item)}>Comparison <FaPlusCircle
                                           size={20}/></Button>
                                       </Col>
                                     </Row>
@@ -171,7 +181,7 @@ class PartsList extends Component {
                                         onClick={() => this.handleAddToFav(item)}><FaStar
                                         size={20}/></Button>
                                       <Button
-                                        onClick={() => this.handleAddToComparision(item)}>Comparison <FaPlusCircle
+                                        onClick={() => this.handleAddToComparison(item)}>Comparison <FaPlusCircle
                                         size={20}/></Button>
                                     </p>
                                   </Thumbnail>
@@ -196,7 +206,7 @@ class PartsList extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToComparision:  comparePart => dispatch(add(comparePart))
+  addToComparison:  comparePart => dispatch(add(comparePart))
 })
 
 export default connect(
