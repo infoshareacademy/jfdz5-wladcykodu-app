@@ -7,6 +7,7 @@ import testNodes from '../../data/testdata.json'
 import PartsList from './PartsList'
 import { withRouter} from 'react-router-dom'
 import * as firebase from 'firebase'
+import './PartsView.css'
 
 class PartsView extends Component {
 
@@ -129,7 +130,7 @@ class PartsView extends Component {
     return (
       <div>
         <div className="hello">
-          <h3>Hello {this.getUserName()}! What are you looking for?</h3>
+          <h3>Hello <span className="user">{this.getUserName()}</span> ! What are you looking for?</h3>
           <h4>Start your search by entering car brand:</h4>
         </div>
         {dataNodes.map(
