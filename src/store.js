@@ -4,10 +4,12 @@ import auth, {authUser} from './state/user'
 import favs, {setFavs}from './state/favs'
 import {firebaseApp} from './firebase'
 import * as firebase from 'firebase'
+import tree from './state/tree'
 
 const reducer = combineReducers({
   auth,
-  favs
+  favs,
+  tree
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
