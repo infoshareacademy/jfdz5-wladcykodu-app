@@ -19,13 +19,13 @@ class PartsView extends Component {
 //    this.props.setTree(1, {dwa: 1}, 11)
 //    this.props.setTree(2, {trzy: 1}, 7)
     if (this.props.dataNodes.length === 0) {
-      this.fetchData(`${API_URL}/api/v2`, 0, 0)
+      this.fetchData(`${API_URL}/api/v2`, 0, null)
     }
   }
 
 
-  fetchData = (url, level, position) => {
-    console.log(url)
+  fetchData = (url, level, parentPosition) => {
+    console.log('fetchData url input param', url)
     fetch(
       url
     ).then(
@@ -33,7 +33,7 @@ class PartsView extends Component {
     ).then(
       result => {
         //this.props.setTree(level, {data: result.data, datatype: result.datatype}, 0)
-        this.props.setTree(level, result, position)
+        this.props.setTree(level, result, parentPosition)
         // this.result = {
         //   data: result.data,
         //   datatype: result.datatype
@@ -45,19 +45,23 @@ class PartsView extends Component {
   }
 
   handleSelect = event => {
-    let inputLevel = parseInt(event.currentTarget.getAttribute('data-level'))
+    let inputLevel = parseInt(event.currentTarget.getAttribute('data-level'), 10)
     let newLevel = inputLevel + 1
-    let inputPosition = event.currentTarget.selectedIndex - 1
+    let inputPosition = event.currentTarget.selectedIndex
+    let parentPosition = inputPosition -1
 
-
-
-    if (event.currentTarget.selectedIndex > 0) {
-      console.log('inputPosition:', inputPosition)
-      console.log('inputLevel: ', inputLevel)
-      console.log(this.props.dataNodes[inputLevel].datatype[inputPosition])
-      let url = this.props.dataNodes[inputLevel].data[inputPosition].link
-      console.log(`${API_URL}${url}`, newLevel, inputPosition)
-      this.fetchData(`${API_URL}${url}`, newLevel, inputPosition)
+    this.props.trucateTree(newLevel)
+    if (inputPosition > 0) {
+      console.log('handleSelect inputPosition:', inputPosition)
+      console.log('handleSelect inputLevel: ', inputLevel)
+      console.log('handleSelect datatype: ', this.props.dataNodes[inputLevel].datatype)
+      let url = this.props.dataNodes[inputLevel].data[parentPosition].link
+      console.log('handleSelect: url: ',`${API_URL}${url}`
+        , 'inputLevel: ', inputLevel
+        , 'newLevel: ', newLevel
+        , 'inputPosition: ', inputPosition
+        , 'parentPosition: ', parentPosition)
+      this.fetchData(`${API_URL}${url}`, newLevel, parentPosition)
     } else {
       // tree/TRUNCATE, newLevel
       this.props.trucateTree(newLevel)
@@ -117,7 +121,7 @@ class PartsView extends Component {
 
         {dataNodes.map(
           (item, itemIndex) => {
-            if (item.datatype != 'stock') {
+            if (item.datatype !== 'stock') {
             return (
                               <FormGroup controlId="formControlsSelect" key={itemIndex}>
                   <ControlLabel>{this.getLabel(item.datatype)}</ControlLabel>
@@ -127,12 +131,17 @@ class PartsView extends Component {
                     onChange={this.handleSelect}
                     data-level={itemIndex}
                     data-type={item.datatype}
-                    // defaultValue="..."
-                    defaultValue={this.props.positions[itemIndex] >= 0 ? item.data[this.props.positions[itemIndex]].name : "..."}
-                    //defaultValue={item.data[2] ? item.data[2].name : item.data[0].name}
+                    // defaultValue="select..."
+                     defaultValue={
+                      ( positions[itemIndex] !== null && positions[itemIndex] >= 0 )
+                      ? item.data[positions[itemIndex]].name
+                      : "select..."
+                    }
+                    // defaultValue={positions[itemIndex] === null ? '...' : item.data[positions[itemIndex]].name}
+                    // defaultValue={item.data[2] ? item.data[2].name : item.data[0].name}
                     // inputRef={ inputSelect => this.inputSelect=inputSelect }
                   >
-                    <option value="..." key="0">...</option>
+                    <option value="select..." key="0">select...</option>
                     {item.data.map((option, optionIndex) => {
                         return (
                           <option value={option.name} key={optionIndex + 1}>{option.name}</option>
@@ -144,7 +153,7 @@ class PartsView extends Component {
             )
               } else {
 
-              const partsLink = this.props.dataNodes[itemIndex-1].data[this.props.positions[itemIndex-1]].link
+              const partsLink = dataNodes[itemIndex-1].data[positions[itemIndex-1]].link
               console.log('moje: ', partsLink)
               return (
                 <PartsList partslink={partsLink}/>

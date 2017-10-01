@@ -26,6 +26,14 @@ const initialState = {
     positions: []
 }
 
+const checkPosition = (position) => {
+  if (position >=0 && position !== null) {
+    return true
+  } else {
+    return false
+  }
+}
+
 // Reducer
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -40,18 +48,21 @@ export default (state = initialState, action) => {
                 positions: action.level > 0 && state.positions.length >= action.level
                     ? state.positions.slice(0, action.level - 1)
                         .concat(
-                            action.parentPosition || state.positions[action.level - 1],
-                            0
+                          checkPosition(action.parentPosition)
+                          ? action.parentPosition
+                          : state.positions[action.level - 1],
+                          null //0
                         )
-                    : ( action.level === 0
-                        ? [0]
-                        : state.positions )
+//                    : ( action.level === 0
+//                        ? [null] //0
+//                        : state.positions )
+              : [null]
             }
       case TRUNCATE:
         return {
           ...state,
           dataNodes: state.dataNodes.slice(0, action.level),
-          positions: state.positions.slice(0, action.level - 1).concat(0)
+          positions: state.positions.slice(0, action.level - 1).concat(null)
         }
         default:
             return state
