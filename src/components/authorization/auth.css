@@ -10,6 +10,7 @@
 
 .modal-container {
     position: relative;
+    height: 0 !important;
 }
 
 .modal-container .modal, .modal-container .modal-backdrop {
@@ -24,7 +25,15 @@
     color: black;
 }
 
-.modal-form{
+.modal-form {
     width: 90%;
     margin: auto;
+}
+
+.modal-btn {
+    color: red;
+}
+
+.form-wrapper {
+    box-sizing: border-box;
 }

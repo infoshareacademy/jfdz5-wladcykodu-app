@@ -45,6 +45,19 @@
 
 .sign-container {
     position: relative;
+    display: flex;
+    /*   border: 10px solid blue;*/
+    /*  height: 32em;*/
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 2em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.row {
+    margin-right: 5em;
+    margin-left: 5em;
 }
 
 .navbar-brand > img {
@@ -55,22 +68,46 @@
 }
 
 body {
+    background-size: cover;
+    min-height: 100vh;
+}
+
+#root {
+
+}
+
+.wrapper {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*    border: 10px solid green;*/
     background-image: url("../images/signinuppagebackground.png");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
 }
 
 .app-container {
     color: floralwhite;
     font-family: Montserrat, Arial, sans-serif;
     font-weight: 400;
+    /*    border: 10px solid red;*/
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logo-img {
+    max-width: 100%;
+    border-radius: 50%;
 }
 
 .app-container-private {
     background: floralwhite;
     min-height: 100vh;
     color: black;
+    box-sizing: border-box;
 }
 
 .button-product-list {
@@ -92,7 +129,7 @@ input:focus,
 button:focus,
 button:active,
 button:hover,
-label:focus,
+a:focus,
 .btn:active,
 .btn.active {
     outline: 0 !important;
@@ -144,6 +181,57 @@ label:focus,
     user-select: none;
     cursor: pointer;
     margin-right: 0.5em;
+}
+
+.tabs .pointer {
+    cursor: pointer;
+}
+
+.nav-tabs {
+    color: white;
+    border-bottom: 1px solid #484848;
+    margin-bottom: 2em;
+}
+
+.nav-tabs > li {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.nav-tabs > li > a {
+    color: white;
+    /*  background-color: #B8B8B8;*/
+}
+
+.nav-tabs > li > a:hover {
+    color: #f8f8ff;
+    background-color: #707070;
+}
+
+.nav-tabs > li .active {
+    background-color: #202020;
+    color: #f8f8ff;
+}
+
+.nav-tabs > li.active > a {
+    background-color: #484848;
+    border: solid 1px #484848;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    color: white;
+}
+
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    background-color: #686868;
+    border: solid 1px #000000;
+    cursor: pointer;
+    color: #f8f8ff;
+}
+
+.tab-inner-border-width-focus {
+    border: 0 !important;
+    outline: none;
 }
 
 /*CSS below from react-spinner library:*/

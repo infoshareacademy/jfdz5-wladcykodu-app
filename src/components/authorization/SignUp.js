@@ -63,9 +63,7 @@ class SignUp extends Component {
     return (
 
       <div>
-        <h1>Sign Up form</h1>
         <Form horizontal>
-
           <FormGroup controlId="formHorizontalName" onChange={this.handleChange}>
             <Col componentClass={ControlLabel} sm={2}>
               Name
@@ -139,9 +137,6 @@ class SignUp extends Component {
                 Service and Privacy Policy</p>
             </Col>
           </FormGroup>
-          <Col>
-            <div>{this.state.error.message}</div>
-          </Col>
         </Form>
       </div>
     )
