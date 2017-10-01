@@ -80,10 +80,19 @@ class PartsList extends Component {
 
 
   componentDidMount() {
-    const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
+    let link
+    if (typeof(this.props.partslink)!=='undefined') {
+      link = `${API_URL}${this.props.partslink}`
+      console.log('link from PartsView: ', link)
+    } else {
+      const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
+      link = `${API_URL}/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`
+      console.log('link original: ', link)
+    }
+
     this.setState({isLoading: true})
 
-    fetch(`${API_URL}/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
+    fetch(link)
 
       .then(result => result.json())
       .then(res => {

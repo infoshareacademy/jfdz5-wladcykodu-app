@@ -17,12 +17,14 @@ import PartCategory from './views/PartCategory'
 import PartsList from './views/PartsList'
 import Part from './views/Part'
 import FavoritesList from './views/FavoritesList'
+import PartsView from './views/PartsView'
 import ComparisonView from './views/ComparisonView'
 import Footer from './Footer'
 
 const Content = () => (
   <Grid>
     <Switch>
+      <Route exact path="/makes" component={PartsView}/>
       <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
       <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId" component={PartsList}/>
       <Route exact path="/brands/:manufacturer/:model/:engineId" component={PartCategory}/>

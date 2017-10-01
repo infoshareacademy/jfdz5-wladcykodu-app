@@ -1,0 +1,266 @@
+[
+  {
+    "datatype": "brands",
+    "data": [
+      {
+        "id": "8ro",
+        "name": "ABARTH",
+        "name_clear": "abarth",
+        "has_image": false,
+        "link": "/api/v2/find/8ro"
+      },
+      {
+        "id": "iv",
+        "name": "AC",
+        "name_clear": "ac",
+        "has_image": false,
+        "link": "/api/v2/find/iv"
+      },
+      {
+        "id": "y2",
+        "name": "ACURA",
+        "name_clear": "acura",
+        "has_image": true,
+        "link": "/api/v2/find/y2"
+      }
+      ]
+
+  },
+  {
+    "breadcrumbs": [
+      {
+        "link": "api/v2/find/8ro/",
+        "title": "ABARTH Autoparts"
+      }
+    ],
+    "dataname": "ABARTH",
+    "datatype": "models",
+    "data": [
+      {
+        "id": "s4z",
+        "name": "124 Spider (348_) (US)",
+        "end_year": null,
+        "end_month": null,
+        "start_year": "2016",
+        "start_month": "03",
+        "vehicle_group": "personal",
+        "link": "/api/v2/find/8ro/s4z"
+      },
+      {
+        "id": "bbu",
+        "name": "500 (312)",
+        "end_year": null,
+        "end_month": null,
+        "start_year": "2008",
+        "start_month": "08",
+        "vehicle_group": "personal",
+        "link": "/api/v2/find/8ro/bbu"
+      },
+      {
+        "id": "bbv",
+        "name": "500C (312)",
+        "end_year": null,
+        "end_month": null,
+        "start_year": "2009",
+        "start_month": "09",
+        "vehicle_group": "personal",
+        "link": "/api/v2/find/8ro/bbv"
+      },
+      {
+        "id": "bbw",
+        "name": "GRANDE PUNTO (199)",
+        "end_year": "2012",
+        "end_month": "12",
+        "start_year": "2007",
+        "start_month": "12",
+        "vehicle_group": "personal",
+        "link": "/api/v2/find/8ro/bbw"
+      },
+      {
+        "id": "bbw",
+        "name": "PUNTO (199)",
+        "end_year": "2012",
+        "end_month": "12",
+        "start_year": "2007",
+        "start_month": "12",
+        "vehicle_group": "personal",
+        "link": "/api/v2/find/8ro/bbw"
+      },
+      {
+        "id": "bby",
+        "name": "PUNTO (199)",
+        "end_year": null,
+        "end_month": null,
+        "start_year": "2008",
+        "start_month": "07",
+        "vehicle_group": "personal",
+        "link": "/api/v2/find/8ro/bby"
+      },
+      {
+        "id": "bbz",
+        "name": "RITMO (138A)",
+        "end_year": "1987",
+        "end_month": "12",
+        "start_year": "1981",
+        "start_month": "11",
+        "vehicle_group": "personal",
+        "link": "/api/v2/find/8ro/bbz"
+      },
+      {
+        "id": "bbz",
+        "name": "STRADA (138A)",
+        "end_year": "1987",
+        "end_month": "12",
+        "start_year": "1981",
+        "start_month": "11",
+        "vehicle_group": "personal",
+        "link": "/api/v2/find/8ro/bbz"
+      }
+    ]
+  },
+
+  {
+    "breadcrumbs": [
+      {
+        "link": "api/v2/find/8ro/",
+        "title": "ABARTH Autoparts"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/",
+        "title": "124 Spider   (2016-present)"
+      }
+    ],
+    "dataname": "ABARTH / 124 Spider   (2016-present)",
+    "datatype": "types",
+    "data": [
+      {
+        "id": "2k85",
+        "model_id": "s4z",
+        "brand_id": "8ro",
+        "name": "1.4",
+        "end_year": null,
+        "end_month": null,
+        "start_year": "2016",
+        "start_month": "03",
+        "ccm": "1368",
+        "kw": "125",
+        "hp": "170",
+        "cylinders": "4",
+        "engine": null,
+        "engine_txt": "Petrol Engine",
+        "fuel": "Petrol",
+        "body": "Convertible",
+        "axle": null,
+        "max_weight": null,
+        "link": "/api/v2/find/8ro/s4z/2k85"
+      }
+    ]
+  },
+
+  {
+    "breadcrumbs": [
+      {
+        "link": "api/v2/find/8ro/",
+        "title": "ABARTH Autoparts"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/",
+        "title": "124 Spider   (2016-present)"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/2k85/",
+        "title": "1.4 () 170hp"
+      }
+    ],
+    "dataname": "ABARTH / 124 Spider   (2016-present) / 1.4  / Autoparts catalogue",
+    "datatype": "tree",
+    "data": [
+      {
+        "id": "7t8",
+        "name": "Suspension",
+        "has_children": true,
+        "link": "/api/v2/find/8ro/s4z/2k85/7t8"
+      },
+      {
+        "id": "amw",
+        "name": "Motorcycle",
+        "has_children": true,
+        "link": "/api/v2/find/8ro/s4z/2k85/amw"
+      }
+    ]
+  },
+
+  {
+    "breadcrumbs": [
+      {
+        "link": "api/v2/find/8ro/",
+        "title": "ABARTH Autoparts"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/",
+        "title": "124 Spider   (2016-present)"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/2k85/",
+        "title": "1.4 () 170hp"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/2k85/7t8",
+        "title": "Suspension"
+      }
+    ],
+    "dataname": "ABARTH / 124 Spider   (2016-present) / 1.4  / Suspension",
+    "datatype": "tree",
+    "data": [
+      {
+        "id": "7wa",
+        "name": "Shock Absorber",
+        "has_children": false,
+        "link": "/api/v2/find/8ro/s4z/2k85/7wa/stock"
+      }
+    ]
+  },
+
+  {
+    "breadcrumbs": [
+      {
+        "link": "api/v2/find/8ro/",
+        "title": "ABARTH Autoparts"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/",
+        "title": "124 Spider   (2016-present)"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/2k85/",
+        "title": "1.4 () 170hp"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/2k85/7t8",
+        "title": "Suspension"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/2k85/7wa",
+        "title": "Shock Absorber"
+      },
+      {
+        "link": "api/v2/find/8ro/s4z/2k85/7wa/stock/",
+        "title": "Stock"
+      }
+    ],
+    "dataname": "ABARTH / 124 Spider   (2016-present) / 1.4  / Suspension / Shock Absorber",
+    "datatype": "stock",
+    "data": [
+      {
+        "brand": "BILSTEIN",
+        "brand_clear": "bilstein",
+        "number": "Bil_029404",
+        "number_clear": "bil_029404",
+        "name": "Shock Absorber",
+        "status": "Pseudo Article",
+        "link": "/api/v2/part/bilstein/bil_029404"
+      }
+      ]
+  }
+]
+

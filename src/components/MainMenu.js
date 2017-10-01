@@ -56,6 +56,9 @@ class MainMenu extends React.Component {
               <NavItem>Home</NavItem>
             </LinkContainer>
           </NavItem>
+          <LinkContainer exact to="/makes">
+            <NavItem>Makes</NavItem>
+          </LinkContainer>
           <NavItem className="nav-to-hover" eventKey={2}>
             <LinkContainer to="/favorites">
               <NavItem>
