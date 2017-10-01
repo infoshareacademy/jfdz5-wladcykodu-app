@@ -6,6 +6,7 @@ import FaTrash from 'react-icons/lib/fa/trash'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import * as toastr from 'toastr'
+import '../App.css'
 
 const FavImage = styled.img`
     max-width: 100%;
@@ -39,7 +40,7 @@ class FavoritesList extends React.Component {
     console.log(this.props.favProducts)
     return (
       <Grid>
-        <Row className="text-center">
+        <Row>
           <Col>
             <h3>
               Your favorites:
@@ -52,7 +53,7 @@ class FavoritesList extends React.Component {
                 <Panel key={id}>
                   <Grid>
                     <Row>
-                      <Col xs={6} md={8} className="text-center">
+                      <Col xs={6} md={8} className="text-center col-q">
                         {(('jpg' in item.part) && (item.part.jpg !== null) && (item.part.jpg.length > 0)) ?
                           <FavImage responsive src={item.part.jpg[0]} alt="Picture of part"/>
                           :
@@ -60,8 +61,8 @@ class FavoritesList extends React.Component {
                                     alt="Picture of part"/>}
                         <FavText>{item.part.data.name}</FavText>
                       </Col>
-                      <Col xs={6} md={4}>
-                        <div className="btn-center">
+                      <Col xs={6} md={4} className="col-q">
+                        <div className="btn-center fav-btn ">
                           <ButtonToolbar>
                             <Link to={item.link}>
                               <Button>Details</Button>

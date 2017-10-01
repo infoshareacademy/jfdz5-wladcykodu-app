@@ -45,7 +45,7 @@ class PartsList extends Component {
 
   componentDidMount() {
     let link
-    if (typeof(this.props.partslink)!=='undefined') {
+    if (typeof(this.props.partslink) !== 'undefined') {
       link = `${API_URL}${this.props.partslink}`
       console.log('link from PartsView: ', link)
     } else {
@@ -97,9 +97,9 @@ class PartsList extends Component {
       pageNumbers.push(i)
     }
     return (
-      <div>
+      <div className="forTabs">
         {this.state.isLoading ?
-          <div><Spinner /></div> :
+          <div><Spinner/></div> :
           <Grid>
             <Col style={{textAlign: "center"}}>
               <div>
@@ -115,7 +115,7 @@ class PartsList extends Component {
                                   <Panel>
                                     <Grid>
                                       <Row>
-                                        <Col  md={6}>
+                                        <Col md={6}>
                                           {(('jpg' in item.part) && (item.part.jpg !== null) && (item.part.jpg.length > 0)) ?
                                             <PartImage responsive src={item.part.jpg[0]} alt="Picture of part"/>
                                             :
@@ -130,7 +130,7 @@ class PartsList extends Component {
                                           <p>Number: <span className="text-info">{item.part.data.number}</span>
                                           </p>
                                           <p>Status: <span className="text-warning"
-                                                  style={{"fontWeight": "bold"}}>{item.part.data.status}</span>
+                                                           style={{"fontWeight": "bold"}}>{item.part.data.status}</span>
                                           </p>
                                           <ButtonToolbar>
                                             <Button className="button-product-list">
@@ -179,15 +179,22 @@ class PartsList extends Component {
                                       </p>
                                       <p>Status: <span className="text-warning"
                                                        style={{"fontWeight": "bold"}}>{item.part.data.status}</span></p>
-                                      <p>
-                                        <Link to={item.link}>
-                                          <Button className="button-product-list">Details</Button>
-                                        </Link>
+                                      <ButtonToolbar>
+                                        <Button className="button-product-list">
+                                          <Link to={item.link}>
+                                            Details
+                                          </Link>
+                                        </Button>
+
                                         <Button
                                           active={!!this.props.favProducts[item.link.split('/').join('')]}
-                                          onClick={() => this.handleAddToFav(item)}><FaStar
-                                          size={20}/></Button>
-                                      </p>
+                                          onClick={() => this.handleAddToFav(item)}>
+                                          {this.props.favProducts[item.link.split('/').join('')] ?
+                                            <FaStar color='red' size={20}/> :
+                                            <FaStar color='black' size={20}/>
+                                          }
+                                        </Button>
+                                      </ButtonToolbar>
                                     </Thumbnail>
                                   </Col>
                                 )
@@ -203,15 +210,15 @@ class PartsList extends Component {
               <br/>
 
             </Col>
-            <ul className="page-num">
+            <div className="pagination">
               {pageNumbers.map(number => {
                 return (
-                  <li key={number} id={number} onClick={this.handleClick.bind(this)}>
+                  <a key={number} id={number} onClick={this.handleClick.bind(this)}>
                     {number}
-                  </li>
+                  </a>
                 )
               })}
-            </ul>
+            </div>
           </Grid>
         }
       </div>

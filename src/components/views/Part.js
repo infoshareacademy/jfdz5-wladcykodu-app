@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import FaFacebook from 'react-icons/lib/fa/facebook'
 import {ShareButtons} from 'react-share'
 import Spinner from 'react-spinner'
+import '../App.css'
 
 class Part extends Component {
 
@@ -74,12 +75,14 @@ class Part extends Component {
               <Col xs={12} md={4}>
                 <Row>
                   <h3>{this.state.partData.part.data.name}</h3>
-                  <p><span className="prop">Brand: </span><span className="text-info">{this.state.partData.part.data.brand}</span>
+                  <p><span className="prop">Brand: </span><span
+                    className="text-info">{this.state.partData.part.data.brand}</span>
                   </p>
-                  <p><span className="prop">Number: </span><span className="text-info"> {this.state.partData.part.data.number}</span>
+                  <p><span className="prop">Number: </span><span
+                    className="text-info"> {this.state.partData.part.data.number}</span>
                   </p>
                   <p><span className="prop">Status: </span><span className="text-warning"
-                                   style={{"fontWeight": "bold"}}>{this.state.partData.part.data.status}</span>
+                                                                 style={{"fontWeight": "bold"}}>{this.state.partData.part.data.status}</span>
                   </p>
                   <div><span className="prop"> Properties:</span>
                     {
@@ -107,7 +110,7 @@ class Part extends Component {
                   </div>
                 </Row>
                 <Row>
-                  <Col>
+                  <Col className="fav-buttons">
                     <Button
                       active={!!this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')]}
                       onClick={() => this.handleAddToFav(this.state.partData)}>
@@ -156,7 +159,7 @@ class Part extends Component {
         {
           this.state.partData === null ? <Spinner/> :
             <Grid>
-              <Col xs={12} md={12}>
+              <Col>
                 <Row>
                   <h3 className="more-info-title">More matching products that might interest you:</h3>
                   {
@@ -164,7 +167,7 @@ class Part extends Component {
                       this.state.partData.parts.slice(1, this.state.partData.parts.length).map(
                         (item, m) => {
                           return (
-                            <Col key={m} xs={6} md={3} className="thumbnail-2-wrapper">
+                            <Col key={m} sm={6} md={3} className="thumbnail-2-wrapper">
 
                               <div className="thumbnail-2">
                                 <h4>{item.name}</h4>
