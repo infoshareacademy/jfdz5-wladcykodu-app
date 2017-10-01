@@ -33,7 +33,8 @@ class SignIn extends Component {
     },
     type: 'password',
     show: false,
-    emailForSendPassword: ''
+    emailForSendPassword: '',
+    visible: true
   }
 
   facebookLoginHandler = (event) => {
@@ -99,12 +100,19 @@ class SignIn extends Component {
     })
   }
 
+  changeVisibility() {
+    this.setState({
+      visible: !this.state.visible,
+      show: true
+    })
+  }
+
   render() {
-    let close = () => this.setState({show: false});
+    let close = () => this.setState({show: false, visible: !this.state.visible})
+    let visible = this.state.visible ? "visible" : "hidden"
 
     return (
-      <div>
-        <h1>Sign In form</h1>
+      <Col className="form-wrapper">
         <Form horizontal onSubmit={this.signInHandler}>
 
           <Button className="login-btn"
@@ -147,7 +155,7 @@ class SignIn extends Component {
           </FormGroup>
 
           <FormGroup>
-            <Col xs={8}>
+            <Col xs={10}>
               <ButtonToolbar>
                 <Button type="submit" className="login-btn">
                   Sign in
@@ -159,53 +167,52 @@ class SignIn extends Component {
                   </Link>
                 </Button>
               </ButtonToolbar>
+
+              <div className="modal-container" style={{height: 200}}>
+                <Button
+                  className="modal-btn"
+                  bsSize="xsmall"
+                  style={{visibility: visible}} onClick={() => this.changeVisibility()}
+                >
+                  Forgot Password ?
+                </Button>
+
+                <Modal
+                  show={this.state.show}
+                  onHide={close}
+                  container={this}
+                  aria-labelledby="contained-modal-title"
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title">Forgot your Password? Now you can recover it! </Modal.Title>
+                  </Modal.Header>
+                  <Form horizontal onSubmit={this.resetPasswordHandler}>
+                    <Modal.Body className="modal-body">
+                      <p>Please enter your e-mail to reset password for your account.</p>
+                      <FormGroup controlId="formHorizontalEmailReset" onChange={this.handleChange}>
+                        <Col>
+                          <FormControl
+                            type="email"
+                            placeholder="E-mail"
+                            value={this.state.emailForSendPassword}
+                            onChange={this.handleChange}
+                            autoComplete="emailForSendPassword"
+                            name="emailForSendPassword"
+                            className="login-form-control modal-form" required/>
+                        </Col>
+                      </FormGroup>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button type="submit">Send</Button>
+                      <Button onClick={close}>Cancel</Button>
+                    </Modal.Footer>
+                  </Form>
+                </Modal>
+              </div>
             </Col>
           </FormGroup>
-          <Col xsOffset={1} smOffset={2} xs={8}>
-            <div>{this.state.error.message}</div>
-          </Col>
         </Form>
-        <div className="modal-container" style={{height: 200}}>
-          <Button
-            className="login-btn"
-            bsSize="xsmall"
-            onClick={() => this.setState({show: true})}
-          >
-            Forgot Password?
-          </Button>
-
-          <Modal
-            show={this.state.show}
-            onHide={close}
-            container={this}
-            aria-labelledby="contained-modal-title"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title">Forgot Password?</Modal.Title>
-            </Modal.Header>
-            <Form horizontal onSubmit={this.resetPasswordHandler}>
-              <Modal.Body className="modal-body">
-                <p>Please enter your email to reset password for your account.</p>
-                <FormGroup controlId="formHorizontalEmailReset" onChange={this.handleChange}>
-                  <Col>
-                    <FormControl
-                      type="email"
-                      placeholder="E-mail"
-                      value={this.state.emailForSendPassword}
-                      autoComplete="emailForSendPassword"
-                      name="emailForSendPassword"
-                      className="login-form-control modal-form" required/>
-                  </Col>
-                </FormGroup>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button type="submit">Send</Button>
-                <Button onClick={close}>Cancel</Button>
-              </Modal.Footer>
-            </Form>
-          </Modal>
-        </div>
-      </div>
+      </Col>
     )
   }
 }

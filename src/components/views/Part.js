@@ -1,9 +1,13 @@
 import React, {Component} from 'react'
 import * as firebase from 'firebase'
-import {Grid, Row, Col, Image, Button} from 'react-bootstrap'
+import {Grid, Row, Col, Image, Button, ButtonToolbar} from 'react-bootstrap'
 import {API_URL} from '../App'
 import FaStar from 'react-icons/lib/fa/star'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import FaFacebook from 'react-icons/lib/fa/facebook'
+import {ShareButtons} from 'react-share'
+import Spinner from 'react-spinner'
 
 class Part extends Component {
 
@@ -11,15 +15,20 @@ class Part extends Component {
     partData: null
   }
 
-  componentDidMount() {
-    const {part, partNum} = this.props.match.params
-
+  fetchPartData(part, partNum) {
     fetch(`${API_URL}/api/v2/part/${part}/${partNum}`)
       .then(result => result.json())
       .then(res => {
         const partData = res.data
         this.setState({partData})
+        window.scrollTo(0, 0)
       })
+  }
+
+  componentDidMount() {
+    const {part, partNum} = this.props.match.params
+
+    this.fetchPartData(part, partNum)
   }
 
   handleAddToFav = () => {
@@ -42,11 +51,16 @@ class Part extends Component {
     }
   }
 
+
   render() {
+    const URL_FOR_SHARE = 'http://app.wk.jfdz5.is-academy.pl/' + window.location.pathname
+    const title = "Amazing  AutoParts search app - find what you're looking for!"
+    const {FacebookShareButton} = ShareButtons
+
     return (
       <div>
         {
-          this.state.partData === null ? <p>Loading…</p> :
+          this.state.partData === null ? <Spinner/> :
 
             <Grid>
               <Col xs={12} md={4}>
@@ -60,16 +74,16 @@ class Part extends Component {
               <Col xs={12} md={4}>
                 <Row>
                   <h3>{this.state.partData.part.data.name}</h3>
-                  <h5>About:</h5>
-                  <p><span>Brand:</span> {this.state.partData.part.data.brand}
+                  <p><span className="prop">Brand: </span><span className="text-info">{this.state.partData.part.data.brand}</span>
                   </p>
-                  <p><span>Number:</span> {this.state.partData.part.data.number}
+                  <p><span className="prop">Number: </span><span className="text-info"> {this.state.partData.part.data.number}</span>
                   </p>
-                  <p><span>Status:</span> {this.state.partData.part.data.status}
+                  <p><span className="prop">Status: </span><span className="text-warning"
+                                   style={{"fontWeight": "bold"}}>{this.state.partData.part.data.status}</span>
                   </p>
-                  <div><p>Properties:</p>
+                  <div><span className="prop"> Properties:</span>
                     {
-                      this.state.partData.part.properties.length ?
+                      (('properties' in this.state.partData.part) && (this.state.partData.part.properties !== null) && (this.state.partData.part.properties.length)) ?
                         this.state.partData.part.properties.map(
                           (item, m) => {
                             return (
@@ -98,18 +112,26 @@ class Part extends Component {
                       active={!!this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')]}
                       onClick={() => this.handleAddToFav(this.state.partData)}>
                       {this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')] ?
+                        'Remove from favorites ' : 'Add to favorites '}
+                      {this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')] ?
                         <FaStar color='red' size={20}/> :
                         <FaStar color='black' size={20}/>
-                      } Add to favorites
+                      }
                     </Button>
+                    <FacebookShareButton
+                      url={URL_FOR_SHARE}
+                      quote={title}>
+                      <Button className="login-btn">
+                        Share on <FaFacebook size={22}/></Button>
+                    </FacebookShareButton>
                   </Col>
                 </Row>
               </Col>
               <Col xs={12} md={4}>
-                <Row>
-                  <h5>More info:</h5>
+                <Row>{console.log(this.state.partData.part)}{console.log(this.state.partData.parts[0].name)}
+                  <h5><span className="prop">More info: </span></h5>
                   {
-                    this.state.partData.part.more_info.length ?
+                    (('more_info' in this.state.partData.part) && (this.state.partData.part.more_info !== null) && (this.state.partData.part.more_info.length)) ?
                       this.state.partData.part.more_info.map(
                         (item, m) => {
                           return (
@@ -126,8 +148,53 @@ class Part extends Component {
                   }
                 </Row>
               </Col>
+
             </Grid>
+
         }
+
+        {
+          this.state.partData === null ? <Spinner/> :
+            <Grid>
+              <Col xs={12} md={12}>
+                <Row>
+                  <h3 className="more-info-title">More matching products that might interest you:</h3>
+                  {
+                    this.state.partData.parts.length ?
+                      this.state.partData.parts.slice(1, this.state.partData.parts.length).map(
+                        (item, m) => {
+                          return (
+                            <Col key={m} xs={6} md={3} className="thumbnail-2-wrapper">
+
+                              <div className="thumbnail-2">
+                                <h4>{item.name}</h4>
+                                <p>Brand: <span className="text-info">{item.brand}</span>
+                                </p>
+                                <p>Number: <span className="text-info">{item.number}</span>
+                                </p>
+                                <p>Status: <span className="text-warning"
+                                                 style={{"fontWeight": "bold"}}>{item.status}</span>
+                                </p>
+                                <ButtonToolbar>
+                                  <Button
+                                    onClick={() => this.fetchPartData(item.link.split('/').slice(-2)[0], item.link.split('/').slice(-2)[1])}
+                                    className="button-product-list">
+                                    <Link to={`/${item.link.split('/').slice(-3).join('/')}/#`}>
+                                      Details
+                                    </Link>
+                                  </Button>
+                                </ButtonToolbar>
+                              </div>
+
+                            </Col>
+                          )
+                        })
+                      :
+                      <p>No similar products...</p>
+                  }
+                </Row>
+              </Col>
+            </Grid>}
       </div>
     )
   }

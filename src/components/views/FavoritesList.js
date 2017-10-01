@@ -9,8 +9,7 @@ import * as toastr from 'toastr'
 
 const FavImage = styled.img`
     max-width: 100%;
-    width: 8em;
-    height: auto;
+    height: 5em;
 `
 const FavText = styled.p`
     font-weight: bold;
@@ -62,14 +61,16 @@ class FavoritesList extends React.Component {
                         <FavText>{item.part.data.name}</FavText>
                       </Col>
                       <Col xs={6} md={4}>
-                        <ButtonToolbar>
-                          <Link to={item.link}>
-                            <Button>Details</Button>
-                          </Link>
-                          <Button
-                            onClick={() => this.handleRemoveFromFav(item)}><FaTrash
-                            size={20}/></Button>
-                        </ButtonToolbar>
+                        <div className="btn-center">
+                          <ButtonToolbar>
+                            <Link to={item.link}>
+                              <Button>Details</Button>
+                            </Link>
+                            <Button
+                              onClick={() => this.handleRemoveFromFav(item)}><FaTrash
+                              size={25}/></Button>
+                          </ButtonToolbar>
+                        </div>
                       </Col>
                     </Row>
                   </Grid>

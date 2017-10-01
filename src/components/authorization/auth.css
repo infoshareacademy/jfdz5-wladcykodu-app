@@ -10,6 +10,18 @@
 
 .modal-container {
     position: relative;
+    height: 0 !important;
+}
+
+.modal-content {
+    background-color: #707070;
+    border-radius: 2em;
+    border: 3px solid #484848;
+}
+
+#contained-modal-title {
+    color: white !important;
+    font-weight: 300;
 }
 
 .modal-container .modal, .modal-container .modal-backdrop {
@@ -18,13 +30,51 @@
 
 #contained-modal-title {
     color: black;
+    font-size: 1.7em;
 }
 
 .modal-body {
-    color: black;
+    color: white;
+    font-size: 1.3em;
 }
 
-.modal-form{
+.modal-form {
     width: 90%;
     margin: auto;
+}
+
+.modal-btn {
+    color: #23527c;
+    font-size: 1em;
+}
+
+.modal-btn:visited {
+    visibility: hidden;
+}
+
+.form-wrapper {
+    box-sizing: border-box;
+}
+
+.agree-text {
+    color: #23527c;
+}
+
+.modal {
+    text-align: center;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
 }
