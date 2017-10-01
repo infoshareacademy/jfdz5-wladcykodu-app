@@ -1,14 +1,17 @@
 import {createStore, compose, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
+import persistState from 'redux-localstorage'
 import auth, {authUser} from './state/user'
 import favs, {setFavs}from './state/favs'
 import {firebaseApp} from './firebase'
 import * as firebase from 'firebase'
+import compareParts from './state/comparison'
 import tree from './state/tree'
 
 const reducer = combineReducers({
   auth,
   favs,
+  compareParts,
   tree
 })
 
@@ -16,6 +19,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const enhancer = composeEnhancers(
   applyMiddleware(thunk),
+  persistState(['compareParts']),
 )
 
 const store = createStore(

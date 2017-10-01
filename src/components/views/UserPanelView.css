@@ -1,0 +1,33 @@
+
+.user-forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.user-form {
+    padding: 0px 60px 35px 60px;
+    width: 500px;
+}
+
+.delete-account {
+    padding: 0px 60px 50px 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.delete-account h5 {
+    padding-top: 15px;
+    padding-right: 15px;
+}
+
+@media screen and (max-width: 990px) {
+    .delete-account {
+        flex-direction: column;
+    }
+}
