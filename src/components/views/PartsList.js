@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ListGroup, Grid, Col, Row, Button, Panel, Tab, Tabs, Thumbnail} from 'react-bootstrap'
+import {ListGroup, Grid, Col, Row, Button, ButtonToolbar, Panel, Tab, Tabs, Thumbnail} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as firebase from 'firebase'
 import FaStar from 'react-icons/lib/fa/star'
@@ -45,7 +45,7 @@ class PartsList extends Component {
 
   componentDidMount() {
     const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
-    this.setState({isLoading: true});
+    this.setState({isLoading: true})
 
     fetch(`${API_URL}/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`)
 
@@ -106,7 +106,7 @@ class PartsList extends Component {
                                   <Panel>
                                     <Grid>
                                       <Row>
-                                        <Col xs={6} md={4}>
+                                        <Col  md={6}>
                                           {(('jpg' in item.part) && (item.part.jpg !== null) && (item.part.jpg.length > 0)) ?
                                             <PartImage responsive src={item.part.jpg[0]} alt="Picture of part"/>
                                             :
@@ -115,28 +115,30 @@ class PartsList extends Component {
                                                        alt="Picture of part"/>}
                                           <h3>{item.part.data.name}</h3>
                                         </Col>
-                                        <Col xs={6} md={8}>
+                                        <Col md={6}>
                                           <p>Brand: <span className="text-info">{item.part.data.brand}</span>
                                           </p>
                                           <p>Number: <span className="text-info">{item.part.data.number}</span>
                                           </p>
-                                          <p>Status:
-                                            <span className="text-warning"
+                                          <p>Status: <span className="text-warning"
                                                   style={{"fontWeight": "bold"}}>{item.part.data.status}</span>
                                           </p>
-                                        </Col>
-                                        <Col>
-                                          <Link to={item.link}>
-                                            <Button className="button-product-list">Details</Button>
-                                          </Link>
-                                          <Button
-                                            active={!!this.props.favProducts[item.link.split('/').join('')]}
-                                            onClick={() => this.handleAddToFav(item)}>
-                                            {this.props.favProducts[item.link.split('/').join('')] ?
-                                              <FaStar color='red' size={20}/> :
-                                              <FaStar color='black' size={20}/>
-                                            }
-                                          </Button>
+                                          <ButtonToolbar>
+                                            <Button className="button-product-list">
+                                              <Link to={item.link}>
+                                                Details
+                                              </Link>
+                                            </Button>
+
+                                            <Button
+                                              active={!!this.props.favProducts[item.link.split('/').join('')]}
+                                              onClick={() => this.handleAddToFav(item)}>
+                                              {this.props.favProducts[item.link.split('/').join('')] ?
+                                                <FaStar color='red' size={20}/> :
+                                                <FaStar color='black' size={20}/>
+                                              }
+                                            </Button>
+                                          </ButtonToolbar>
                                         </Col>
                                       </Row>
                                     </Grid>
@@ -166,10 +168,8 @@ class PartsList extends Component {
                                       </p>
                                       <p>Number: <span className="text-info">{item.part.data.number}</span>
                                       </p>
-                                      <p>Status:
-                                        <span className="text-warning"
-                                              style={{"fontWeight": "bold"}}>{item.part.data.status}</span>
-                                      </p>
+                                      <p>Status: <span className="text-warning"
+                                                       style={{"fontWeight": "bold"}}>{item.part.data.status}</span></p>
                                       <p>
                                         <Link to={item.link}>
                                           <Button className="button-product-list">Details</Button>
