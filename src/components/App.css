@@ -227,6 +227,11 @@ a:focus,
     display: flex;
 }
 
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
 .page-num > li {
     user-select: none;
     cursor: pointer;
