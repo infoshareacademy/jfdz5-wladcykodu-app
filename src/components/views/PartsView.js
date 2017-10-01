@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
+import {FormGroup, ControlLabel, FormControl, ListGroup, ListGroupItem} from 'react-bootstrap'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import {setTreeNode, truncateTree} from '../../state/tree'
@@ -134,52 +134,67 @@ class PartsView extends Component {
         </div>
         {dataNodes.map(
           (item, itemIndex) => {
-            if (item.datatype !== 'stock') {
-            return (
-                              <FormGroup controlId="formControlsSelect" key={itemIndex}>
-                  <ControlLabel>{this.getLabel(item.datatype)}</ControlLabel>
-                  <FormControl
-                    componentClass="select"
-                    placeholder="select"
-                    onChange={this.handleSelect}
-                    data-level={itemIndex}
-                    data-type={item.datatype}
-                    // defaultValue="select..."
-                     defaultValue={
-                      ( positions[itemIndex] !== null && positions[itemIndex] >= 0 )
-                      ? item.data[positions[itemIndex]].name
-                      : "select..."
-                    }
-                    // defaultValue={positions[itemIndex] === null ? '...' : item.data[positions[itemIndex]].name}
-                    // defaultValue={item.data[2] ? item.data[2].name : item.data[0].name}
-                    // inputRef={ inputSelect => this.inputSelect=inputSelect }
-                  >
-                    <option value="select..." key="0">select...</option>
-                    {item.data.map((option, optionIndex) => {
-                        return (
-                          <option value={option.name} key={optionIndex + 1}>{option.name}</option>
+            if (item.hasOwnProperty('data')) {
+              if (item.datatype !== 'stock') {
+                return (
+                  <FormGroup controlId="formControlsSelect" key={itemIndex}>
+                    <ControlLabel>{this.getLabel(item.datatype)}</ControlLabel>
+                    <FormControl
+                      componentClass="select"
+                      placeholder="select"
+                      onChange={this.handleSelect}
+                      data-level={itemIndex}
+                      data-type={item.datatype}
+                      // defaultValue="select..."
+                      defaultValue={
+                        ( positions[itemIndex] !== null && positions[itemIndex] >= 0 )
+                          ? item.data[positions[itemIndex]].name
+                          : "select..."
+                      }
+                      // defaultValue={positions[itemIndex] === null ? '...' : item.data[positions[itemIndex]].name}
+                      // defaultValue={item.data[2] ? item.data[2].name : item.data[0].name}
+                      // inputRef={ inputSelect => this.inputSelect=inputSelect }
+                    >
+                      {
+                        item.hasOwnProperty('data') && ( item.data.length === 0
+                          ? <option value="no data found..." key={0}>no data found... :(</option>
+                          : <option value="select..." key={0}>select...</option>)
+                      }
+
+                      {
+                        item.hasOwnProperty('data') && item.data.map((option, optionIndex) => {
+                            return (<option value={option.name} key={optionIndex + 1}>{option.name}</option>)
+                          }
                         )
                       }
-                    )}
-                  </FormControl>
-                </FormGroup>
-            )
+
+                    </FormControl>
+                  </FormGroup>
+                )
               } else {
 
-              const partsLink = dataNodes[itemIndex-1].data[positions[itemIndex-1]].link
-              console.log('moje: ', partsLink)
-              return (
-                <PartsList partslink={partsLink}/>
+                const partsLink = dataNodes[itemIndex - 1].data[positions[itemIndex - 1]].link
+                console.log('moje: ', partsLink)
+                return (
+                  <PartsList key={itemIndex} partslink={partsLink}/>
+                )
+
+
+                // React.createElement(
+                //   component,
+                //   {
+                //     [propName]: data
+                //   }
+                // )
+
+              }
+            } else if (item.hasOwnProperty('error')){
+              return(
+                <ListGroup key={itemIndex}>
+                  <ListGroupItem key={1} bsStyle="danger">{item.message}</ListGroupItem>
+                </ListGroup>
+
               )
-
-
-              // React.createElement(
-              //   component,
-              //   {
-              //     [propName]: data
-              //   }
-              // )
-
             }
 
 
