@@ -51,7 +51,7 @@ export default (state = initialState, action) => {
         return {
           ...state,
           dataNodes: state.dataNodes.slice(0, action.level),
-          positions: state.positions.slice(0, action.level)
+          positions: state.positions.slice(0, action.level - 1).concat(0)
         }
         default:
             return state

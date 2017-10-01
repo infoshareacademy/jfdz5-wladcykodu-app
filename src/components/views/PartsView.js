@@ -4,6 +4,8 @@ import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import {setTreeNode, truncateTree} from '../../state/tree'
 import testNodes from '../../data/testdata.json'
+import PartsList from './PartsList'
+import { withRouter} from 'react-router-dom'
 
 class PartsView extends Component {
 
@@ -16,7 +18,9 @@ class PartsView extends Component {
 //    this.props.setTree(0, {jeden: 1}, 0)
 //    this.props.setTree(1, {dwa: 1}, 11)
 //    this.props.setTree(2, {trzy: 1}, 7)
-    this.fetchData(`${API_URL}/api/v2`, 0, 0)
+    if (this.props.dataNodes.length === 0) {
+      this.fetchData(`${API_URL}/api/v2`, 0, 0)
+    }
   }
 
 
@@ -44,6 +48,8 @@ class PartsView extends Component {
     let inputLevel = parseInt(event.currentTarget.getAttribute('data-level'))
     let newLevel = inputLevel + 1
     let inputPosition = event.currentTarget.selectedIndex - 1
+
+
 
     if (event.currentTarget.selectedIndex > 0) {
       console.log('inputPosition:', inputPosition)
@@ -121,8 +127,9 @@ class PartsView extends Component {
                     onChange={this.handleSelect}
                     data-level={itemIndex}
                     data-type={item.datatype}
-                    defaultValue="..."
-                    // defaultValue={item.data[2] ? item.data[2].name : item.data[0].name}
+                    // defaultValue="..."
+                    defaultValue={this.props.positions[itemIndex] >= 0 ? item.data[this.props.positions[itemIndex]].name : "..."}
+                    //defaultValue={item.data[2] ? item.data[2].name : item.data[0].name}
                     // inputRef={ inputSelect => this.inputSelect=inputSelect }
                   >
                     <option value="..." key="0">...</option>
@@ -136,8 +143,22 @@ class PartsView extends Component {
                 </FormGroup>
             )
               } else {
-               return (<h1>Tu będzie lista części</h1>)
-              }
+
+              const partsLink = this.props.dataNodes[itemIndex-1].data[this.props.positions[itemIndex-1]].link
+              console.log('moje: ', partsLink)
+              return (
+                <PartsList partslink={partsLink}/>
+              )
+
+
+              // React.createElement(
+              //   component,
+              //   {
+              //     [propName]: data
+              //   }
+              // )
+
+            }
 
 
 
@@ -177,7 +198,14 @@ const mapDispatchToProps = dispatch => ({
   trucateTree: (level) => dispatch(truncateTree(level))
 })
 
-export default connect(
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(PartsView)
+
+const ConnectedPartsView = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(PartsView)
+
+export default withRouter(ConnectedPartsView)
