@@ -146,8 +146,9 @@ label:focus,
     margin-right: 0.5em;
 }
 
+/*CSS below from react-spinner library:*/
 .react-spinner {
-    position: relative;
+    position: absolute;
     width: 32px;
     height: 32px;
     top: 50%;
@@ -159,7 +160,7 @@ label:focus,
     -moz-animation: react-spinner_spin 1.2s linear infinite;
     animation: react-spinner_spin 1.2s linear infinite;
     border-radius: 5px;
-    background-color: white;
+    background-color: black;
     position: absolute;
     width: 40%;
     height: 20%;
@@ -193,3 +194,5 @@ label:focus,
         opacity: 0.15;
     }
 }
+
+/*End of CSS from react-spinner library:*/

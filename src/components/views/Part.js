@@ -5,6 +5,8 @@ import {API_URL} from '../App'
 import FaStar from 'react-icons/lib/fa/star'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import FaFacebook from 'react-icons/lib/fa/facebook'
+import {ShareButtons} from 'react-share'
 
 class Part extends Component {
 
@@ -48,7 +50,12 @@ class Part extends Component {
     }
   }
 
+
   render() {
+    const URL_FOR_SHARE = 'http://app.wk.jfdz5.is-academy.pl/' + window.location.pathname
+    const title = "Amazing  AutoParts search app - find what you're looking for!"
+    const {FacebookShareButton} = ShareButtons
+
     return (
       <div>
         {
@@ -104,10 +111,18 @@ class Part extends Component {
                       active={!!this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')]}
                       onClick={() => this.handleAddToFav(this.state.partData)}>
                       {this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')] ?
+                        'Remove from favorites ' : 'Add to favorites '}
+                      {this.props.favProducts[this.state.partData.parts[0].link.split('/').slice(-3).join('')] ?
                         <FaStar color='red' size={20}/> :
                         <FaStar color='black' size={20}/>
-                      } Add to favorites
+                      }
                     </Button>
+                    <FacebookShareButton
+                      url={URL_FOR_SHARE}
+                      quote={title}>
+                      <Button className="login-btn">
+                        Share on <FaFacebook size={22}/></Button>
+                    </FacebookShareButton>
                   </Col>
                 </Row>
               </Col>
