@@ -12,9 +12,3 @@ body {
     background: black;
 }
 
-.navbar-brand > img {
-    display: inline-block;
-    height: 50%;
-    width: auto;
-    z-index: 1000;
-}

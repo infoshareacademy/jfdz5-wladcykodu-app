@@ -1,0 +1,34 @@
+div#footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+footer-social-link svg {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+
+}
+
+.div.col {
+    height: 100%;
+}
+
+.footer-element {
+    height: 100%;
+    line-height: 1.3;
+}
+
+div.footer-element {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h6.footer-address {
+    line-height: 2;
+}

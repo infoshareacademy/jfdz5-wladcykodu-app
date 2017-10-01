@@ -91,8 +91,8 @@ class UserPanelView extends React.Component {
     return (
       <UserFormsContainer>
         <Grid>
-          <Row>
-            <Col xs="12" md="6" className="user-form">
+          <Row className="user-forms">
+            <Col xs="12" sm="6" md="6" className="user-form">
               <h3>Change password</h3>
               <Form horizontal>
                 <FormGroup controlId="formInlinePassword">
@@ -116,7 +116,7 @@ class UserPanelView extends React.Component {
                 </Button>
               </Form>
             </Col>
-            <Col xs="12" md="6" className="user-form">
+            <Col xs="12" sm="6" md="6" className="user-form">
               <h3>Change e-mail</h3>
               <Form horizontal>
                 <FormGroup controlId="formInlineNewMail">

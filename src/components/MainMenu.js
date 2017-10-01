@@ -37,7 +37,7 @@ class MainMenu extends React.Component {
   render() {
     return (
   <MenuCntainer>
-    <Navbar inverse collapseOnSelect>
+    <Navbar inverse collapseOnSelect className="navbar-container">
       <Navbar.Header>
         <Navbar.Brand>
           <LinkContainer className="brand-logo" to="/">
@@ -51,12 +51,12 @@ class MainMenu extends React.Component {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <NavItem eventKey={1}>
+          <NavItem className="nav-to-hover" eventKey={1}>
             <LinkContainer exact to="/">
               <NavItem>Home</NavItem>
             </LinkContainer>
           </NavItem>
-          <NavItem eventKey={2}>
+          <NavItem className="nav-to-hover" eventKey={2}>
             <LinkContainer to="/favorites">
               <NavItem>
                 Favorites
@@ -64,7 +64,7 @@ class MainMenu extends React.Component {
               </NavItem>
             </LinkContainer>
           </NavItem>
-          <NavItem eventKey={3}>
+          <NavItem className="nav-to-hover" eventKey={3}>
             <LinkContainer to="/comparison">
               <NavItem>
                 Comparison
@@ -72,32 +72,32 @@ class MainMenu extends React.Component {
               </NavItem>
             </LinkContainer>
           </NavItem>
-          <NavItem eventKey={4}>
+          <NavItem className="nav-to-hover" eventKey={4}>
             <LinkContainer to="/contact">
               <NavItem>Contact</NavItem>
             </LinkContainer>
           </NavItem>
-          <NavItem className="hidden-on-mobile" eventKey={6}>
+          <NavItem className="hidden-on-mobile nav-to-hover" eventKey={6}>
             <LinkContainer to="/userpanel">
               <NavItem>User Panel</NavItem>
             </LinkContainer>
           </NavItem>
-          <NavItem className="hidden-on-mobile sign-out" eventKey={7}>
+          <NavItem className="hidden-on-mobile sign-out nav-to-hover" eventKey={7}>
             <LinkContainer to="/signin">
               <NavItem onClick={this.signOutUser}>Sign Out</NavItem>
             </LinkContainer>
           </NavItem>
         </Nav>
         <Nav pullRight>
-          <NavDropdown className="hidden-on-mobile" eventKey={5} title={<FaUser size={25}/>} id="basic-nav-dropdown">
-            <MenuItem eventKey={5.1}>
-              <LinkContainer to="/userpanel">
-                <NavItem>User Panel</NavItem>
+          <NavDropdown className="hidden-on-mobile nav-dropdown" eventKey={5} title={<FaUser size={25} color={"#FFC2B1"}/>} id="basic-nav-dropdown">
+            <MenuItem className="nav-to-hover" eventKey={5.1}>
+              <LinkContainer className="nav-no-hover" to="/userpanel">
+                <NavItem className="nav-no-hover">User Panel</NavItem>
               </LinkContainer>
             </MenuItem>
-            <MenuItem className="sign-out" eventKey={5.2}>
-              <LinkContainer to="/signin">
-                <NavItem onClick={this.signOutUser}>Sign Out</NavItem>
+            <MenuItem className="sign-out nav-no-hover" eventKey={5.2}>
+              <LinkContainer className="nav-to-hover nav-no-hover" to="/signin">
+                <NavItem className="nav-no-hover" onClick={this.signOutUser}>Sign Out</NavItem>
               </LinkContainer>
             </MenuItem>
           </NavDropdown>

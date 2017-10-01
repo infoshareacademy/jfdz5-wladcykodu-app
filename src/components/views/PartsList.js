@@ -46,7 +46,19 @@ class PartsList extends Component {
   handleAddToComparison = (item) => {
     console.log(item)
 
-      if(this.state.comparison.length < 3) {
+    if (this.state.comparison.length <= 3) {
+      this.state.comparison.push(item)
+      this.props.addToComparison(item)
+      this.setState({
+        comparison: this.state.comparison.concat([item])
+      })
+      toastr.success('Successfully add to comparison!')
+    } else {
+      toastr.error('You are already comparing the maximum number of parts.')
+    }
+
+
+/*      if() {
         this.state.comparison.push(item);
         this.props.addToComparison(item);
         this.setState({
@@ -58,7 +70,7 @@ class PartsList extends Component {
         toastr.error('You are already comparing the maximum number of parts.')
       }
       console.log(this.state.comparison)
-    console.log(this.state.comparison.length)
+    console.log(this.state.comparison.length)*/
 
   }
 
