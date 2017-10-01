@@ -1,0 +1,14 @@
+.hello {
+
+}
+
+.hello > h4, .hello > h3 {
+    text-align: center;
+    margin: auto;
+    padding-bottom: 25px;
+}
+
+span.user {
+    font-weight: bold;
+    color: brown;
+}
