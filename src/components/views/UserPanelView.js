@@ -111,7 +111,7 @@ class UserPanelView extends React.Component {
                 </FormGroup>
                 {' '}
                 <Button id="change-password-button" onClick={this.changeUserPassword} type="submit"
-                        bsStyle="success">
+                        bsStyle="default">
                   Save
                 </Button>
               </Form>
@@ -133,7 +133,7 @@ class UserPanelView extends React.Component {
                                placeholder="jane.doe@example.com"/>
                 </FormGroup>
                 {' '}
-                <Button type="submit" onClick={this.changeUserMail} bsStyle="success">
+                <Button type="submit" onClick={this.changeUserMail} bsStyle="default">
                   Save
                 </Button>
               </Form>

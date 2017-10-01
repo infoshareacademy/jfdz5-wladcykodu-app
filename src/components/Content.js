@@ -10,7 +10,6 @@ import {
 import {connect} from 'react-redux'
 
 
-import HomeView from './views/HomeView'
 import UserPanelView from './views/UserPanelView'
 import CarModel from './views/CarModel'
 import PartCategory from './views/PartCategory'
@@ -24,7 +23,6 @@ import Footer from './Footer'
 const Content = () => (
   <Grid>
     <Switch>
-      <Route exact path="/makes" component={PartsView}/>
       <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId/:partsId" component={PartsList}/>
       <Route exact path="/brands/:manufacturer/:model/:engineId/:partsTypeId" component={PartsList}/>
       <Route exact path="/brands/:manufacturer/:model/:engineId" component={PartCategory}/>
@@ -34,7 +32,7 @@ const Content = () => (
       <Route exact path="/favorites" component={FavoritesList}/>
       <Route exact path="/comparison" component={ComparisonView}/>
       <Route exact path="/contact" component={Footer}/>
-      <Route path="/" component={HomeView}/>
+      <Route path="/" component={PartsView}/>
       <Route render={() => <h1>Not found</h1>}/>
     </Switch>
   </Grid>

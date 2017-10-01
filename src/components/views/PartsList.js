@@ -24,14 +24,13 @@ class PartsList extends Component {
     tabKey: 1,
     currentPage: 1,
     partsPerPage: 10,
-    comparison: []
+    comparison: this.props.comparisonItems,
   }
 
   handleTabChange = key => this.setState({tabKey: key})
 
   handleAddToFav = (item) => {
     const user = firebase.auth().currentUser
-
     if (user) {
       const favId = item.link.split('/').join('')
 
@@ -50,7 +49,7 @@ class PartsList extends Component {
     console.log(item)
 
     if (this.state.comparison.length <= 3) {
-      this.state.comparison.push(item)
+      // this.state.comparison.push(item)
       this.props.addToComparison(item)
       this.setState({
         comparison: this.state.comparison.concat([item])
@@ -267,7 +266,8 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(
   state => ({
-    favProducts: state.favs.favorites
+    favProducts: state.favs.favorites,
+    comparisonItems: state.compareParts.comparison
   }),
   mapDispatchToProps
 )(PartsList)

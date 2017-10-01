@@ -6,6 +6,7 @@ import {setTreeNode, truncateTree} from '../../state/tree'
 import testNodes from '../../data/testdata.json'
 import PartsList from './PartsList'
 import { withRouter} from 'react-router-dom'
+import * as firebase from 'firebase'
 
 class PartsView extends Component {
 
@@ -94,6 +95,15 @@ class PartsView extends Component {
 
   }
 
+  getUserName = () => {
+      const user = firebase.auth().currentUser
+
+    if (user !== null) {
+      return user.displayName
+    }
+
+  }
+
   dataLevel = 1
 
   render() {
@@ -118,7 +128,10 @@ class PartsView extends Component {
 
     return (
       <div>
-
+        <div className="hello">
+          <h3>Hello {this.getUserName()}! What are you looking for?</h3>
+          <h4>Start your search by entering car brand:</h4>
+        </div>
         {dataNodes.map(
           (item, itemIndex) => {
             if (item.datatype !== 'stock') {

@@ -24,7 +24,7 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <FooterContainer id="footer">
+      <FooterContainer id="footer" ref={(el) => { this.messagesEnd = el; }}>
         <Grid>
           <Row className="show-grid">
             <Col xs={12} sm={6} md={6} lg={3} className="footer-element">

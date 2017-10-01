@@ -1,0 +1,12 @@
+div.table-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

@@ -56,9 +56,6 @@ class MainMenu extends React.Component {
               <NavItem>Home</NavItem>
             </LinkContainer>
           </NavItem>
-          <LinkContainer exact to="/makes">
-            <NavItem>Makes</NavItem>
-          </LinkContainer>
           <NavItem className="nav-to-hover" eventKey={2}>
             <LinkContainer to="/favorites">
               <NavItem>
@@ -75,11 +72,6 @@ class MainMenu extends React.Component {
               </NavItem>
             </LinkContainer>
           </NavItem>
-          <NavItem className="nav-to-hover" eventKey={4}>
-            <LinkContainer to="/contact">
-              <NavItem>Contact</NavItem>
-            </LinkContainer>
-          </NavItem>
           <NavItem className="hidden-on-mobile nav-to-hover" eventKey={6}>
             <LinkContainer to="/userpanel">
               <NavItem>User Panel</NavItem>
@@ -92,15 +84,15 @@ class MainMenu extends React.Component {
           </NavItem>
         </Nav>
         <Nav pullRight>
-          <NavDropdown className="hidden-on-mobile nav-dropdown" eventKey={5} title={<FaUser size={25} color={"#FFC2B1"}/>} id="basic-nav-dropdown">
-            <MenuItem className="nav-to-hover" eventKey={5.1}>
-              <LinkContainer className="nav-no-hover" to="/userpanel">
-                <NavItem className="nav-no-hover">User Panel</NavItem>
+          <NavDropdown className="hidden-on-mobile nav-dropdown nav-dropdown-el" eventKey={5} title={<FaUser size={25} color={"#FFC2B1"}/>} id="basic-nav-dropdown">
+            <MenuItem className="nav-to-hover nav-dropdown-el" eventKey={5.1}>
+              <LinkContainer className="nav-no-hover nav-dropdown-el" to="/userpanel">
+                <NavItem className="nav-no-hover nav-dropdown-el">User Panel</NavItem>
               </LinkContainer>
             </MenuItem>
-            <MenuItem className="sign-out nav-no-hover" eventKey={5.2}>
-              <LinkContainer className="nav-to-hover nav-no-hover" to="/signin">
-                <NavItem className="nav-no-hover" onClick={this.signOutUser}>Sign Out</NavItem>
+            <MenuItem className="sign-out nav-no-hover nav-dropdown-el" eventKey={5.2}>
+              <LinkContainer className="nav-to-hover nav-no-hover nav-dropdown-el" to="/signin">
+                <NavItem className="nav-no-hover nav-dropdown-el" onClick={this.signOutUser}>Sign Out</NavItem>
               </LinkContainer>
             </MenuItem>
           </NavDropdown>

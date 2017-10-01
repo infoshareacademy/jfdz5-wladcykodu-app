@@ -18,7 +18,7 @@
     padding: 10px;
 }
 
-.nav-to-hover:hover, .nav-no-hover:hover, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+.nav-dropdown-el:hover, .nav-dropdown:hover, .nav-dropdown a:hover, li.nav-to-hover.nav-no-hover:hover, li.nav-to-hover a:hover, li.nav-to-hover:hover, .nav-to-hover:hover, .nav-no-hover:hover, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     background-color: #2e2e2e;
 }
 .nav-to-hover:hover {
