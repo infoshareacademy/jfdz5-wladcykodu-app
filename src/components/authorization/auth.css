@@ -31,9 +31,13 @@
 }
 
 .modal-btn {
-    color: red;
+    color: #23527c;
 }
 
 .form-wrapper {
     box-sizing: border-box;
+}
+
+.agree-text {
+    color: #23527c;
 }

@@ -146,7 +146,7 @@ class SignIn extends Component {
           </FormGroup>
 
           <FormGroup>
-            <Col xs={8}>
+            <Col xs={10}>
               <ButtonToolbar>
                 <Button type="submit" className="login-btn">
                   Sign in

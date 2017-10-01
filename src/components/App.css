@@ -46,6 +46,8 @@
 .sign-container {
     position: relative;
     display: flex;
+    justify-content: center;
+    align-items: center;
     /*   border: 10px solid blue;*/
     /*  height: 32em;*/
     box-sizing: border-box;
@@ -56,7 +58,7 @@
 }
 
 .row {
-    margin-right: 5em;
+    margin-right: 4em;
     margin-left: 5em;
 }
 
@@ -83,8 +85,7 @@ body {
     justify-content: center;
     align-items: center;
     /*    border: 10px solid green;*/
-    background-image: url("../images/signinuppagebackground.png");
-    background-repeat: no-repeat;
+    background: url("../images/signinuppagebackground.png") no-repeat;
     background-size: cover;
 }
 
@@ -100,7 +101,34 @@ body {
 
 .logo-img {
     max-width: 100%;
+}
+.img-wrapper {
     border-radius: 50%;
+    padding: 3em;
+    background-color: black;
+    width: 15em;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.welcome-wrapper {
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: 400;
+    margin: 0 auto 1.5em;
+    display: flex;
+    flex-direction: column;
+    padding-right: 2em;
+}
+
+.forms-wrapper {
+    padding-left: 2em;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-weight: 400;
+    margin-top: 1.5em;
 }
 
 .app-container-private {
@@ -206,6 +234,7 @@ a:focus,
 .nav-tabs > li > a:hover {
     color: #f8f8ff;
     background-color: #707070;
+    border-bottom-color: transparent;
 }
 
 .nav-tabs > li .active {
@@ -227,6 +256,7 @@ a:focus,
     border: solid 1px #000000;
     cursor: pointer;
     color: #f8f8ff;
+    border-bottom-color: transparent;
 }
 
 .tab-inner-border-width-focus {
