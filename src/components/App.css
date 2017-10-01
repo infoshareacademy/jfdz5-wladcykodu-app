@@ -44,10 +44,11 @@
 }
 
 .sign-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     /*   border: 10px solid blue;*/
     /*  height: 32em;*/
     box-sizing: border-box;
@@ -81,9 +82,9 @@ body {
 .wrapper {
     min-height: 100vh;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
     /*    border: 10px solid green;*/
     background: url("../images/signinuppagebackground.png") no-repeat;
     background-size: cover;
@@ -102,6 +103,7 @@ body {
 .logo-img {
     max-width: 100%;
 }
+
 .img-wrapper {
     border-radius: 50%;
     padding: 3em;
@@ -136,6 +138,7 @@ body {
     min-height: 100vh;
     color: black;
     box-sizing: border-box;
+    /*    text-align: -webkit-center;*/
 }
 
 .button-product-list {

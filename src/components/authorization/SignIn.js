@@ -33,7 +33,8 @@ class SignIn extends Component {
     },
     type: 'password',
     show: false,
-    emailForSendPassword: ''
+    emailForSendPassword: '',
+    visible: true
   }
 
   facebookLoginHandler = (event) => {
@@ -99,8 +100,16 @@ class SignIn extends Component {
     })
   }
 
+  changeVisibility() {
+    this.setState({
+      visible: !this.state.visible,
+      show: true
+    })
+  }
+
   render() {
-    let close = () => this.setState({show: false});
+    let close = () => this.setState({show: false, visible: !this.state.visible})
+    let visible = this.state.visible ? "visible" : "hidden"
 
     return (
       <Col className="form-wrapper">
@@ -158,13 +167,14 @@ class SignIn extends Component {
                   </Link>
                 </Button>
               </ButtonToolbar>
+
               <div className="modal-container" style={{height: 200}}>
                 <Button
                   className="modal-btn"
                   bsSize="xsmall"
-                  onClick={() => this.setState({show: true})}
+                  style={{visibility: visible}} onClick={() => this.changeVisibility()}
                 >
-                  Forgot Password?
+                  Forgot Password ?
                 </Button>
 
                 <Modal
@@ -174,17 +184,18 @@ class SignIn extends Component {
                   aria-labelledby="contained-modal-title"
                 >
                   <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title">Forgot Password?</Modal.Title>
+                    <Modal.Title id="contained-modal-title">Forgot your Password? Now you can recover it! </Modal.Title>
                   </Modal.Header>
                   <Form horizontal onSubmit={this.resetPasswordHandler}>
                     <Modal.Body className="modal-body">
-                      <p>Please enter your email to reset password for your account.</p>
+                      <p>Please enter your e-mail to reset password for your account.</p>
                       <FormGroup controlId="formHorizontalEmailReset" onChange={this.handleChange}>
                         <Col>
                           <FormControl
                             type="email"
                             placeholder="E-mail"
                             value={this.state.emailForSendPassword}
+                            onChange={this.handleChange}
                             autoComplete="emailForSendPassword"
                             name="emailForSendPassword"
                             className="login-form-control modal-form" required/>
@@ -192,7 +203,7 @@ class SignIn extends Component {
                       </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>
-                      <Button type="submit" onClick={close}>Send</Button>
+                      <Button type="submit">Send</Button>
                       <Button onClick={close}>Cancel</Button>
                     </Modal.Footer>
                   </Form>
