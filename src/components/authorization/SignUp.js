@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Form, FormGroup, FormControl, Col, ControlLabel, Button, ButtonToolbar} from 'react-bootstrap'
+import {Form, FormGroup, FormControl, Col, Button, ButtonToolbar} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as toastr from 'toastr'
 import * as firebase from 'firebase'
@@ -23,17 +23,6 @@ class SignUp extends Component {
   handleChange = event => this.setState({
     [event.target.name]: event.target.value
   })
-
-  handleConfirmPassword = event =>
-    this.setState({
-      confirmPassword: event.target.value
-    })
-
-  handleUserName = event => {
-    this.setState({
-      username: event.target.value
-    })
-  }
 
   signUpHandler = (event) => {
 
@@ -74,70 +63,52 @@ class SignUp extends Component {
     return (
 
       <div>
-        <h1>Sign Up form</h1>
         <Form horizontal>
-
-          <FormGroup controlId="formHorizontalName">
-            <Col componentClass={ControlLabel} sm={2}>
-              Name
-            </Col>
+          <FormGroup controlId="formHorizontalName" onChange={this.handleChange}>
             <Col sm={10}>
               <FormControl type="text"
-                           placeholder="Enter Your Name"
+                           placeholder="Name"
                            value={this.state.username}
-                           onChange={this.handleUserName}
                            autoComplete="name"
-                           name="name"
+                           name="username"
                            className="login-form-control" required/>
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={2}>
-              Email
-            </Col>
+          <FormGroup controlId="formHorizontalEmail" onChange={this.handleChange}>
             <Col sm={10}>
               <FormControl type="email"
-                           placeholder="youremailhere@example.com"
+                           placeholder="E-mail"
                            value={this.state.email}
-                           onChange={this.handleChange}
                            autoComplete="email"
                            name="email"
                            className="login-form-control" required/>
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
-            <Col componentClass={ControlLabel} sm={2}>
-              Password
-            </Col>
+          <FormGroup controlId="formHorizontalPassword" onChange={this.handleChange}>
             <Col sm={10}>
               <FormControl type="password"
-                           placeholder="**************"
+                           placeholder="Password"
                            value={this.state.password}
-                           onChange={this.handleChange}
                            autoComplete="new-password"
                            name="password"
                            className="login-form-control" required/>
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalConfirmPassword">
-            <Col componentClass={ControlLabel} sm={2}>
-              Confirm Password
-            </Col>
+          <FormGroup controlId="formHorizontalConfirmPassword" onChange={this.handleChange}>
             <Col sm={10}>
               <FormControl type="password"
-                           placeholder="**************"
+                           placeholder="Confirm password"
                            value={this.state.confirmPassword}
-                           onChange={this.handleConfirmPassword}
                            autoComplete="new-password"
-                           name="confirm-password"
+                           name="confirmPassword"
                            className="login-form-control" required/>
             </Col>
           </FormGroup>
           <FormGroup>
-            <Col xsOffset={1} smOffset={2} xs={8}>
+            <Col xs={10}>
               <ButtonToolbar>
                 <Button type="button" onClick={this.signUpHandler}
                         className="login-btn">
@@ -150,13 +121,10 @@ class SignUp extends Component {
                   </Link>
                 </Button>
               </ButtonToolbar>
-              <p className="form-note"> By clicking "Sign up", you agree to AutoPartsSearch's Terms of
-                Service and Privacy Policy</p>
+              <p className="form-note"> By clicking "Sign up", you agree to <span className="agree-text"> <Link
+                to={'/signin'}> AutoPartsSearch's Terms of Service  </Link></span>and <span className="agree-text"><Link to={'/signup'}>Privacy Policy</Link></span></p>
             </Col>
           </FormGroup>
-          <Col>
-            <div>{this.state.error.message}</div>
-          </Col>
         </Form>
       </div>
     )

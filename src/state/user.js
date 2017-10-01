@@ -1,9 +1,9 @@
 // Action type
-const USER_SIGNED_IN = 'auth/USER_SIGNED_IN'
+const AUTH_USER = 'auth/AUTH_USER'
 
 // Action creator
 export const authUser = (user) => ({
-  type: USER_SIGNED_IN,
+  type: AUTH_USER,
   user
 })
 
@@ -15,7 +15,7 @@ const initialState = {
 // Reducer
 export default (state = initialState, action) => {
   switch (action.type) {
-    case USER_SIGNED_IN:
+    case AUTH_USER:
       return {
         ...state,
         user: action.user

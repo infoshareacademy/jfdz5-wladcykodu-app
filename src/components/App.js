@@ -22,7 +22,7 @@ class App extends Component {
         this.setState({
           user: user
         })
-        if (history.location.pathname === '/signin' || '/signup') {
+        if (history.location.pathname === '/signin' || history.location.pathname === '/signup') {
           history.push('/')
         }
       } else {
@@ -41,30 +41,39 @@ class App extends Component {
       <div className="app-container">
         {
           this.state.user === null ?
-            (<div className="sign-container">
-                <Grid>
-                  <Row>
-                    <Col xs={12} md={6}>
-                      <Image src={require('../images/logo-image.png')}
-                             alt="logo of auto parts app"/>
-                      <h2>Welcome to AutoParts search app!</h2>
-                      <h4>We hope you'll find the car parts you're looking for. </h4>
-                      <h5>To start searching from our awesome parts, please sign in or sign
-                        up.</h5>
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <Tabs activeKey={this.state.tabKey} id="tab" onSelect={this.handleTabChange}>
-                        <Tab eventKey={1} title="Sign in">
-                          <SignIn handleTabChange={this.handleTabChange}/>
-                        </Tab>
+            (<div className="wrapper">
+                <div className="sign-container">
+                  <Grid>
+                    <Row>
+                      <Col xs={12} md={6}>
+                        <div className="img-wrapper">
+                          <Image src={require('../images/logo-welcome.png')}
+                                 alt="logo of auto parts app"
+                                 className="logo-img"/>
+                        </div>
+                        <div className="welcome-wrapper">
+                          <h2>Welcome to AutoParts search app!</h2>
+                          <h4>We hope you'll find the car parts you're looking for. </h4>
+                          <h5>To start searching from our awesome parts, please sign in or sign
+                            up.</h5>
+                        </div>
+                      </Col>
+                      <Col xs={12} md={6}>
+                        <div className="forms-wrapper">
+                          <Tabs activeKey={this.state.tabKey} id="tab" onSelect={this.handleTabChange}>
+                            <Tab eventKey={1} title="Sign in">
+                              <SignIn handleTabChange={this.handleTabChange}/>
+                            </Tab>
 
-                        <Tab eventKey={2} title="Sign up">
-                          <SignUp handleTabChange={this.handleTabChange}/>
-                        </Tab>
-                      </Tabs>
-                    </Col>
-                  </Row>
-                </Grid>
+                            <Tab eventKey={2} title="Sign up">
+                              <SignUp handleTabChange={this.handleTabChange}/>
+                            </Tab>
+                          </Tabs>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Grid>
+                </div>
               </div>
             )
             :

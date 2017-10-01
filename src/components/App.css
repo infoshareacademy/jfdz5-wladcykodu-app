@@ -1,28 +1,32 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .sign-in-up {
@@ -40,7 +44,22 @@
 }
 
 .sign-container {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*    border: 10px solid blue;*/
+    /*  height: 32em;*/
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 2em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.row {
+    margin-right: 4em;
+    margin-left: 5em;
 }
 
 .navbar-brand > img {
@@ -49,21 +68,283 @@
     width: auto;
     z-index: 1000;
 }
+
 body {
-    background-image: url("../images/signinuppagebackground.png");
-    background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+#root {
+
+}
+
+.wrapper {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    /*    border: 10px solid green;*/
+    background: url("../images/signinuppagebackground.png") no-repeat;
+    background-size: cover;
 }
 
 .app-container {
     color: floralwhite;
     font-family: Montserrat, Arial, sans-serif;
     font-weight: 400;
+    /*    border: 10px solid red;*/
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logo-img {
+    max-width: 100%;
+}
+
+.img-wrapper {
+    border-radius: 50%;
+    padding: 3em;
+    background-color: black;
+    width: 15em;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.welcome-wrapper {
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: 400;
+    margin: 0 auto 1.5em;
+    display: flex;
+    flex-direction: column;
+    padding-right: 2em;
+}
+
+.forms-wrapper {
+    padding-left: 2em;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-weight: 400;
+    margin-top: 1.5em;
 }
 
 .app-container-private {
     background: floralwhite;
     min-height: 100vh;
     color: black;
+    box-sizing: border-box;
+    /*    text-align: -webkit-center;*/
 }
+
+.button-product-list,
+.button-product-list a {
+    color: black;
+    text-decoration: none;
+}
+
+.thumbnail > img, .thumbnail a > img {
+    height: 200px;
+    max-width: 100%;
+    margin: auto;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+a:focus,
+.btn:active,
+.btn.active {
+    outline: 0 !important;
+}
+
+.list-group,
+.thumbnail {
+    margin-top: 2em;
+}
+
+.thumbnail-2 {
+    margin: 1em 1.5em 0.5em;
+    /*   display: block;*/
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border .2s ease-in-out;
+    height: 14em;
+    width: 14em;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.thumbnail-2-wrapper {
+    vertical-align: middle;
+    margin-left: 1em;
+}
+
+.thumbnail-2 p {
+    font-size: 0.9em;
+    text-align: center
+}
+
+.thumbnail-2 img {
+    max-width: 100%;
+    height: 100px;
+}
+
+.thumbnail-2 button {
+    font-size: 0.9em;
+    margin-left: 0;
+}
+
+.more-info-title {
+    margin-top: 4em;
+}
+
+.page-num {
+    list-style: none;
+    display: flex;
+}
+
+.page-num > li {
+    user-select: none;
+    cursor: pointer;
+    margin-right: 0.5em;
+}
+
+.tabs .pointer {
+    cursor: pointer;
+}
+
+.nav-tabs {
+    color: white;
+    border-bottom: 1px solid #484848;
+    margin-bottom: 2em;
+}
+
+.nav-tabs > li {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.nav-tabs > li > a {
+    color: white;
+    /*  background-color: #B8B8B8;*/
+}
+
+.nav-tabs > li > a:hover {
+    color: #f8f8ff;
+    background-color: #707070;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs > li .active {
+    background-color: #202020;
+    color: #f8f8ff;
+}
+
+.nav-tabs > li.active > a {
+    background-color: #484848;
+    border: solid 1px #484848;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    color: white;
+}
+
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    background-color: #686868;
+    border: solid 1px #000000;
+    cursor: pointer;
+    color: #f8f8ff;
+    border-bottom-color: transparent;
+}
+
+.tab-inner-border-width-focus {
+    border: 0 !important;
+    outline: none;
+}
+
+.panel-body {
+    text-align: start;
+    padding: 5% 0;
+}
+
+.prop {
+    font-weight: 500;
+    color: black;
+    font-size: 1.1em;
+}
+
+.btn-center {
+    padding: 10% 0;
+    box-sizing: border-box;
+}
+
+.btn-center button {
+    font-size: 1.5em;
+}
+
+/*CSS below from react-spinner library:*/
+.react-spinner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    left: 50%;
+}
+
+.react-spinner_bar {
+    -webkit-animation: react-spinner_spin 1.2s linear infinite;
+    -moz-animation: react-spinner_spin 1.2s linear infinite;
+    animation: react-spinner_spin 1.2s linear infinite;
+    border-radius: 5px;
+    background-color: black;
+    position: absolute;
+    width: 40%;
+    height: 20%;
+    top: -3.9%;
+    left: -10%;
+}
+
+@keyframes react-spinner_spin {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.15;
+    }
+}
+
+@-moz-keyframes react-spinner_spin {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.15;
+    }
+}
+
+@-webkit-keyframes react-spinner_spin {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.15;
+    }
+}
+
+/*End of CSS from react-spinner library:*/
