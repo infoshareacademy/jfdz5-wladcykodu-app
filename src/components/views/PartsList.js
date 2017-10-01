@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import {ListGroup, Grid, Col, Row, Button, ButtonToolbar, Panel, Tab, Tabs, Thumbnail} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as firebase from 'firebase'
-import FaStar from 'react-icons/lib/fa/star'
+import * as toastr from 'toastr'
+import {FaStar, FaPlusCircle} from 'react-icons/lib/fa'
 import './partslist.css'
 import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import '../App.css'
+import { add } from '../../state/comparison'
 import styled from 'styled-components'
 import Spinner from 'react-spinner'
 
@@ -21,7 +23,8 @@ class PartsList extends Component {
     parts: [],
     tabKey: 1,
     currentPage: 1,
-    partsPerPage: 10
+    partsPerPage: 10,
+    comparison: []
   }
 
   handleTabChange = key => this.setState({tabKey: key})
@@ -42,6 +45,39 @@ class PartsList extends Component {
       })
     }
   }
+
+  handleAddToComparison = (item) => {
+    console.log(item)
+
+    if (this.state.comparison.length <= 3) {
+      this.state.comparison.push(item)
+      this.props.addToComparison(item)
+      this.setState({
+        comparison: this.state.comparison.concat([item])
+      })
+      toastr.success('Successfully add to comparison!')
+    } else {
+      toastr.error('You are already comparing the maximum number of parts.')
+    }
+
+
+/*      if() {
+        this.state.comparison.push(item);
+        this.props.addToComparison(item);
+        this.setState({
+          comparison: this.state.comparison.concat([item])
+        })
+        toastr.success('Successfully add to comparison!')
+        console.log('add to comp')
+      } else {
+        toastr.error('You are already comparing the maximum number of parts.')
+      }
+      console.log(this.state.comparison)
+    console.log(this.state.comparison.length)*/
+
+  }
+
+
 
   componentDidMount() {
     let link
@@ -147,6 +183,9 @@ class PartsList extends Component {
                                                 <FaStar color='black' size={20}/>
                                               }
                                             </Button>
+                                            <Button
+                                              onClick={() => this.handleAddToComparison(item)}>Comparison <FaPlusCircle
+                                              size={20}/></Button>
                                           </ButtonToolbar>
                                         </Col>
                                       </Row>
@@ -187,6 +226,9 @@ class PartsList extends Component {
                                           active={!!this.props.favProducts[item.link.split('/').join('')]}
                                           onClick={() => this.handleAddToFav(item)}><FaStar
                                           size={20}/></Button>
+                                        <Button
+                                          onClick={() => this.handleAddToComparison(item)}>Comparison <FaPlusCircle
+                                          size={20}/></Button>
                                       </p>
                                     </Thumbnail>
                                   </Col>
@@ -219,8 +261,13 @@ class PartsList extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  addToComparison:  comparePart => dispatch(add(comparePart))
+})
+
 export default connect(
   state => ({
     favProducts: state.favs.favorites
-  })
+  }),
+  mapDispatchToProps
 )(PartsList)
