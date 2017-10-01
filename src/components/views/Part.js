@@ -93,7 +93,7 @@ class Part extends Component {
                               <div key={m}>
                                 <Grid>
                                   <Row>
-                                    <Col xs={6} md={8}>
+                                    <Col>
                                       <ul>
                                         <li>
                                           {item.key} : {item.value}
