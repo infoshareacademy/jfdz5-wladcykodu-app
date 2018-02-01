@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {ListGroup, ListGroupItem, Grid, Col} from 'react-bootstrap'
-import {API_URL} from '../App'
 
 class CarModel extends Component {
   state = {
@@ -17,12 +16,12 @@ class CarModel extends Component {
     let manufPid = manufacturer.split('-')
     let pid = manufPid[manufPid.length - 1]
 
-    fetch(`${API_URL}/api/v2/find/${pid}`)
+    fetch(`/api/v2/find/${pid}`)
       .then(result => result.json())
       .then(res => {
         const items = res.data
         items.forEach((item) => {
-          fetch(`${API_URL}${item.link}`)
+          fetch(`${item.link}`)
             .then(result => result.json())
             .then(
               res =>
