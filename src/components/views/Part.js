@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import * as firebase from 'firebase'
 import {Grid, Row, Col, Image, Button, ButtonToolbar} from 'react-bootstrap'
+import {API_URL} from '../App'
 import FaStar from 'react-icons/lib/fa/star'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -16,7 +17,7 @@ class Part extends Component {
   }
 
   fetchPartData(part, partNum) {
-    fetch(`/api/v2/part/${part}/${partNum}`)
+    fetch(`${API_URL}/api/v2/part/${part}/${partNum}`)
       .then(result => result.json())
       .then(res => {
         const partData = res.data

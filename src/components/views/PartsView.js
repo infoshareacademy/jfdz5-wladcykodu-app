@@ -1,17 +1,27 @@
 import React, {Component} from 'react'
 import {FormGroup, ControlLabel, FormControl, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import {setTreeNode, truncateTree} from '../../state/tree'
+import testNodes from '../../data/testdata.json'
 import PartsList from './PartsList'
-import {withRouter} from 'react-router-dom'
+import { withRouter} from 'react-router-dom'
 import * as firebase from 'firebase'
 import './PartsView.css'
 
 class PartsView extends Component {
 
+  // result = {
+  // data : null,
+  // datatype : null
+  // }
+
   componentDidMount() {
+//    this.props.setTree(0, {jeden: 1}, 0)
+//    this.props.setTree(1, {dwa: 1}, 11)
+//    this.props.setTree(2, {trzy: 1}, 7)
     if (this.props.dataNodes.length === 0) {
-      this.fetchData(`/api/v2`, 0, null)
+      this.fetchData(`${API_URL}/api/v2`, 0, null)
     }
   }
 
@@ -24,7 +34,12 @@ class PartsView extends Component {
       response => response.json()
     ).then(
       result => {
+        //this.props.setTree(level, {data: result.data, datatype: result.datatype}, 0)
         this.props.setTree(level, result, parentPosition)
+        // this.result = {
+        //   data: result.data,
+        //   datatype: result.datatype
+        // }
       }
     ).catch(
       error => console.log(error)
@@ -35,7 +50,7 @@ class PartsView extends Component {
     let inputLevel = parseInt(event.currentTarget.getAttribute('data-level'), 10)
     let newLevel = inputLevel + 1
     let inputPosition = event.currentTarget.selectedIndex
-    let parentPosition = inputPosition - 1
+    let parentPosition = inputPosition -1
 
     this.props.trucateTree(newLevel)
     if (inputPosition > 0) {
@@ -43,12 +58,12 @@ class PartsView extends Component {
       console.log('handleSelect inputLevel: ', inputLevel)
       console.log('handleSelect datatype: ', this.props.dataNodes[inputLevel].datatype)
       let url = this.props.dataNodes[inputLevel].data[parentPosition].link
-      console.log('handleSelect: url: ', `${url}`
+      console.log('handleSelect: url: ',`${API_URL}${url}`
         , 'inputLevel: ', inputLevel
         , 'newLevel: ', newLevel
         , 'inputPosition: ', inputPosition
         , 'parentPosition: ', parentPosition)
-      this.fetchData(`${url}`, newLevel, parentPosition)
+      this.fetchData(`${API_URL}${url}`, newLevel, parentPosition)
     } else {
       // tree/TRUNCATE, newLevel
       this.props.trucateTree(newLevel)
@@ -60,7 +75,7 @@ class PartsView extends Component {
   getLabel = datatype => {
     if (datatype) {
       let label = '';
-      switch (datatype) {
+      switch(datatype) {
         case 'brands' :
           label = 'Choose car brand:'
           break;
@@ -82,7 +97,7 @@ class PartsView extends Component {
   }
 
   getUserName = () => {
-    const user = firebase.auth().currentUser
+      const user = firebase.auth().currentUser
 
     if (user !== null) {
       return user.displayName
@@ -90,9 +105,27 @@ class PartsView extends Component {
 
   }
 
+  dataLevel = 1
+
   render() {
 
     const {dataNodes, positions} = this.props
+
+    //dla testu
+    const tdataNodes = testNodes
+
+    // console.log(dataNodes, positions )
+    // const data1 = dataNodes
+    // const data11 = data1["0"]
+    // console.log('data1: ',data1)
+    // // console.log('data1: ',data1, data1[0].data[0].name)
+    // //console.log('data11: ',data11)
+    //console.log(this.props.dataNodes[0].data[0])
+    // const data2 = [{datatype: "brands", data:[{id:"A01", name:"jeden"},{id:"A02", name:"dwa"},{id:"A03", name:"trzy"}]}]
+    // console.log('data2: ', data2, data2[0].data[0].name)
+    // //console.log(JSON.stringify(dataNodes))
+    // console.log('testNodes: ', testNodes)
+    // console.log('data3: ', testNodes[0].data[0].name)
 
     return (
       <div>
@@ -113,23 +146,25 @@ class PartsView extends Component {
                       onChange={this.handleSelect}
                       data-level={itemIndex}
                       data-type={item.datatype}
+                      // defaultValue="select..."
                       defaultValue={
-                        (positions[itemIndex] !== null && positions[itemIndex] >= 0)
+                        ( positions[itemIndex] !== null && positions[itemIndex] >= 0 )
                           ? item.data[positions[itemIndex]].name
                           : "select..."
                       }
+                      // defaultValue={positions[itemIndex] === null ? '...' : item.data[positions[itemIndex]].name}
+                      // defaultValue={item.data[2] ? item.data[2].name : item.data[0].name}
+                      // inputRef={ inputSelect => this.inputSelect=inputSelect }
                     >
                       {
-                        item.hasOwnProperty('data') && (item.data.length === 0
-                          ? <option value="no data found..." key={0}>no data found...
-                            :(</option>
+                        item.hasOwnProperty('data') && ( item.data.length === 0
+                          ? <option value="no data found..." key={0}>no data found... :(</option>
                           : <option value="select..." key={0}>select...</option>)
                       }
 
                       {
                         item.hasOwnProperty('data') && item.data.map((option, optionIndex) => {
-                            return (<option value={option.name}
-                                            key={optionIndex + 1}>{option.name}</option>)
+                            return (<option value={option.name} key={optionIndex + 1}>{option.name}</option>)
                           }
                         )
                       }
@@ -145,9 +180,17 @@ class PartsView extends Component {
                   <PartsList key={itemIndex} partslink={partsLink}/>
                 )
 
+
+                // React.createElement(
+                //   component,
+                //   {
+                //     [propName]: data
+                //   }
+                // )
+
               }
-            } else if (item.hasOwnProperty('error')) {
-              return (
+            } else if (item.hasOwnProperty('error')){
+              return(
                 <ListGroup key={itemIndex}>
                   <ListGroupItem key={1} bsStyle="danger">{item.message}</ListGroupItem>
                 </ListGroup>
@@ -156,9 +199,27 @@ class PartsView extends Component {
             }
 
 
+
           }
         )}
 
+        {/*<FormGroup controlId="formControlsSelect">*/}
+          {/*<ControlLabel>Choose car makes</ControlLabel>*/}
+          {/*<FormControl*/}
+            {/*componentClass="select"*/}
+            {/*placeholder="select"*/}
+            {/*onChange={this.handleSelect}*/}
+            {/*data-level={this.dataLevel}*/}
+            {/*// defaultValue=""*/}
+            {/*// inputRef={ inputSelect => this.inputSelect=inputSelect }*/}
+          {/*>*/}
+            {/*<option value="...">...</option>*/}
+            {/*<option value="one">one</option>*/}
+            {/*<option value="two">two</option>*/}
+            {/*<option value="three">three</option>*/}
+            {/*<option value="four">four</option>*/}
+          {/*</FormControl>*/}
+        {/*</FormGroup>*/}
       </div>
 
     )
@@ -174,6 +235,11 @@ const mapDispatchToProps = dispatch => ({
   setTree: (level, node, parentPosition) => dispatch(setTreeNode(level, node, parentPosition)),
   trucateTree: (level) => dispatch(truncateTree(level))
 })
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(PartsView)
 
 const ConnectedPartsView = connect(
   mapStateToProps,

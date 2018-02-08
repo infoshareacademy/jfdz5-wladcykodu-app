@@ -5,9 +5,10 @@ import * as firebase from 'firebase'
 import * as toastr from 'toastr'
 import {FaStar, FaPlusCircle} from 'react-icons/lib/fa'
 import './partslist.css'
+import {API_URL} from '../App'
 import {connect} from 'react-redux'
 import '../App.css'
-import {add} from '../../state/comparison'
+import { add } from '../../state/comparison'
 import styled from 'styled-components'
 import Spinner from 'react-spinner'
 
@@ -63,11 +64,11 @@ class PartsList extends Component {
   componentDidMount() {
     let link
     if (typeof(this.props.partslink) !== 'undefined') {
-      link = `${this.props.partslink}`
+      link = `${API_URL}${this.props.partslink}`
       console.log('link from PartsView: ', link)
     } else {
       const {manufacturer, model, engineId, partsTypeId, partsId} = this.props.match.params
-      link = `/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`
+      link = `${API_URL}/api/v2/find/${manufacturer}/${model}/${engineId}/${partsTypeId}/${partsId}`
       console.log('link original: ', link)
     }
 
@@ -79,7 +80,7 @@ class PartsList extends Component {
       .then(res => {
         const parts = res.data
         return Promise.all(parts.map((item) => {
-          return fetch(`${item.link}`)
+          return fetch(`${API_URL}${item.link}`)
             .then(result => result.json())
             .then(
               res => {
@@ -250,7 +251,7 @@ class PartsList extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToComparison: comparePart => dispatch(add(comparePart))
+  addToComparison:  comparePart => dispatch(add(comparePart))
 })
 
 export default connect(
